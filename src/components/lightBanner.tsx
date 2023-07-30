@@ -39,10 +39,13 @@ const TextContainer = styled("div")`
   font-size: 20px;
   font-weight: 300;
   background-color: black;
-  opacity: 0.96;
+  opacity: 0.92;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+
   @media (min-width: 768px) {
     height: 48px;
     font-size: 32px;

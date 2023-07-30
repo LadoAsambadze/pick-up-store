@@ -11,11 +11,15 @@ export default function NewArrivals(props: any) {
       items: 5,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 500 },
+      breakpoint: { max: 1024, min: 767 },
       items: 3,
     },
+    tabletOne: {
+      breakpoint: { max: 768, min: 500 },
+      items: 2,
+    },
     mobile: {
-      breakpoint: { max: 500, min: 0 },
+      breakpoint: { max: 400, min: 0 },
       items: 1,
     },
   };
@@ -88,7 +92,7 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
+  padding: 10px 10px 10px 25px;
   justify-content: space-between;
 `;
 

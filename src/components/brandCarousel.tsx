@@ -45,7 +45,7 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
+  padding: 0px 20px 0px 20px;
   justify-content: space-between;
 `;
 

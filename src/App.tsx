@@ -9,10 +9,14 @@ function App() {
   return (
     <>
       <Header />
-      <LightBanner />
+
       <Main>
         <NewArrivals />
+        <CoverDiv>
+          <Photo src="/cover.png" />
+        </CoverDiv>
         <BrandCarousel />
+        <LightBanner />
       </Main>
     </>
   );
@@ -20,12 +24,21 @@ function App() {
 
 const Main = styled(Box)`
   width: 100%;
-  padding: 0px 10px 0px 10px;
+`;
+
+const CoverDiv = styled("div")`
+  width: 100%;
+`;
+
+const Photo = styled("img")`
+  width: 100%;
+  height: 300px;
+
   @media (min-width: 768px) {
-    padding: 0px 10px 0px 10px;
+    height: 450px;
   }
   @media (min-width: 1440px) {
-    padding: 0px 20px 0px 20px;
+    height: 600px;
   }
 `;
 
