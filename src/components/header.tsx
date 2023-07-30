@@ -15,6 +15,7 @@ export default function Header() {
             <Type variant="outlined">Women</Type>
             <Type variant="outlined">Kids</Type>
             <Type variant="outlined">Sale</Type>
+            <Type variant="outlined">New Arrivals</Type>
           </DestkopMenu>
         </Description>
 
@@ -37,13 +38,14 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background-color: #0e0c0c;
+  background-color: black;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 20px 15px 20px 15px;
+  opacity: 0.95;
   @media (min-width: 1440px) {
     padding: 30px 25px 30px 45px;
   }
@@ -169,8 +171,9 @@ const Type = styled(Button)`
   color: white;
   margin-left: 15px;
   margin-right: 15px;
-  border-color: gray;
+  border-color: black;
   padding: 2px 15px 2px 15px;
+
   &:hover {
     border-color: green;
   }
