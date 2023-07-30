@@ -45,7 +45,7 @@ const Main = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: 20px 15px 20px 15px;
-  opacity: 0.95;
+  opacity: 0.92;
   @media (min-width: 1440px) {
     padding: 25px 20px 25px 35px;
   }

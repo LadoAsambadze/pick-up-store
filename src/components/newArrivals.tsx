@@ -34,7 +34,7 @@ export default function NewArrivals(props: any) {
           <Photo src="/shoes.webp" />
           <About>
             <Price>price: 70$</Price>
-            <BrandName>Brand: Reebook</BrandName>
+            <BrandName>Reebook</BrandName>
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
@@ -42,7 +42,7 @@ export default function NewArrivals(props: any) {
           <Photo src="/shoes.webp" />
           <About>
             <Price>price: 70$</Price>
-            <BrandName>Brand: Reebook</BrandName>
+            <BrandName>Reebook</BrandName>
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
@@ -50,7 +50,7 @@ export default function NewArrivals(props: any) {
           <Photo src="/shoes.webp" />
           <About>
             <Price>price: 70$</Price>
-            <BrandName>Brand: Reebook</BrandName>
+            <BrandName>Reebook</BrandName>
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
@@ -58,7 +58,7 @@ export default function NewArrivals(props: any) {
           <Photo src="/shoes.webp" />
           <About>
             <Price>price: 70$</Price>
-            <BrandName>Brand: Reebook</BrandName>
+            <BrandName>Reebook</BrandName>
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
@@ -66,7 +66,15 @@ export default function NewArrivals(props: any) {
           <Photo src="/shoes.webp" />
           <About>
             <Price>price: 70$</Price>
-            <BrandName>Brand: Reebook</BrandName>
+            <BrandName>Reebook</BrandName>
+            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
+          </About>
+        </ArrivalDiv>
+        <ArrivalDiv>
+          <Photo src="/shoes.webp" />
+          <About>
+            <Price>price: 70$</Price>
+            <BrandName>Reebook</BrandName>
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
@@ -95,6 +103,7 @@ const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
   border: 3px solid black;
+  border-radius: 5px;
 `;
 const Photo = styled("img")`
   width: 100%;
@@ -108,12 +117,13 @@ const About = styled(Box)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: gray;
+  background-color: black;
   padding: 20px;
 `;
 const Price = styled(Typography)`
-  color: black;
+  color: white;
   font-size: 16px;
+  font-family: "Ysabeau Office", sans-serif;
 `;
 const Favourite = styled("img")`
   width: 20px;
@@ -122,6 +132,7 @@ const Favourite = styled("img")`
 `;
 
 const BrandName = styled(Typography)`
-  color: black;
+  color: white;
   font-size: 16px;
+  font-family: "Ysabeau Office", sans-serif;
 `;

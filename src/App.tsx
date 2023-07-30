@@ -20,6 +20,7 @@ function App() {
 
 const Main = styled(Box)`
   width: 100%;
+  padding: 0px 10px 0px 10px;
   @media (min-width: 768px) {
     padding: 0px 10px 0px 10px;
   }

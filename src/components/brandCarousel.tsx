@@ -30,11 +30,11 @@ export default function BrandCarousel(props: any) {
         draggable={props.deviceType !== "mobile" ? false : true}
         itemClass="carousel-item"
       >
-        <Photo src="/adidas.png" />
+        <Photo src="/adidas.jpg" />
         <Photo src="/nike.jpg" />
-        <Photo src="/puma.webp" />
-        <Photo src="/nike.jpg" />
-        <Photo src="/adidas.png" />
+        <Photo src="/puma.jpg" />
+        <Photo src="/reebok.png" />
+        <Photo src="/zara.jpg" />
       </Carousel>
     </>
   );
@@ -56,6 +56,7 @@ const Kind = styled(Typography)`
 `;
 const Photo = styled("img")`
   width: 100%;
-  height: 280px;
+  height: 210px;
   border-radius: 5px;
+  cursor: pointer;
 `;
