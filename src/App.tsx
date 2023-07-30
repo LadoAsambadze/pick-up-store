@@ -3,16 +3,15 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import BrandCarousel from "./components/brandCarousel";
+import NewArrivals from "./components/newArrivals";
 
 function App() {
   return (
     <>
       <Header />
       <Main>
-        <HeaderDiv>
-          <Brand>Shop By Brand</Brand>
-        </HeaderDiv>
         <BrandCarousel />
+        <NewArrivals />
       </Main>
     </>
   );
@@ -35,20 +34,5 @@ const Main = styled(Box)`
 //   height: 350px;
 //   padding-top: 20px;
 // `;
-
-const HeaderDiv = styled(Box)`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 20px;
-  justify-content: space-between;
-`;
-
-const Brand = styled(Typography)`
-  color: black;
-  font-size: 20px;
-  font-weight: 400px;
-`;
 
 export default App;

@@ -1,6 +1,8 @@
 import { styled } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Box from "@mui/material/Box/Box";
+import Typography from "@mui/material/Typography/Typography";
 
 export default function BrandCarousel(props: any) {
   const responsive = {
@@ -19,6 +21,9 @@ export default function BrandCarousel(props: any) {
   };
   return (
     <>
+      <HeaderDiv>
+        <Kind>Shop By Brand</Kind>
+      </HeaderDiv>
       <Carousel
         responsive={responsive}
         autoPlay={props.deviceType === "mobile" ? true : false}
@@ -35,9 +40,22 @@ export default function BrandCarousel(props: any) {
   );
 }
 
+const HeaderDiv = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+`;
+
+const Kind = styled(Typography)`
+  color: black;
+  font-size: 20px;
+  font-weight: 400px;
+`;
 const Photo = styled("img")`
   width: 100%;
   height: 280px;
   border-radius: 5px;
-
 `;
