@@ -47,7 +47,7 @@ const Main = styled(Box)`
   padding: 20px 15px 20px 15px;
   opacity: 0.95;
   @media (min-width: 1440px) {
-    padding: 30px 25px 30px 45px;
+    padding: 25px 20px 25px 35px;
   }
 `;
 
@@ -72,6 +72,7 @@ const Name = styled(Typography)`
   font-size: 20px;
   margin-left: 10px;
   cursor: pointer;
+  font-family: "Ysabeau Office", sans-serif;
   @media (min-width: 1440px) {
     font-size: 28px;
     margin-left: 15px;
@@ -175,7 +176,7 @@ const Type = styled(Button)`
   margin-right: 15px;
   border-color: black;
   padding: 2px 15px 2px 15px;
-
+  font-family: "Ysabeau Office", sans-serif;
   &:hover {
     border-color: #a8eca8;
   }

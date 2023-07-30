@@ -11,11 +11,11 @@ export default function NewArrivals(props: any) {
       items: 5,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 768 },
+      breakpoint: { max: 1024, min: 500 },
       items: 3,
     },
     mobile: {
-      breakpoint: { max: 768, min: 0 },
+      breakpoint: { max: 500, min: 0 },
       items: 1,
     },
   };
@@ -62,7 +62,6 @@ export default function NewArrivals(props: any) {
             <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
           </About>
         </ArrivalDiv>
-
         <ArrivalDiv>
           <Photo src="/shoes.webp" />
           <About>
@@ -87,15 +86,15 @@ const HeaderDiv = styled(Box)`
 
 const Kind = styled(Typography)`
   color: black;
-  font-size: 20px;
-  font-weight: 400px;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: "Ysabeau Office", sans-serif;
 `;
 
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
   border: 3px solid black;
-
 `;
 const Photo = styled("img")`
   width: 100%;

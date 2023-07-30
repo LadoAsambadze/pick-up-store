@@ -10,7 +10,6 @@ function App() {
     <>
       <Header />
       <LightBanner />
-
       <Main>
         <NewArrivals />
         <BrandCarousel />

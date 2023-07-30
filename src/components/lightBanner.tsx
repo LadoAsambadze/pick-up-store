@@ -35,7 +35,7 @@ const marqueeAnimation = keyframes`
 const TextContainer = styled("div")`
   overflow: hidden;
   width: 100%;
-  height: 32px;
+  height: 36px;
   font-size: 20px;
   font-weight: 300;
   background-color: black;
@@ -53,4 +53,5 @@ const TextContent = styled("span")`
   animation: ${marqueeAnimation} 4s linear infinite;
   color: lightgreen;
   text-shadow: 0px 0px 5px #fff; // add this line
+  font-family: "Ysabeau Office", sans-serif;
 `;
