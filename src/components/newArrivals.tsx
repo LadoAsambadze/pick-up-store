@@ -8,7 +8,7 @@ export default function NewArrivals(props: any) {
   const responsive = {
     desktop: {
       breakpoint: { max: 4000, min: 1024 },
-      items: 4,
+      items: 5,
     },
     tablet: {
       breakpoint: { max: 1024, min: 768 },
@@ -95,10 +95,11 @@ const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
   border: 3px solid black;
+
 `;
 const Photo = styled("img")`
   width: 100%;
-  height: 380px;
+  height: 300px;
   border-radius: 5px;
 `;
 

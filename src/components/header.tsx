@@ -9,7 +9,7 @@ export default function Header() {
       <Main>
         <Description>
           <Logo src="/vite.svg" alt="Website pick up store logo" />
-          <Name>Pick Up </Name>
+          <Name>Pick Up Store </Name>
           <DestkopMenu>
             <Type variant="outlined">Men</Type>
             <Type variant="outlined">Women</Type>
@@ -65,11 +65,13 @@ const Logo = styled("img")`
 `;
 
 const Name = styled(Typography)`
-  color: white;
+  color: lightgreen;
+  text-shadow: 0px 0px 5px #fff;
   font-family: Poppins;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   margin-left: 10px;
+  cursor: pointer;
   @media (min-width: 1440px) {
     font-size: 28px;
     margin-left: 15px;
@@ -92,11 +94,11 @@ const SearchDiv = styled(Box)`
   border: 4px solid #61e399;
   @media (min-width: 1440px) {
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 6px 8px 6px 10px;
     border: 3px solid gray;
     &:hover {
-      border-color: green;
+      border-color: #76c676;
     }
   }
 `;
@@ -175,6 +177,6 @@ const Type = styled(Button)`
   padding: 2px 15px 2px 15px;
 
   &:hover {
-    border-color: green;
+    border-color: #a8eca8;
   }
 `;

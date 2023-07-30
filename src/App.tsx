@@ -3,11 +3,14 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import BrandCarousel from "./components/brandCarousel";
 import NewArrivals from "./components/newArrivals";
+import LightBanner from "./components/lightBanner";
 
 function App() {
   return (
     <>
       <Header />
+      <LightBanner />
+
       <Main>
         <NewArrivals />
         <BrandCarousel />
@@ -25,13 +28,5 @@ const Main = styled(Box)`
     padding: 0px 20px 0px 20px;
   }
 `;
-
-// const DivBox = styled("div")`
-//   display: grid;
-//   grid-template-rows: repeat(3, 1fr);
-//   grid-template-columns: repeat(1, 1fr);
-//   height: 350px;
-//   padding-top: 20px;
-// `;
 
 export default App;
