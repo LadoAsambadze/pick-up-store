@@ -4,6 +4,7 @@ import Box from "@mui/material/Box/Box";
 import BrandCarousel from "./components/brandCarousel";
 import NewArrivals from "./components/newArrivals";
 import LightBanner from "./components/lightBanner";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <NewArrivals />
         <BrandCarousel />
       </Main>
+      <Footer />
     </>
   );
 }
