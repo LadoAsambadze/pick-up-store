@@ -15,8 +15,8 @@ function App() {
         <CoverDiv>
           <Photo src="/cover.png" />
         </CoverDiv>
-        <BrandCarousel />
         <LightBanner />
+        <BrandCarousel />
       </Main>
     </>
   );

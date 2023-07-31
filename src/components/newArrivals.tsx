@@ -35,7 +35,10 @@ export default function NewArrivals(props: any) {
         itemClass="carousel-item"
       >
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv
+            style={{ backgroundImage: "url('/capture.PNG')" }}
+          ></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -43,7 +46,8 @@ export default function NewArrivals(props: any) {
           </About>
         </ArrivalDiv>
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -51,7 +55,10 @@ export default function NewArrivals(props: any) {
           </About>
         </ArrivalDiv>
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv
+            style={{ backgroundImage: "url('/capture.PNG')" }}
+          ></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -59,7 +66,8 @@ export default function NewArrivals(props: any) {
           </About>
         </ArrivalDiv>
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -67,7 +75,8 @@ export default function NewArrivals(props: any) {
           </About>
         </ArrivalDiv>
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -75,7 +84,8 @@ export default function NewArrivals(props: any) {
           </About>
         </ArrivalDiv>
         <ArrivalDiv>
-          <Photo src="/shoes.webp" />
+          <ImageDiv style={{ backgroundImage: "url('/puma.avif')" }}></ImageDiv>
+
           <About>
             <Price>price: 70$</Price>
             <BrandName>Reebook</BrandName>
@@ -108,11 +118,16 @@ const ArrivalDiv = styled(Box)`
   flex-direction: column;
   border: 3px solid black;
   border-radius: 5px;
+
+  justify-content: flex-end;
 `;
-const Photo = styled("img")`
+
+const ImageDiv = styled(Box)`
+  display: flex;
   width: 100%;
   height: 300px;
-  border-radius: 5px;
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 const About = styled(Box)`
