@@ -38,7 +38,7 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background-color: black;
+  background: linear-gradient(to bottom, black, #151315);
   width: 100%;
   display: flex;
   flex-direction: row;
