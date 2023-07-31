@@ -128,6 +128,7 @@ const ImageDiv = styled(Box)`
   height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const About = styled(Box)`

@@ -8,6 +8,15 @@ export default function LightBanner() {
         <TextContainer>
           <TextContent>PICK UP YOUR STYLE!</TextContent>
         </TextContainer>
+
+        <TextContent>HERE GOES TEXT</TextContent>
+        <TextContent>HERE GOES TEX</TextContent>
+
+        <TextContent>HERE GOES TEXT</TextContent>
+        <TextContent>HERE GOES TEX</TextContent>
+
+        <TextContent>HERE GOES TEXT</TextContent>
+        <TextContent>HERE GOES TEX</TextContent>
       </CoverDiv>
     </>
   );
@@ -41,6 +50,8 @@ const CoverDiv = styled("div")`
   background: linear-gradient(to top, black, #2e2829);
   height: 300px;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
 `;
 const TextContainer = styled("div")`
   overflow: hidden;
@@ -54,6 +65,7 @@ const TextContainer = styled("div")`
   align-items: center;
   justify-content: center;
   border-top: 1px solid black;
+  flex-direction: column;
   @media (min-width: 768px) {
     height: 48px;
     font-size: 32px;

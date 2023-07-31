@@ -30,11 +30,11 @@ export default function BrandCarousel(props: any) {
         draggable={props.deviceType !== "mobile" ? false : true}
         itemClass="carousel-item"
       >
-        <Photo src="/adidas.jpg" />
-        <Photo src="/nike.jpg" />
-        <Photo src="/puma.jpg" />
-        <Photo src="/reebok.png" />
-        <Photo src="/zara.jpg" />
+        <PhotoDiv style={{ backgroundImage: "url('/adidas.jpg')" }}></PhotoDiv>
+        <PhotoDiv style={{ backgroundImage: "url('/nike.jpg')" }}></PhotoDiv>
+        <PhotoDiv style={{ backgroundImage: "url('/puma.jpg')" }}></PhotoDiv>
+        <PhotoDiv style={{ backgroundImage: "url('/reebok.png')" }}></PhotoDiv>
+        <PhotoDiv style={{ backgroundImage: "url('/zara.jpg')" }}></PhotoDiv>
       </Carousel>
     </>
   );
@@ -45,18 +45,23 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 20px 0px 20px;
+  padding: 10px 10px 10px 25px;
   justify-content: space-between;
 `;
 
 const Kind = styled(Typography)`
   color: black;
-  font-size: 20px;
-  font-weight: 400px;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: "Ysabeau Office", sans-serif;
 `;
-const Photo = styled("img")`
+
+const PhotoDiv = styled("div")`
   width: 100%;
   height: 210px;
   border-radius: 5px;
   cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `;

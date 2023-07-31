@@ -174,7 +174,7 @@ const Type = styled(Button)`
   color: white;
   margin-left: 15px;
   margin-right: 15px;
-  border-color: black;
+  border-color: #1c1919;
   padding: 2px 15px 2px 15px;
   font-family: "Ysabeau Office", sans-serif;
   &:hover {
