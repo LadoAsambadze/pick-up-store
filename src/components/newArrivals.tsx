@@ -15,11 +15,11 @@ export default function NewArrivals(props: any) {
       items: 3,
     },
     tabletOne: {
-      breakpoint: { max: 768, min: 500 },
+      breakpoint: { max: 768, min: 450 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 500, min: 0 },
+      breakpoint: { max: 450, min: 0 },
       items: 1,
     },
   };
@@ -32,8 +32,9 @@ export default function NewArrivals(props: any) {
         <Carousel
           responsive={responsive}
           autoPlay={props.deviceType === "mobile" ? true : false}
-          draggable={props.deviceType !== "mobile" ? false : true}
+          
           itemClass="carousel-item"
+          infinite={true}
         >
           <ArrivalDiv>
             <ImageDiv
@@ -146,7 +147,7 @@ const ArrivalDiv = styled(Box)`
   flex-direction: column;
   border: 3px solid black;
   border-radius: 5px;
-
+  cursor: pointer;
   justify-content: flex-end;
 `;
 

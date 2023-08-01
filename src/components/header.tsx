@@ -6,15 +6,9 @@ import { useState } from "react";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
-  const [search, setSearch] = useState(false);
 
   const menuHandler = () => {
     setMenu(!menu);
-  };
-
-  const searchHandler = () => {
-    setSearch(!search);
-    setMenu(false);
   };
 
   return (
@@ -33,7 +27,7 @@ export default function Header() {
         </Description>
 
         <Shop>
-          <SearchDiv onClick={searchHandler}>
+          <SearchDiv>
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
             <SearchInput placeholder="Search" />
           </SearchDiv>
@@ -47,8 +41,7 @@ export default function Header() {
       </Main>
       <ListItem
         style={{
-          transform: menu ? "translateX(100%)" : "translateX(0)",
-          opacity: menu ? "0" : "1",
+          display: menu ? "flex" : "none",
         }}
       >
         <Choose variant="text">Men</Choose>
@@ -205,7 +198,7 @@ const Type = styled(Button)`
   color: white;
   margin-left: 15px;
   margin-right: 15px;
-  border-color: #1c1919;
+  border-color: white;
   padding: 2px 15px 2px 15px;
   font-family: "Ysabeau Office", sans-serif;
   &:hover {
@@ -221,13 +214,11 @@ const ListItem = styled(Box)`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  right: 0; // changed from right: 0;
+  right: 0;
   top: 78px;
   z-index: 2000;
   padding: 15px 0px 0px 0px;
   border: 1px solid lightgreen;
-  transition: all 0.5s ease-in-out;
-  transform: translateX(100%);
   @media (min-width: 1440px) {
     display: none;
   }
@@ -238,7 +229,7 @@ const Choose = styled(Button)`
   font-family: "Ysabeau Office", sans-serif;
   border: 1px solid lightgreen;
   background-color: black;
-  width: 60%;
+  width: 50%;
   margin-top: 12px;
 `;
 
@@ -255,7 +246,7 @@ const Login = styled(Button)`
   font-family: "Ysabeau Office", sans-serif;
   border: 1px solid white;
   background-color: black;
-  width: 60%;
+  width: 50%;
   margin-top: 16px;
 `;
 
