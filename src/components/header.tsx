@@ -6,9 +6,15 @@ import { useState } from "react";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
+  const [search, setSearch] = useState(false);
 
   const menuHandler = () => {
     setMenu(!menu);
+  };
+
+  const searchHandler = () => {
+    setSearch(!search);
+    setMenu(false);
   };
 
   return (
@@ -27,7 +33,7 @@ export default function Header() {
         </Description>
 
         <Shop>
-          <SearchDiv>
+          <SearchDiv onClick={searchHandler}>
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
             <SearchInput placeholder="Search" />
           </SearchDiv>
@@ -42,6 +48,7 @@ export default function Header() {
       <ListItem
         style={{
           transform: menu ? "translateX(100%)" : "translateX(0)",
+          opacity: menu ? "0" : "1",
         }}
       >
         <Choose variant="text">Men</Choose>
@@ -221,6 +228,9 @@ const ListItem = styled(Box)`
   border: 1px solid lightgreen;
   transition: all 0.5s ease-in-out;
   transform: translateX(100%);
+  @media (min-width: 1440px) {
+    display: none;
+  }
 `;
 
 const Choose = styled(Button)`
@@ -246,7 +256,7 @@ const Login = styled(Button)`
   border: 1px solid white;
   background-color: black;
   width: 60%;
-  margin-top: 12px;
+  margin-top: 16px;
 `;
 
 const IconsDiv = styled(Box)`
