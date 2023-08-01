@@ -19,80 +19,108 @@ export default function NewArrivals(props: any) {
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 400, min: 0 },
+      breakpoint: { max: 500, min: 0 },
       items: 1,
     },
   };
   return (
     <>
-      <HeaderDiv>
-        <Kind>New Arrivals</Kind>
-      </HeaderDiv>
-      <Carousel
-        responsive={responsive}
-        autoPlay={props.deviceType === "mobile" ? true : false}
-        draggable={props.deviceType !== "mobile" ? false : true}
-        itemClass="carousel-item"
-      >
-        <ArrivalDiv>
-          <ImageDiv
-            style={{ backgroundImage: "url('/capture.PNG')" }}
-          ></ImageDiv>
+      <div>
+        <HeaderDiv>
+          <Kind>New Arrivals</Kind>
+        </HeaderDiv>
+        <Carousel
+          responsive={responsive}
+          autoPlay={props.deviceType === "mobile" ? true : false}
+          draggable={props.deviceType !== "mobile" ? false : true}
+          itemClass="carousel-item"
+        >
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/capture.PNG')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-        <ArrivalDiv>
-          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/shoes.png')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-        <ArrivalDiv>
-          <ImageDiv
-            style={{ backgroundImage: "url('/capture.PNG')" }}
-          ></ImageDiv>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/capture.PNG')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-        <ArrivalDiv>
-          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/shoes.png')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-        <ArrivalDiv>
-          <ImageDiv style={{ backgroundImage: "url('/shoes.png')" }}></ImageDiv>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/shoes.png')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-        <ArrivalDiv>
-          <ImageDiv style={{ backgroundImage: "url('/puma.avif')" }}></ImageDiv>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+          <ArrivalDiv>
+            <ImageDiv
+              style={{ backgroundImage: "url('/puma.avif')" }}
+            ></ImageDiv>
 
-          <About>
-            <Price>price: 70$</Price>
-            <BrandName>Reebook</BrandName>
-            <Favourite src="/heart-white.png" alt="Favourite add icon, heart" />
-          </About>
-        </ArrivalDiv>
-      </Carousel>
+            <About>
+              <Price>price: 70$</Price>
+              <BrandName>Reebook</BrandName>
+              <Favourite
+                src="/heart-white.png"
+                alt="Favourite add icon, heart"
+              />
+            </About>
+          </ArrivalDiv>
+        </Carousel>
+      </div>
     </>
   );
 }

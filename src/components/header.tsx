@@ -2,8 +2,15 @@ import { styled } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
+import { useState } from "react";
 
 export default function Header() {
+  const [menu, setMenu] = useState(false);
+
+  const menuHandler = () => {
+    setMenu(!menu);
+  };
+
   return (
     <>
       <Main>
@@ -24,15 +31,31 @@ export default function Header() {
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
             <SearchInput placeholder="Search" />
           </SearchDiv>
-
           <Favourite
             src="/heart-white.png"
             alt="Favourite section icon/button"
           />
           <Cart src="/cart-white.png" alt="Shoping cart icon" />
-          <Menu src="/menu-white.png" alt="Menu icon" />
+          <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
       </Main>
+      <ListItem
+        style={{
+          transform: menu ? "translateX(100%)" : "translateX(0)",
+        }}
+      >
+        <Choose variant="text">Men</Choose>
+        <Choose variant="text">Women</Choose>
+        <Choose variant="text">Kids</Choose>
+        <Choose variant="text">Sale</Choose>
+        <Line></Line>
+        <Login>Login</Login>
+        <IconsDiv>
+          <Icon src="/vite.svg" />
+          <Icon src="/vite.svg" />
+          <Icon src="/vite.svg" />
+        </IconsDiv>
+      </ListItem>
     </>
   );
 }
@@ -46,6 +69,7 @@ const Main = styled(Box)`
   align-items: center;
   padding: 20px 15px 20px 15px;
   opacity: 0.92;
+
   @media (min-width: 1440px) {
     padding: 25px 20px 25px 35px;
   }
@@ -180,4 +204,60 @@ const Type = styled(Button)`
   &:hover {
     border-color: #a8eca8;
   }
+`;
+
+const ListItem = styled(Box)`
+  width: 270px;
+  height: 360px;
+  background: linear-gradient(to top, black, #2c282c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 0; // changed from right: 0;
+  top: 78px;
+  z-index: 2000;
+  padding: 15px 0px 0px 0px;
+  border: 1px solid lightgreen;
+  transition: all 0.5s ease-in-out;
+  transform: translateX(100%);
+`;
+
+const Choose = styled(Button)`
+  color: white;
+  font-family: "Ysabeau Office", sans-serif;
+  border: 1px solid lightgreen;
+  background-color: black;
+  width: 60%;
+  margin-top: 12px;
+`;
+
+const Line = styled(Box)`
+  height: 1px;
+  width: 100%;
+  background-color: white;
+  margin-top: 20px;
+  left: 0;
+`;
+
+const Login = styled(Button)`
+  color: white;
+  font-family: "Ysabeau Office", sans-serif;
+  border: 1px solid white;
+  background-color: black;
+  width: 60%;
+  margin-top: 12px;
+`;
+
+const IconsDiv = styled(Box)`
+  width: 100%;
+  padding: 20px 55px 10px 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Icon = styled("img")`
+  width: 20px;
+  height: 20px;
 `;

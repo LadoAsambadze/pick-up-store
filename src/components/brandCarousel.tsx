@@ -4,7 +4,10 @@ import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 
+
 export default function BrandCarousel(props: any) {
+  
+
   const responsive = {
     desktop: {
       breakpoint: { max: 4000, min: 1024 },
