@@ -3,8 +3,21 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function NewArrivals(props: any) {
+  const [arrivals, setArrivals] = useState([]);
+
+  const getInfo = async () => {
+    const response = await axios.get("http://localhost:3000/main");
+    setArrivals(response.data.shoes);
+  };
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
   const responsive = {
     desktop: {
       breakpoint: { max: 4000, min: 1024 },
@@ -32,94 +45,24 @@ export default function NewArrivals(props: any) {
         <Carousel
           responsive={responsive}
           autoPlay={props.deviceType === "mobile" ? true : false}
-          
           itemClass="carousel-item"
           infinite={true}
         >
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/capture.PNG')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/shoes.png')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/capture.PNG')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/shoes.png')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/shoes.png')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
-          <ArrivalDiv>
-            <ImageDiv
-              style={{ backgroundImage: "url('/puma.avif')" }}
-            ></ImageDiv>
-
-            <About>
-              <Price>price: 70$</Price>
-              <BrandName>Reebook</BrandName>
-              <Favourite
-                src="/heart-white.png"
-                alt="Favourite add icon, heart"
-              />
-            </About>
-          </ArrivalDiv>
+          {arrivals.map((item, index) => (
+            <ArrivalDiv key={index}>
+              <ImageDiv
+                style={{ backgroundImage: "url('/capture.PNG')" }}
+              ></ImageDiv>
+              <About>
+                <Price>price:{item.details.price}</Price>
+                <BrandName>{item.model}</BrandName>
+                <Favourite
+                  src="/heart-white.png"
+                  alt="Favourite add icon, heart"
+                />
+              </About>
+            </ArrivalDiv>
+          ))}
         </Carousel>
       </div>
     </>

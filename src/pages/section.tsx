@@ -3,18 +3,24 @@ import Header from "../components/header";
 import { Box } from "@mui/material";
 import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
+import { useState } from "react";
 
 export default function Section() {
+  const [filter, setFilter] = useState(false);
   return (
     <>
       <Header />
       <Main>
         <FindBy>
-          <FilterDiv>
+          <FilterDiv
+            onClick={() => {
+              setFilter(true);
+            }}
+          >
             <Filter>Filter</Filter>
             <FilterIcon src="/filter.png" />
           </FilterDiv>
-          <FilterComponent/>
+          <FilterComponent />
           <Sort />
         </FindBy>
       </Main>

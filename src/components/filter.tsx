@@ -3,7 +3,7 @@ import { Box, Typography, styled } from "@mui/material";
 export default function FilterComponent() {
   return (
     <>
-      <Main>
+      <Main style={{ display: "none" }}>
         <Header>
           <FilterHead>Product Filters</FilterHead>
           <Xdiv>
@@ -84,8 +84,8 @@ const Xdiv = styled(Box)`
 `;
 
 const CloseIcon = styled("img")`
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
 `;
 
 const Line = styled(Box)`
