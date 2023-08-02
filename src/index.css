@@ -16,3 +16,7 @@ body {
 .carousel-item {
   padding: 0px 25px 25px 25px;
 }
+
+.sort-box {
+  width: 200px;
+}

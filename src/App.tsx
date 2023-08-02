@@ -1,18 +1,14 @@
-import Header from "./components/header";
-import BrandCarousel from "./components/brandCarousel";
-import NewArrivals from "./components/newArrivals";
-import LightBanner from "./components/lightBanner";
-import Footer from "./components/footer";
+import Main from "./pages/main";
+import { Routes, Route } from "react-router-dom";
+import Section from "./pages/section";
 
 function App() {
   return (
     <>
-      <Header />
-      <LightBanner />
-      <NewArrivals />
-      <BrandCarousel />
-
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/section" element={<Section />} />
+      </Routes>
     </>
   );
 }

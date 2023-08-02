@@ -3,9 +3,11 @@ import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
+  const navigate = useNavigate();
 
   const menuHandler = () => {
     setMenu(!menu);
@@ -18,7 +20,15 @@ export default function Header() {
           <Logo src="/vite.svg" alt="Website pick up store logo" />
           <Name>Pick Up Store </Name>
           <DestkopMenu>
-            <Type variant="outlined">Men</Type>
+            <Type
+              onClick={() => {
+                console.log("ladoodada");
+                navigate("/section");
+              }}
+              variant="outlined"
+            >
+              Men
+            </Type>
             <Type variant="outlined">Women</Type>
             <Type variant="outlined">Kids</Type>
             <Type variant="outlined">Sale</Type>
