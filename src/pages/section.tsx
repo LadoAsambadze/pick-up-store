@@ -1,20 +1,20 @@
 import { Typography, styled } from "@mui/material";
-import Header from "../components/header";
 import { Box } from "@mui/material";
 import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../store/filter-slice";
 
 export default function Section() {
-  const [filter, setFilter] = useState(false);
+  const dispatch = useDispatch();
+
   return (
     <>
-      <Header />
       <Main>
         <FindBy>
           <FilterDiv
             onClick={() => {
-              setFilter(true);
+              dispatch(setFilter(true));
             }}
           >
             <Filter>Filter</Filter>

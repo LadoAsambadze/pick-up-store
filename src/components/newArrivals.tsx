@@ -6,12 +6,19 @@ import Typography from "@mui/material/Typography/Typography";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+interface ProductsType {
+  model: string;
+  details: {
+    price: string;
+  };
+  image: string;
+}
 export default function NewArrivals(props: any) {
-  const [arrivals, setArrivals] = useState([]);
+  const [arrivals, setArrivals] = useState<ProductsType[]>([]);
 
   const getInfo = async () => {
     const response = await axios.get("http://localhost:3000/main");
-    setArrivals(response.data.shoes);
+    setArrivals(response.data.products);
   };
 
   useEffect(() => {
@@ -51,11 +58,13 @@ export default function NewArrivals(props: any) {
           {arrivals.map((item, index) => (
             <ArrivalDiv key={index}>
               <ImageDiv
-                style={{ backgroundImage: "url('/capture.PNG')" }}
+                style={{
+                  backgroundImage: `url(http://localhost:3000${item.image})`,
+                }}
               ></ImageDiv>
               <About>
-                <Price>price:{item.details.price}</Price>
-                <BrandName>{item.model}</BrandName>
+                <Price>{item.details.price}</Price>
+                <BrandName>Brand:{item.model}</BrandName>
                 <Favourite
                   src="/heart-white.png"
                   alt="Favourite add icon, heart"

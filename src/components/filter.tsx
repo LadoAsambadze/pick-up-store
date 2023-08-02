@@ -1,12 +1,23 @@
 import { Box, Typography, styled } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/redux";
+import { setFilter } from "../store/filter-slice";
 
 export default function FilterComponent() {
+  const filter = useSelector((store: RootState) => store.filter.boolean);
+  const dispatch = useDispatch();
+
+  console.log(filter);
   return (
     <>
-      <Main style={{ display: "none" }}>
+      <Main style={{ display: filter ? "flex" : "none" }}>
         <Header>
           <FilterHead>Product Filters</FilterHead>
-          <Xdiv>
+          <Xdiv
+            onClick={() => {
+              dispatch(setFilter(false));
+            }}
+          >
             <CloseIcon src="/close.png" />
           </Xdiv>
         </Header>
