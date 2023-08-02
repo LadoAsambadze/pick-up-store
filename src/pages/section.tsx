@@ -1,8 +1,8 @@
-import { styled } from "@mui/material";
+import { Typography, styled } from "@mui/material";
 import Header from "../components/header";
 import { Box } from "@mui/material";
 import Sort from "../components/sort";
-
+import FilterComponent from "../components/filter";
 
 export default function Section() {
   return (
@@ -10,6 +10,11 @@ export default function Section() {
       <Header />
       <Main>
         <FindBy>
+          <FilterDiv>
+            <Filter>Filter</Filter>
+            <FilterIcon src="/filter.png" />
+          </FilterDiv>
+          <FilterComponent/>
           <Sort />
         </FindBy>
       </Main>
@@ -30,4 +35,22 @@ const FindBy = styled(Box)`
   align-items: center;
   width: 100%;
   flex-direction: row;
+`;
+
+const FilterDiv = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 8px 15px 8px 15px;
+  cursor: pointer;
+`;
+const Filter = styled(Typography)`
+  font-size: 20px;
+`;
+
+const FilterIcon = styled("img")`
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
 `;
