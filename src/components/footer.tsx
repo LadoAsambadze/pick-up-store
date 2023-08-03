@@ -32,7 +32,7 @@ export default function Footer() {
 
 const MainDiv = styled("div")`
   width: 100%;
-  background: linear-gradient(to top, black, #2e2829);
+  background: #3c4242;
   display: flex;
   flex-direction: column;
   padding: 40px 60px 60px 60px;

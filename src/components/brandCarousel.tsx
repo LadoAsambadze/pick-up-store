@@ -8,7 +8,7 @@ export default function BrandCarousel(props: any) {
   const responsive = {
     desktop: {
       breakpoint: { max: 4000, min: 1024 },
-      items: 4,
+      items: 3,
     },
     tablet: {
       breakpoint: { max: 1024, min: 768 },
@@ -25,31 +25,44 @@ export default function BrandCarousel(props: any) {
   };
   return (
     <>
-      <HeaderDiv>
-        <Kind>Shop By Brand</Kind>
-      </HeaderDiv>
-      <Carousel
-        responsive={responsive}
-        autoPlay={props.deviceType === "mobile" ? true : false}
-        draggable={props.deviceType !== "mobile" ? false : true}
-        itemClass="carousel-item"
-      >
-        <PhotoDiv style={{ backgroundImage: "url('/adidas.jpg')" }}></PhotoDiv>
-        <PhotoDiv style={{ backgroundImage: "url('/nike.jpg')" }}></PhotoDiv>
-        <PhotoDiv style={{ backgroundImage: "url('/puma.jpg')" }}></PhotoDiv>
-        <PhotoDiv style={{ backgroundImage: "url('/reebok.png')" }}></PhotoDiv>
-        <PhotoDiv style={{ backgroundImage: "url('/zara.jpg')" }}></PhotoDiv>
-      </Carousel>
+      <Section>
+        <HeaderDiv>
+          <Kind>Shop By Brand</Kind>
+        </HeaderDiv>
+        <Carousel
+          responsive={responsive}
+          autoPlay={props.deviceType === "mobile" ? true : false}
+          draggable={props.deviceType !== "mobile" ? false : true}
+          itemClass="carousel-item"
+        >
+          <PhotoDiv
+            style={{ backgroundImage: "url('/adidas.jpg')" }}
+          ></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/nike.jpg')" }}></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/puma.jpg')" }}></PhotoDiv>
+          <PhotoDiv
+            style={{ backgroundImage: "url('/reebok.png')" }}
+          ></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/zara.jpg')" }}></PhotoDiv>
+        </Carousel>
+      </Section>
     </>
   );
 }
+
+const Section = styled(Box)`
+  width: 100%;
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-bottom: 20px;
+`;
 
 const HeaderDiv = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 10px 10px 25px;
+  padding: 20px 10px 10px 25px;
   justify-content: space-between;
 `;
 

@@ -180,8 +180,7 @@ const DestkopMenu = styled(Box)`
 
 const Type = styled(Typography)`
   color: #3c4242;
-  font-family: Causten;
-  font-size: 22px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;

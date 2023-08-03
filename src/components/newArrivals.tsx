@@ -1,4 +1,4 @@
-import { Button, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
@@ -27,11 +27,11 @@ export default function NewArrivals(props: any) {
 
   const responsive = {
     desktop: {
-      breakpoint: { max: 4000, min: 1024 },
-      items: 5,
+      breakpoint: { max: 4000, min: 1200 },
+      items: 4,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 767 },
+      breakpoint: { max: 1200, min: 767 },
       items: 3,
     },
     tabletOne: {
@@ -45,47 +45,55 @@ export default function NewArrivals(props: any) {
   };
   return (
     <>
-      <HeaderDiv>
-        <Kind>New Arrivals</Kind>
-      </HeaderDiv>
-      <Carousel
-        responsive={responsive}
-        autoPlay={props.deviceType === "mobile" ? true : false}
-        itemClass="carousel-item"
-        infinite={true}
-      >
-        {arrivals.map((item, index) => (
-          <ArrivalDiv key={index}>
-            <ImageDiv
-              style={{
-                backgroundImage: `url(http://localhost:3000${item.image})`,
-              }}
-            ></ImageDiv>
-            <About>
-              <Description>Men sneakers - Brand:{item.model}</Description>
-              <Price>PRICE {item.details.price}</Price>
-              <SizeDiv>
-                <Size>XS</Size>
-                <Size>S</Size>
-                <Size>M</Size>
-                <Size>L</Size>
-                <Size>XL</Size>
-              </SizeDiv>
-              <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-            </About>
-          </ArrivalDiv>
-        ))}
-      </Carousel>
+      <Section>
+        <HeaderDiv>
+          <Kind>New Arrivals</Kind>
+        </HeaderDiv>
+        <Carousel
+          responsive={responsive}
+          autoPlay={props.deviceType === "mobile" ? true : false}
+          itemClass="carousel-item"
+          infinite={true}
+        >
+          {arrivals.map((item, index) => (
+            <ArrivalDiv key={index}>
+              <ImageDiv
+                style={{
+                  backgroundImage: `url(http://localhost:3000${item.image})`,
+                }}
+              ></ImageDiv>
+              <About>
+                <Description>Men sneakers - Brand:{item.model}</Description>
+                <Price>PRICE {item.details.price}</Price>
+                <SizeDiv>
+                  <Size>XS</Size>
+                  <Size>S</Size>
+                  <Size>M</Size>
+                  <Size>L</Size>
+                  <Size>XL</Size>
+                </SizeDiv>
+                <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+              </About>
+            </ArrivalDiv>
+          ))}
+        </Carousel>
+      </Section>
     </>
   );
 }
+
+const Section = styled(Box)`
+  width: 100%;
+  padding-left: 80px;
+  padding-right: 80px;
+`;
 
 const HeaderDiv = styled(Box)`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 25px;
+  padding: 30px 25px 25px 25px;
   justify-content: space-between;
 `;
 
@@ -93,7 +101,7 @@ const Kind = styled(Typography)`
   color: black;
   font-size: 24px;
   font-weight: 400;
-  font-family: "Ysabeau Office", sans-serif;
+  font-family: "Cousine", monospace;
 `;
 
 const ArrivalDiv = styled(Box)`
@@ -133,22 +141,20 @@ const Favourite = styled("img")`
   gap: 12px;
   cursor: pointer;
   position: absolute;
-  top: 20px;
+  bottom: 45px;
   right: 40px;
-  border-radius: 50%;
-  background-color: #f6f6f6;
 `;
 
 const Description = styled(Typography)`
   color: black;
   font-size: 16px;
-  font-family: "Ysabeau Office", sans-serif;
+  font-family: 'Cousine', monospace;
 `;
 
 const Price = styled(Typography)`
   color: black;
   font-size: 16px;
-  font-family: "Ysabeau Office", sans-serif;
+  font-family: 'Cousine', monospace;
 `;
 
 const SizeDiv = styled(Box)`

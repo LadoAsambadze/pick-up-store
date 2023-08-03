@@ -28,9 +28,6 @@ const marqueeAnimation = keyframes`
   100% {
     opacity: 0.2;
   }
- 
-
-
 `;
 
 const TextContainer = styled("div")`
@@ -39,13 +36,11 @@ const TextContainer = styled("div")`
   height: 48px;
   font-size: 26px;
   font-weight: 300;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(to top, black, #2e2829);
-  opacity: 0.92;
+  background: #3c4242;
+  border-bottom: 1px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid white;
   flex-direction: column;
   @media (min-width: 768px) {
     height: 56px;
