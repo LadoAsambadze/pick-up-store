@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
@@ -45,35 +45,37 @@ export default function NewArrivals(props: any) {
   };
   return (
     <>
-      <div>
-        <HeaderDiv>
-          <Kind>New Arrivals</Kind>
-        </HeaderDiv>
-        <Carousel
-          responsive={responsive}
-          autoPlay={props.deviceType === "mobile" ? true : false}
-          itemClass="carousel-item"
-          infinite={true}
-        >
-          {arrivals.map((item, index) => (
-            <ArrivalDiv key={index}>
-              <ImageDiv
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item.image})`,
-                }}
-              ></ImageDiv>
-              <About>
-                <Price>{item.details.price}</Price>
-                <BrandName>Brand:{item.model}</BrandName>
-                <Favourite
-                  src="/heart-white.png"
-                  alt="Favourite add icon, heart"
-                />
-              </About>
-            </ArrivalDiv>
-          ))}
-        </Carousel>
-      </div>
+      <HeaderDiv>
+        <Kind>New Arrivals</Kind>
+      </HeaderDiv>
+      <Carousel
+        responsive={responsive}
+        autoPlay={props.deviceType === "mobile" ? true : false}
+        itemClass="carousel-item"
+        infinite={true}
+      >
+        {arrivals.map((item, index) => (
+          <ArrivalDiv key={index}>
+            <ImageDiv
+              style={{
+                backgroundImage: `url(http://localhost:3000${item.image})`,
+              }}
+            ></ImageDiv>
+            <About>
+              <Description>Men sneakers - Brand:{item.model}</Description>
+              <Price>PRICE {item.details.price}</Price>
+              <SizeDiv>
+                <Size>XS</Size>
+                <Size>S</Size>
+                <Size>M</Size>
+                <Size>L</Size>
+                <Size>XL</Size>
+              </SizeDiv>
+              <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+            </About>
+          </ArrivalDiv>
+        ))}
+      </Carousel>
     </>
   );
 }
@@ -83,7 +85,7 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px 10px 10px 25px;
+  padding: 25px;
   justify-content: space-between;
 `;
 
@@ -97,7 +99,7 @@ const Kind = styled(Typography)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
+  border: 3px solid #d8d8e1;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
@@ -109,31 +111,58 @@ const ImageDiv = styled(Box)`
   height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
+  border-bottom: 1px solid #d8d8e1;
   background-position: center;
 `;
 
 const About = styled(Box)`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: black;
-  padding: 20px;
-`;
-const Price = styled(Typography)`
-  color: white;
-  font-size: 16px;
-  font-family: "Ysabeau Office", sans-serif;
-`;
-const Favourite = styled("img")`
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: white;
+  padding: 10px 20px 20px 20px;
 `;
 
-const BrandName = styled(Typography)`
-  color: white;
+const Favourite = styled("img")`
+  display: flex;
+  padding: 6px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  border-radius: 50%;
+  background-color: #f6f6f6;
+`;
+
+const Description = styled(Typography)`
+  color: black;
   font-size: 16px;
   font-family: "Ysabeau Office", sans-serif;
+`;
+
+const Price = styled(Typography)`
+  color: black;
+  font-size: 16px;
+  font-family: "Ysabeau Office", sans-serif;
+`;
+
+const SizeDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Size = styled("button")`
+  padding: 4px;
+  border: 1px solid #d8d8e1;
+  color: black;
+  cursor: pointer;
+  background: white;
+  margin-right: 8px;
+  margin-top: 5px;
 `;

@@ -15,7 +15,7 @@ export default function CoverCarousel(props: any) {
         responsive={responsive}
         autoPlay={props.deviceType === "mobile" ? true : false}
         draggable={props.deviceType !== "mobile" ? false : true}
-    
+        infinite={true}
       >
         <PhotoDiv
           style={{ backgroundImage: "url('/women-back.jpg')" }}
