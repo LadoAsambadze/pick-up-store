@@ -25,14 +25,13 @@ export default function Header() {
                 console.log("ladoodada");
                 navigate("/section");
               }}
-              variant="outlined"
             >
               Men
             </Type>
-            <Type variant="outlined">Women</Type>
-            <Type variant="outlined">Kids</Type>
-            <Type variant="outlined">Sale</Type>
-            <Type variant="outlined">New Arrivals</Type>
+            <Type>Women</Type>
+            <Type>Kids</Type>
+            <Type>Sale</Type>
+            <Type>New Arrivals</Type>
           </DestkopMenu>
         </Description>
 
@@ -41,11 +40,9 @@ export default function Header() {
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
             <SearchInput placeholder="Search" />
           </SearchDiv>
-          <Favourite
-            src="/heart-white.png"
-            alt="Favourite section icon/button"
-          />
-          <Cart src="/cart-white.png" alt="Shoping cart icon" />
+          <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
+          <HeaderIcon src="/user.svg" alt="User icon" />
+          <HeaderIcon src="/cart.svg" alt="Shoping cart icon" />
           <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
       </Main>
@@ -71,7 +68,7 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background: linear-gradient(to bottom, black, #151315);
+  background: white;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -79,9 +76,8 @@ const Main = styled(Box)`
   align-items: center;
   padding: 20px 15px 20px 15px;
   opacity: 0.92;
-
   @media (min-width: 1440px) {
-    padding: 25px 20px 25px 35px;
+    padding: 32px 100px 32px 100px;
   }
 `;
 
@@ -99,7 +95,7 @@ const Logo = styled("img")`
 `;
 
 const Name = styled(Typography)`
-  color: lightgreen;
+  color: #333333;
   text-shadow: 0px 0px 5px #fff;
   font-family: Poppins;
   font-weight: 400;
@@ -107,10 +103,6 @@ const Name = styled(Typography)`
   margin-left: 10px;
   cursor: pointer;
   font-family: "Ysabeau Office", sans-serif;
-  @media (min-width: 1440px) {
-    font-size: 28px;
-    margin-left: 15px;
-  }
 `;
 
 const Shop = styled(Box)`
@@ -120,22 +112,14 @@ const Shop = styled(Box)`
 `;
 
 const SearchDiv = styled(Box)`
-  background-color: white;
-  border-radius: 100%;
-  padding: 5px;
   display: flex;
-  flex-direction: row;
+  width: 267px;
+  padding: 12px 15px 12px 20px;
   align-items: center;
-  border: 4px solid #61e399;
-  @media (min-width: 1440px) {
-    border: none;
-    border-radius: 10px;
-    padding: 6px 8px 6px 10px;
-    border: 3px solid gray;
-    &:hover {
-      border-color: #76c676;
-    }
-  }
+  gap: 12px;
+  border-radius: 8px;
+  background: #f6f6f6;
+  margin-right: 64px;
 `;
 
 const SearchInput = styled("input")`
@@ -146,6 +130,7 @@ const SearchInput = styled("input")`
     outline: none;
     margin-left: 5px;
     border: none;
+    background: #f6f6f6;
   }
 `;
 
@@ -153,34 +138,23 @@ const SearchIcon = styled("img")`
   width: 20px;
   height: 20px;
   cursor: pointer;
-
   @media (min-width: 1440px) {
-    width: 23px;
-    height: 23px;
+    width: 20px;
+    height: 20px;
   }
 `;
 
-const Favourite = styled("img")`
-  width: 20px;
-  height: 22px;
-  margin-left: 15px;
-  cursor: pointer;
+const HeaderIcon = styled("img")`
   @media (min-width: 1440px) {
-    width: 30px;
-    height: 33px;
-    margin-left: 20px;
-  }
-`;
-
-const Cart = styled("img")`
-  width: 25px;
-  height: 25px;
-  margin-left: 15px;
-  cursor: pointer;
-  @media (min-width: 1440px) {
-    width: 30px;
-    height: 30px;
-    margin-left: 20px;
+    display: flex;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    background: #f6f6f6;
+    margin-left: 12px;
   }
 `;
 
@@ -204,16 +178,16 @@ const DestkopMenu = styled(Box)`
   }
 `;
 
-const Type = styled(Button)`
-  color: white;
-  margin-left: 15px;
-  margin-right: 15px;
-  border-color: white;
-  padding: 2px 15px 2px 15px;
+const Type = styled(Typography)`
+  color: #3c4242;
+  font-family: Causten;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   font-family: "Ysabeau Office", sans-serif;
-  &:hover {
-    border-color: #a8eca8;
-  }
+  margin-left: 40px;
+  cursor: pointer;
 `;
 
 const ListItem = styled(Box)`
