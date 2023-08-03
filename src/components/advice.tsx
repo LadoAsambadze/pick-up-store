@@ -58,8 +58,8 @@ const AdviceText = styled(Typography)`
   line-height: normal;
   letter-spacing: 1px;
   margin-top: 183px;
-  margin-left: 74px;
-  margin-right: 74px;
+  margin-left: 80px;
+  margin-right: 80px;
 `;
 
 const Text = styled(Typography)`
@@ -71,7 +71,7 @@ const Text = styled(Typography)`
   line-height: normal;
   letter-spacing: 1px;
   margin-top: 30px;
-  margin-left: 74px;
+  margin-left: 80px;
   margin-right: 90px;
 `;
 
@@ -83,7 +83,7 @@ const ShopButton = styled("button")`
   border-radius: 8px;
   background: #fff;
   margin-top: 50px;
-  margin-left: 74px;
+  margin-left: 80px;
   border: none;
   cursor: pointer;
 `;

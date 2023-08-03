@@ -75,7 +75,7 @@ const Kind = styled(Typography)`
 
 const PhotoDiv = styled("div")`
   width: 100%;
-  height: 210px;
+  height: 220px;
   border-radius: 5px;
   cursor: pointer;
   background-size: cover;
