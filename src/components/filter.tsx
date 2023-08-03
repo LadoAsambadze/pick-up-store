@@ -6,8 +6,6 @@ import { setFilter } from "../store/filter-slice";
 export default function FilterComponent() {
   const filter = useSelector((store: RootState) => store.filter.boolean);
   const dispatch = useDispatch();
-
-  console.log(filter);
   return (
     <>
       <Main style={{ display: filter ? "flex" : "none" }}>

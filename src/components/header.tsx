@@ -20,6 +20,7 @@ export default function Header() {
           <Logo src="/vite.svg" alt="Website pick up store logo" />
           <Name>Pick Up Store </Name>
           <DestkopMenu>
+            <Type>All</Type>
             <Type
               onClick={() => {
                 console.log("ladoodada");
@@ -76,6 +77,7 @@ const Main = styled(Box)`
   align-items: center;
   padding: 20px 15px 20px 15px;
   opacity: 0.92;
+  border-bottom: 1px solid black;
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }

@@ -1,10 +1,11 @@
 import Main from "./pages/main";
 import { Routes, Route } from "react-router-dom";
-import Section from "./pages/section";
+import Clothes from "./pages/clothes";
 import { Provider } from "react-redux";
 import store from "./store/redux";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import Shoes from "./pages/shoes";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/section" element={<Section />} />
+          <Route path="/clothes" element={<Clothes />} />
+          <Route path="/shoes" element={<Shoes />} />
         </Routes>
         <Footer />
       </Provider>

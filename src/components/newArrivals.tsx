@@ -6,36 +6,42 @@ import Typography from "@mui/material/Typography/Typography";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-interface ProductsType {
-  model: string;
-  details: {
-    price: string;
-  };
+interface Type {
+  type: string;
+  gender: string;
+  category: string;
+  price: string;
+  size: string;
+  brand: string;
+  name: string;
   image: string;
+  new: boolean;
 }
-export default function NewArrivals(props: any) {
-  const [arrivals, setArrivals] = useState<ProductsType[]>([]);
 
-  const getInfo = async () => {
-    const response = await axios.get("http://localhost:3000/main");
-    setArrivals(response.data.products);
+export default function NewArrivals(props: any) {
+  const [arrivals, setArrivals] = useState<Type[]>([]);
+
+  const getShoesAndClothes = async () => {
+    const shoesResponse = await axios.get("http://localhost:3000/shoes");
+    const clothesResponse = await axios.get("http://localhost:3000/clothes");
+    setArrivals([...shoesResponse.data.shoes, ...clothesResponse.data.clothes]);
   };
 
   useEffect(() => {
-    getInfo();
+    getShoesAndClothes();
   }, []);
 
   const responsive = {
     desktop: {
-      breakpoint: { max: 4000, min: 1200 },
+      breakpoint: { max: 4000, min: 1440 },
       items: 4,
     },
     tablet: {
-      breakpoint: { max: 1200, min: 767 },
+      breakpoint: { max: 1440, min: 1000 },
       items: 3,
     },
     tabletOne: {
-      breakpoint: { max: 768, min: 450 },
+      breakpoint: { max: 1000, min: 450 },
       items: 2,
     },
     mobile: {
@@ -55,27 +61,26 @@ export default function NewArrivals(props: any) {
           itemClass="carousel-item"
           infinite={true}
         >
-          {arrivals.map((item, index) => (
-            <ArrivalDiv key={index}>
-              <ImageDiv
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item.image})`,
-                }}
-              ></ImageDiv>
-              <About>
-                <Description>Men sneakers - Brand:{item.model}</Description>
-                <Price>PRICE {item.details.price}</Price>
-                <SizeDiv>
-                  <Size>XS</Size>
-                  <Size>S</Size>
-                  <Size>M</Size>
-                  <Size>L</Size>
-                  <Size>XL</Size>
-                </SizeDiv>
-                <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-              </About>
-            </ArrivalDiv>
-          ))}
+          {arrivals
+            .filter((item) => item.new)
+            .map((item, index) => (
+              <ArrivalDiv key={index}>
+                <ImageDiv
+                  style={{
+                    backgroundImage: `url(http://localhost:3000${item.image})`,
+                  }}
+                ></ImageDiv>
+
+                <About>
+                  <Description>
+                    <Name>{item.name}</Name>
+                    <Brand>{item.brand}</Brand>
+                  </Description>
+                  <Price>{item.price}</Price>
+                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+                </About>
+              </ArrivalDiv>
+            ))}
         </Carousel>
       </Section>
     </>
@@ -148,27 +153,23 @@ const Favourite = styled("img")`
 const Description = styled(Typography)`
   color: black;
   font-size: 16px;
-  font-family: 'Cousine', monospace;
+  font-family: "Cousine", monospace;
 `;
 
 const Price = styled(Typography)`
   color: black;
   font-size: 16px;
-  font-family: 'Cousine', monospace;
+  font-family: "Cousine", monospace;
 `;
 
-const SizeDiv = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Size = styled("button")`
-  padding: 4px;
-  border: 1px solid #d8d8e1;
+const Name = styled(Typography)`
   color: black;
-  cursor: pointer;
-  background: white;
-  margin-right: 8px;
-  margin-top: 5px;
+  font-size: 16px;
+  font-family: "Cousine", monospace;
+`;
+const Brand = styled(Typography)`
+  color: black;
+  font-size: 16px;
+  font-family: "Cousine", monospace;
+  text-transform: uppercase;
 `;

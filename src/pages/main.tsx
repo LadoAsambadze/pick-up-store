@@ -1,9 +1,8 @@
 import BrandCarousel from "../components/brandCarousel";
 import LightBanner from "../components/lightBanner";
-import NewArrivals from "../components/newArrivals";
-
 import CoverCarousel from "../components/coverCarousel";
 import Advice from "../components/advice";
+import NewArrivals from "../components/newArrivals";
 
 export default function Main() {
   return (
@@ -11,7 +10,6 @@ export default function Main() {
       <CoverCarousel />
       <NewArrivals />
       <Advice />
-
       <BrandCarousel />
       <LightBanner />
     </>
