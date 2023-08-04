@@ -22,6 +22,7 @@ interface Type {
 export default function Shoes() {
   const dispatch = useDispatch();
   const [shoes, setShoes] = useState<Type[]>([]);
+  
   const getShoes = async () => {
     const response = await axios.get("http://localhost:3000/shoes");
     setShoes(response.data.shoes);

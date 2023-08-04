@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FilterState {
-  boolean: boolean;
+  filter: boolean;
+  value: number[];
 }
 
 const initialState: FilterState = {
-  boolean: false,
+  filter: false,
+  value: [20, 37],
 };
 
 const filterSlice = createSlice({
@@ -13,10 +15,13 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setFilter: (state, action: PayloadAction<boolean>) => {
-      state.boolean = action.payload;
+      state.filter = action.payload;
+    },
+    setValue: (state, action: PayloadAction<number[]>) => {
+      state.value = action.payload;
     },
   },
 });
 
-export const { setFilter } = filterSlice.actions;
+export const { setFilter, setValue } = filterSlice.actions;
 export default filterSlice.reducer;

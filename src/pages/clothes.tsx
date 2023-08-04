@@ -2,10 +2,11 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
-import { useDispatch } from "react-redux";
+import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Type {
   type: string;
@@ -21,6 +22,7 @@ interface Type {
 
 export default function Clothes() {
   const dispatch = useDispatch();
+  const value = useSelector((state: RootState) => state.filter.value);
   const [clothes, setClothes] = useState<Type[]>([]);
   const getClothes = async () => {
     const response = await axios.get("http://localhost:3000/clothes");

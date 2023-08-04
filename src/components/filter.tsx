@@ -4,14 +4,18 @@ import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+import { setValue } from "../store/filter-slice";
 
 export default function FilterComponent() {
-  const [value, setValue] = useState<number[]>([20, 37]);
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  };
-  const filter = useSelector((store: RootState) => store.filter.boolean);
   const dispatch = useDispatch();
+
+  const [price, setPrice] = useState(false);
+  const [size, setSize] = useState(false);
+  const value = useSelector((state: RootState) => state.filter.value);
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    dispatch(setValue(newValue as number[]));
+  };
+  const filter = useSelector((store: RootState) => store.filter.filter);
 
   return (
     <>
@@ -49,41 +53,49 @@ export default function FilterComponent() {
           </HeaderDiv>
         </ListDiv>
         <Line></Line>
-        <PriceDiv>
+        <PriceDiv
+          onClick={() => {
+            setPrice(!price);
+          }}
+        >
           <FilterHead style={{ cursor: "pointer" }}>Price</FilterHead>
           <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
         </PriceDiv>
-        <PriceRangeDiv>
-          <Box sx={{ width: "100%" }}>
-            <Slider
-              getAriaLabel={() => "Price Range"}
-              value={value}
-              onChange={handleChange}
-              valueLabelDisplay="auto"
-            />
-          </Box>
-        </PriceRangeDiv>
-        <RangesDiv>
-          <RangeBox>{value[0]}</RangeBox>
-          <RangeBox>{value[1]}</RangeBox>
-        </RangesDiv>
+        <ShowMain style={{ display: price ? "flex" : "none" }}>
+          <PriceRangeDiv>
+            <Box sx={{ width: "100%" }}>
+              <Slider
+                getAriaLabel={() => "Price Range"}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+              />
+            </Box>
+          </PriceRangeDiv>
+          <RangesDiv>
+            <RangeBox>{value[0]}</RangeBox>
+            <RangeBox>{value[1]}</RangeBox>
+          </RangesDiv>
+        </ShowMain>
         <Line></Line>
-        <SizeDiv>
+        <SizeDiv onClick={() => setSize(!size)}>
           <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
           <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
         </SizeDiv>
         <Line></Line>
-        <SizeListDiv>
-          <SizeChoose>XXS</SizeChoose>
-          <SizeChoose>XL</SizeChoose>
-          <SizeChoose>XS</SizeChoose>
-          <SizeChoose>S</SizeChoose>
-          <SizeChoose>M</SizeChoose>
-          <SizeChoose>L</SizeChoose>
-          <SizeChoose>XXL</SizeChoose>
-          <SizeChoose>3XS</SizeChoose>
-          <SizeChoose>4XS</SizeChoose>
-        </SizeListDiv>
+        <ShowMain style={{ display: size ? "flex" : "none" }}>
+          <SizeListDiv>
+            <SizeChoose>XXS</SizeChoose>
+            <SizeChoose>XL</SizeChoose>
+            <SizeChoose>XS</SizeChoose>
+            <SizeChoose>S</SizeChoose>
+            <SizeChoose>M</SizeChoose>
+            <SizeChoose>L</SizeChoose>
+            <SizeChoose>XXL</SizeChoose>
+            <SizeChoose>3XS</SizeChoose>
+            <SizeChoose>4XS</SizeChoose>
+          </SizeListDiv>
+        </ShowMain>
       </Main>
     </>
   );
@@ -91,7 +103,6 @@ export default function FilterComponent() {
 
 const Main = styled(Box)`
   width: 350px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -197,6 +208,7 @@ const PriceRangeDiv = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  border-top: 1px solid #bebcbd;
 `;
 
 const RangesDiv = styled(Box)`
@@ -243,4 +255,9 @@ const SizeChoose = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const ShowMain = styled(Box)`
+  display: flex;
+  flex-direction: column;
 `;

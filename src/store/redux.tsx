@@ -4,6 +4,7 @@ import filterSlice from "./filter-slice";
 const store = configureStore({
   reducer: {
     filter: filterSlice,
+    value: filterSlice,
   },
 });
 
