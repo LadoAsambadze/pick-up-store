@@ -33,7 +33,7 @@ const MainGrid = styled(Box)`
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  padding: 20px 150px 20px 150px;
+  padding: 20px 180px 20px 180px;
 `;
 
 const LeftDiv = styled(Box)`

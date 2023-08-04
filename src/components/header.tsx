@@ -67,7 +67,7 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background: white;
+  background: #d4c9c9;
   width: 100%;
   display: flex;
   flex-direction: row;

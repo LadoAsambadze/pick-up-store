@@ -54,6 +54,7 @@ export default function NewArrivals(props: any) {
       <Section>
         <HeaderDiv>
           <Kind>New Arrivals</Kind>
+          <View>View All</View>
         </HeaderDiv>
         <Carousel
           responsive={responsive}
@@ -107,6 +108,19 @@ const Kind = styled(Typography)`
   font-size: 24px;
   font-weight: 400;
   font-family: "Cousine", monospace;
+`;
+
+const View = styled(Typography)`
+  color: #686060;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Cousine", monospace;
+  text-decoration: underline;
+  cursor: pointer;
+  text-underline-offset: 5px;
+  &:hover {
+    color: black;
+  }
 `;
 
 const ArrivalDiv = styled(Box)`

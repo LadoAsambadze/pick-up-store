@@ -17,8 +17,9 @@ export default function CoverCarousel(props: any) {
         draggable={props.deviceType !== "mobile" ? false : true}
         infinite={true}
       >
-        <PhotoDiv style={{ backgroundImage: "url('/back.jpg')" }}></PhotoDiv>
-        <PhotoDiv style={{ backgroundImage: "url('/fashion.jpg')" }}></PhotoDiv>
+        <PhotoDiv
+          // style={{ backgroundImage: "url('/cover-back.jpg')" }}
+        ></PhotoDiv>
       </Carousel>
     </>
   );
@@ -29,5 +30,5 @@ const PhotoDiv = styled("div")`
   height: 300px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
 `;
