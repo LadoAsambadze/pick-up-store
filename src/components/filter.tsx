@@ -62,8 +62,9 @@ const Main = styled(Box)`
   flex-direction: column;
   background-color: white;
   position: absolute;
+  z-index: 100;
   left: 0;
-  top: 0;
+  top: 108px;
   border: 1px solid black;
   padding: 10px 0px 10px 0px;
 `;

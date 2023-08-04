@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
-
   const menuHandler = () => {
     setMenu(!menu);
   };
@@ -20,15 +19,14 @@ export default function Header() {
           <Logo src="/vite.svg" alt="Website pick up store logo" />
           <Name>Pick Up Store </Name>
           <DestkopMenu>
-            <Type>All</Type>
             <Type
               onClick={() => {
-                console.log("ladoodada");
-                navigate("/section");
+                navigate("/");
               }}
             >
-              Men
+              Shop
             </Type>
+            <Type>Men</Type>
             <Type>Women</Type>
             <Type>Kids</Type>
             <Type>Sale</Type>
