@@ -103,8 +103,12 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 30px 25px 25px 25px;
+  padding: 30px 0px 25px 0px;
   justify-content: space-between;
+  @media (min-width: 1440px) {
+    padding: 30px 25px 25px 25px;
+  }
+
 `;
 
 const Kind = styled(Typography)`

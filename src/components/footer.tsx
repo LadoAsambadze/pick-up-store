@@ -8,23 +8,21 @@ export default function Footer() {
       <MainDiv>
         <Description>
           <Name>Pick up store</Name>
-          <LittleText>
-            "qkegjqjgqejg qqeng qegpi qe kkk k ll jgp qge qgq egq gi qepig
-            nqepng pqeingi qeng nqepign q"
-          </LittleText>
           <SectionStore>
             <Kind>About Us</Kind>
-            <Arrow src="/arrow-down.png" />
-          </SectionStore>
-          <SectionStore>
+
             <Kind>Legacy</Kind>
-            <Arrow src="/arrow-down.png" />
-          </SectionStore>
-          <SectionStore>
+
             <Kind>Follow</Kind>
-            <Arrow src="/arrow-down.png" />
+            <Kind>Test</Kind>
+            <Kind>Test</Kind>
           </SectionStore>
         </Description>
+        <IconDiv>
+          <Icon src="icon-facebook.svg" alt="Facebook icon" />
+          <Icon src="icon-instagram.svg" alt="Instagram icon" />
+          <Icon src="icon-twitter.svg" alt="Twitter icon" />
+        </IconDiv>
       </MainDiv>
     </>
   );
@@ -32,46 +30,74 @@ export default function Footer() {
 
 const MainDiv = styled("div")`
   width: 100%;
-  background: #3c4242;
+  background: #322f2f;
   display: flex;
   flex-direction: column;
-  padding: 40px 60px 60px 60px;
+  padding: 25px 50px 65px 50px;
+  @media (min-width: 1440px) {
+    padding: 44px 165px 44px 165px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 const Description = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  @media (min-width: 1440px) {
+    align-items: flex-start;
+  }
 `;
 
 const Name = styled(Typography)`
-  color: white;
-  font-size: 24px;
-`;
-
-const LittleText = styled(Typography)`
-  color: white;
-  font-size: 12px;
-  margin-top: 10px;
+  color: #ffffff;
+  font-size: 18px;
+  @media (min-width: 1440px) {
+    font-size: 28px;
+  }
 `;
 
 const SectionStore = styled(Box)`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 5px;
-  border-bottom: 1px solid white;
-  margin-top: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  @media (min-width: 1440px) {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 `;
 
 const Kind = styled(Typography)`
-  color: white;
-  font-size: 16px;
+  color: #ffffff;
+  font-size: 12px;
   cursor: pointer;
+  margin-top: 10px;
+  @media (min-width: 1440px) {
+    margin-top: 0;
+    margin-right: 15px;
+    font-size: 16px;
+  }
 `;
 
-const Arrow = styled("img")`
+const IconDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 30px;
+  @media (min-width: 1440px) {
+    justify-content: flex-end;
+  }
+`;
+const Icon = styled("img")`
   width: 20px;
   height: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   cursor: pointer;
 `;

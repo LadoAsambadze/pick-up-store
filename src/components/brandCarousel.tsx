@@ -15,11 +15,11 @@ export default function BrandCarousel(props: any) {
       items: 3,
     },
     mobile2: {
-      breakpoint: { max: 768, min: 450 },
+      breakpoint: { max: 768, min: 500 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 450, min: 0 },
+      breakpoint: { max: 500, min: 0 },
       items: 1,
     },
   };
@@ -52,9 +52,12 @@ export default function BrandCarousel(props: any) {
 
 const Section = styled(Box)`
   width: 100%;
-  padding-left: 80px;
-  padding-right: 80px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  @media (min-width: 1440px) {
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 20px;
+  }
 `;
 
 const HeaderDiv = styled(Box)`
@@ -62,23 +65,32 @@ const HeaderDiv = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px 10px 10px 25px;
+  padding: 30px 30px 25px 30px;
   justify-content: space-between;
+  @media (min-width: 1440px) {
+    padding: 20px 10px 30px 25px;
+  }
 `;
 
 const Kind = styled(Typography)`
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
-  font-family: "Ysabeau Office", sans-serif;
+  font-family: "Cousine", monospace;
+  @media (min-width: 1440px) {
+    font-size: 24px;
+  }
 `;
 
 const PhotoDiv = styled("div")`
   width: 100%;
-  height: 220px;
+  height: 200px;
   border-radius: 5px;
   cursor: pointer;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  @media (min-width: 1440px) {
+    height: 250px;
+  }
 `;
