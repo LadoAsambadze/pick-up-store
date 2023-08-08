@@ -90,8 +90,12 @@ export default function NewArrivals(props: any) {
 
 const Section = styled(Box)`
   width: 100%;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 30px;
+  padding-right: 30px;
+  @media (min-width: 1440px) {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
 `;
 
 const HeaderDiv = styled(Box)`
@@ -105,14 +109,17 @@ const HeaderDiv = styled(Box)`
 
 const Kind = styled(Typography)`
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   font-family: "Cousine", monospace;
+  @media (min-width: 1440px) {
+    font-size: 24px;
+  }
 `;
 
 const View = styled(Typography)`
   color: #686060;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   font-family: "Cousine", monospace;
   text-decoration: underline;
@@ -120,6 +127,9 @@ const View = styled(Typography)`
   text-underline-offset: 5px;
   &:hover {
     color: black;
+  }
+  @media (min-width: 1440px) {
+    font-size: 24px;
   }
 `;
 
@@ -135,11 +145,14 @@ const ArrivalDiv = styled(Box)`
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-  height: 300px;
+  height: 200px;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid #d8d8e1;
   background-position: center;
+  @media (min-width: 1440px) {
+    height: 300px;
+  }
 `;
 
 const About = styled(Box)`
