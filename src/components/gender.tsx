@@ -80,12 +80,11 @@ const ChooseDiv = styled(Box)`
   @media (min-width: 1440px) {
     padding: 20px 40px 20px 40px;
   }
-
 `;
 const Choose = styled(Typography)`
   color: #fff;
   font-family: "Ysabeau Office", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-style: normal;
   line-height: 30.132px;
   font-weight: 800;
@@ -95,9 +94,16 @@ const Choose = styled(Typography)`
   &:hover {
     color: gray;
   }
+  @media (min-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 const ArrowNext = styled("img")`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+  @media (min-width: 1440px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
