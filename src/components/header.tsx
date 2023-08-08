@@ -26,9 +26,20 @@ export default function Header() {
             >
               Shop
             </Type>
-            <Type>Men</Type>
-            <Type>Women</Type>
-            <Type>Kids</Type>
+            <Type
+              onClick={() => {
+                navigate("/clothes");
+              }}
+            >
+              Clothes
+            </Type>
+            <Type
+              onClick={() => {
+                navigate("/shoes");
+              }}
+            >
+              Shoes
+            </Type>
             <Type>Sale</Type>
             <Type>New Arrivals</Type>
           </DestkopMenu>
@@ -76,6 +87,7 @@ const Main = styled(Box)`
   padding: 20px 15px 20px 15px;
   opacity: 0.92;
   border-bottom: 1px solid black;
+ 
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }
