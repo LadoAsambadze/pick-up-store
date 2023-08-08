@@ -86,7 +86,7 @@ const Main = styled(Box)`
   align-items: center;
   opacity: 0.92;
   border-bottom: 1px solid black;
-  padding: 10px 15px 10px 15px;
+  padding: 10px 18px 10px 18px;
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }
@@ -141,6 +141,7 @@ const SearchDiv = styled(Box)`
     gap: 12px;
     margin-right: 64px;
     border: none;
+    border-radius: 8px;
   }
 `;
 
@@ -171,7 +172,7 @@ const HeaderIcon = styled("img")`
   padding: 4px;
   justify-content: center;
   align-items: center;
-  
+
   @media (min-width: 1440px) {
     padding: 12px;
     gap: 12px;

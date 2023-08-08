@@ -33,13 +33,15 @@ const MainGrid = styled(Box)`
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  padding: 20px 180px 20px 180px;
+  @media (min-width: 1440px) {
+    padding: 20px 180px 20px 180px;
+  }
 `;
 
 const LeftDiv = styled(Box)`
   background-image: url("/men.jpg");
   width: 100%;
-  height: 300px;
+  height: 250px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -47,12 +49,15 @@ const LeftDiv = styled(Box)`
   border-bottom-left-radius: 5px;
   display: flex;
   align-items: flex-end;
+  @media (min-width: 1440px) {
+    height: 300px;
+  }
 `;
 
 const RightDiv = styled(Box)`
   background-image: url("/women.jpg");
   width: 100%;
-  height: 300px;
+  height: 250px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -60,6 +65,9 @@ const RightDiv = styled(Box)`
   border-bottom-right-radius: 5px;
   display: flex;
   align-items: flex-end;
+  @media (min-width: 1440px) {
+    height: 300px;
+  }
 `;
 
 const ChooseDiv = styled(Box)`
@@ -68,7 +76,11 @@ const ChooseDiv = styled(Box)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 40px 20px 40px;
+  padding: 10px 15px 10px 15px;
+  @media (min-width: 1440px) {
+    padding: 20px 40px 20px 40px;
+  }
+
 `;
 const Choose = styled(Typography)`
   color: #fff;
