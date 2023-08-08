@@ -84,10 +84,9 @@ const Main = styled(Box)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 15px 20px 15px;
   opacity: 0.92;
   border-bottom: 1px solid black;
- 
+  padding: 10px 15px 10px 15px;
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }
@@ -100,6 +99,8 @@ const Description = styled(Box)`
 `;
 
 const Logo = styled("img")`
+  width: 25px;
+  height: 25px;
   @media (min-width: 1440px) {
     width: 40px;
     height: 40px;
@@ -109,12 +110,14 @@ const Logo = styled("img")`
 const Name = styled(Typography)`
   color: #333333;
   text-shadow: 0px 0px 5px #fff;
-  font-family: Poppins;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   margin-left: 10px;
   cursor: pointer;
   font-family: "Ysabeau Office", sans-serif;
+  @media (min-width: 1440px) {
+    font-size: 20px;
+  }
 `;
 
 const Shop = styled(Box)`
@@ -125,13 +128,20 @@ const Shop = styled(Box)`
 
 const SearchDiv = styled(Box)`
   display: flex;
-  width: 267px;
-  padding: 12px 15px 12px 20px;
+  padding: 6px 7px 7px 7px;
   align-items: center;
-  gap: 12px;
-  border-radius: 8px;
+  gap: 6px;
+  border-radius: 100%;
   background: #f6f6f6;
-  margin-right: 64px;
+  border: 1px solid black;
+  margin-right: 10px;
+  @media (min-width: 1440px) {
+    width: 267px;
+    padding: 12px 15px 12px 20px;
+    gap: 12px;
+    margin-right: 64px;
+    border: none;
+  }
 `;
 
 const SearchInput = styled("input")`
@@ -147,8 +157,8 @@ const SearchInput = styled("input")`
 `;
 
 const SearchIcon = styled("img")`
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   @media (min-width: 1440px) {
     width: 20px;
@@ -157,13 +167,14 @@ const SearchIcon = styled("img")`
 `;
 
 const HeaderIcon = styled("img")`
+  display: flex;
+  padding: 4px;
+  justify-content: center;
+  align-items: center;
+  
   @media (min-width: 1440px) {
-    display: flex;
     padding: 12px;
-    justify-content: center;
-    align-items: center;
     gap: 12px;
-    cursor: pointer;
     border-radius: 8px;
     background: #f6f6f6;
     margin-left: 12px;
@@ -173,7 +184,7 @@ const HeaderIcon = styled("img")`
 const Menu = styled("img")`
   width: 25px;
   height: 25px;
-  margin-left: 15px;
+  margin-left: 10px;
   cursor: pointer;
   @media (min-width: 1440px) {
     display: none;
