@@ -22,25 +22,14 @@ interface Type {
 
 export default function Clothes() {
   const dispatch = useDispatch();
-
   const [clothes, setClothes] = useState<Type[]>([]);
-  const getClothes = async () => {
-    const response = await axios.get("http://localhost:3000/clothes");
-    setClothes(response.data.clothes);
-  };
-
-  const genderType = useSelector((store: RootState) => store.filter.genderType);
-
-  const categoryType = useSelector(
-    (store: RootState) => store.filter.categoryType
-  );
-
-  const brandType = useSelector((state: RootState) => state.filter.brandType);
-  const priceAmount = useSelector(
-    (state: RootState) => state.filter.priceAmount
-  );
+  const redux = useSelector((state: RootState) => state);
 
   useEffect(() => {
+    const getClothes = async () => {
+      const response = await axios.get("http://localhost:3000/clothes");
+      setClothes(response.data.clothes);
+    };
     getClothes();
   }, []);
 
@@ -61,14 +50,28 @@ export default function Clothes() {
         </FindBy>
         <MainGrid>
           {clothes
-            .filter((item) => genderType === null || item.gender === genderType)
-            .filter(
-              (item) => categoryType === null || item.category === categoryType
-            )
-            .filter((item) => brandType === null || item.brand === brandType)
             .filter(
               (item) =>
-                item.price > priceAmount[0] && item.price < priceAmount[1]
+                redux.genderType === null || item.gender === redux.genderType
+            )
+            .filter(
+              (item) =>
+                redux.categoryType === null ||
+                item.category === redux.categoryType
+            )
+            .filter(
+              (item) =>
+                redux.brandType === null || item.brand === redux.brandType
+            )
+            .filter(
+              (item) =>
+                item.price > redux.priceAmount[0] &&
+                item.price < redux.priceAmount[1]
+            )
+            .filter(
+              (item) =>
+                redux.sizeType === null ||
+                item.size === redux.sizeType.toLowerCase()
             )
             .map((item, index) => (
               <ArrivalDiv key={index}>

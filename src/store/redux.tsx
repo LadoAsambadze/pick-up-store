@@ -1,15 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import filterSlice from "./filter-slice";
 
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, filterSlice);
+
 const store = configureStore({
-  reducer: {
-    filter: filterSlice,
-    priceAmount: filterSlice,
-    genderType: filterSlice,
-    categoryType: filterSlice,
-    brandType: filterSlice,
-  },
+  reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

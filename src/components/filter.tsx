@@ -9,8 +9,8 @@ import {
   setPriceAmount,
   setFilter,
   setBrandType,
+  setSizeType,
 } from "../store/filter-slice";
-
 export default function FilterComponent() {
   const dispatch = useDispatch();
   const [gender, setGender] = useState(false);
@@ -18,9 +18,13 @@ export default function FilterComponent() {
   const [brand, setBrand] = useState(false);
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
-  const redux = useSelector((state: RootState) => state.filter);
+  const redux = useSelector((state: RootState) => state);
   const handleChange = (event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
+  };
+  const sizeOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
+  const handleSize = (sizeContent: string) => {
+    dispatch(setSizeType(sizeContent));
   };
 
   return (
@@ -114,15 +118,11 @@ export default function FilterComponent() {
           <Line></Line>
           <ShowMain style={{ display: size ? "flex" : "none" }}>
             <SizeListDiv>
-              <SizeChoose>XXS</SizeChoose>
-              <SizeChoose>XL</SizeChoose>
-              <SizeChoose>XS</SizeChoose>
-              <SizeChoose>S</SizeChoose>
-              <SizeChoose>M</SizeChoose>
-              <SizeChoose>L</SizeChoose>
-              <SizeChoose>XXL</SizeChoose>
-              <SizeChoose>3XS</SizeChoose>
-              <SizeChoose>4XS</SizeChoose>
+              {sizeOptions.map((size) => (
+                <SizeChoose key={size} onClick={() => handleSize(size)}>
+                  {size}
+                </SizeChoose>
+              ))}
             </SizeListDiv>
           </ShowMain>
         </Main>
@@ -133,11 +133,11 @@ export default function FilterComponent() {
 
 const MainBack = styled(Box)`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(1px);
-  z-index: 90;
+  z-index: 10;
   left: 0;
   left: 0px;
   top: 108px;
@@ -148,10 +148,11 @@ const Main = styled(Box)`
   flex-direction: column;
   background-color: white;
   position: fixed;
-  z-index: 1000;
+  z-index: 100;
   left: 0;
   top: 0;
   border: 1px solid black;
+  overflow: scroll;
 `;
 
 const Header = styled(Box)`
