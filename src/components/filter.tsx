@@ -16,21 +16,17 @@ export default function FilterComponent() {
   const [gender, setGender] = useState(false);
   const [category, setCategory] = useState(false);
   const [brand, setBrand] = useState(false);
-
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
-
-  const value = useSelector((state: RootState) => state.filter.priceAmount);
-
+  const redux = useSelector((state: RootState) => state.filter);
   const handleChange = (event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
   };
-  const filter = useSelector((store: RootState) => store.filter.filter);
 
   return (
     <>
-      <MainBack style={{ display: filter ? "flex" : "none" }}>
-        <Main style={{ display: filter ? "flex" : "none" }}>
+      <MainBack style={{ display: redux.filter ? "flex" : "none" }}>
+        <Main style={{ display: redux.filter ? "flex" : "none" }}>
           <Header>
             <FilterDiv>
               <FilterHead>Filter</FilterHead>
@@ -99,15 +95,15 @@ export default function FilterComponent() {
               <Box sx={{ width: "100%" }}>
                 <Slider
                   getAriaLabel={() => "Price Range"}
-                  value={value}
+                  value={redux.priceAmount}
                   onChange={handleChange}
                   valueLabelDisplay="auto"
                 />
               </Box>
             </PriceRangeDiv>
             <RangesDiv>
-              <RangeBox>{value[0]}</RangeBox>
-              <RangeBox>{value[1]}</RangeBox>
+              <RangeBox>{redux.priceAmount[0]}</RangeBox>
+              <RangeBox>{redux.priceAmount[1]}</RangeBox>
             </RangesDiv>
           </ShowMain>
           <Line></Line>
