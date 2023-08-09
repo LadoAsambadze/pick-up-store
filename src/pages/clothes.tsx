@@ -35,6 +35,7 @@ export default function Clothes() {
     (store: RootState) => store.filter.categoryType
   );
 
+  const brandType = useSelector((state: RootState) => state.filter.brandType);
   const value = useSelector((state: RootState) => state.filter.value);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export default function Clothes() {
             .filter(
               (item) => categoryType === null || item.category === categoryType
             )
+            .filter((item) => brandType === null || item.brand === brandType)
             .map((item, index) => (
               <ArrivalDiv key={index}>
                 <ImageDiv

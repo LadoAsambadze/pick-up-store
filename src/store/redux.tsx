@@ -7,6 +7,7 @@ const store = configureStore({
     value: filterSlice,
     genderType: filterSlice,
     categoryType: filterSlice,
+    brandType: filterSlice,
   },
 });
 

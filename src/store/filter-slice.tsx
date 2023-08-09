@@ -5,6 +5,7 @@ interface FilterState {
   value: number[];
   genderType: string | null;
   categoryType: string | null;
+  brandType: string | null;
 }
 
 const initialState: FilterState = {
@@ -12,6 +13,7 @@ const initialState: FilterState = {
   value: [20, 37],
   genderType: null,
   categoryType: null,
+  brandType: null,
 };
 
 const filterSlice = createSlice({
@@ -30,8 +32,17 @@ const filterSlice = createSlice({
     setCategoryType: (state, action: PayloadAction<string>) => {
       state.categoryType = action.payload;
     },
+    setBrandType: (state, action: PayloadAction<string>) => {
+      state.brandType = action.payload;
+    },
   },
 });
 
-export const { setFilter, setValue, setGenderType, setCategoryType } = filterSlice.actions;
+export const {
+  setFilter,
+  setValue,
+  setGenderType,
+  setCategoryType,
+  setBrandType,
+} = filterSlice.actions;
 export default filterSlice.reducer;

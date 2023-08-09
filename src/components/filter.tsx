@@ -8,12 +8,14 @@ import {
   setCategoryType,
   setValue,
   setFilter,
+  setBrandType
 } from "../store/filter-slice";
 
 export default function FilterComponent() {
   const dispatch = useDispatch();
   const [gender, setGender] = useState(false);
   const [category, setCategory] = useState(false);
+  const [brand, setBrand] = useState(false);
 
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
@@ -66,10 +68,21 @@ export default function FilterComponent() {
               <p onClick={() => dispatch(setCategoryType("Women"))}>Women</p>
               <p onClick={() => dispatch(setCategoryType("Kid"))}>Kid</p>
             </div>
-            <HeaderDiv>
-              <Type>Style</Type>
+            <HeaderDiv
+              onClick={() => {
+                setBrand(!brand);
+              }}
+            >
+              <Type>Brand</Type>
               <Arrow src="/Icon.svg" />
             </HeaderDiv>
+            <div style={{ display: brand ? "block" : "none" }}>
+              <p onClick={() => dispatch(setBrandType("Nike"))}>Nike</p>
+              <p onClick={() => dispatch(setBrandType("Adidas"))}>Adidas</p>
+              <p onClick={() => dispatch(setBrandType("Puma"))}>Puma</p>
+              <p onClick={() => dispatch(setBrandType("Zara"))}>Zara</p>
+              <p onClick={() => dispatch(setBrandType("Reebok"))}>Reebok</p>
+            </div>
             <HeaderDiv>
               <Type>Color</Type>
               <Arrow src="/Icon.svg" />
