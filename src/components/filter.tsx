@@ -133,14 +133,14 @@ export default function FilterComponent() {
 
 const MainBack = styled(Box)`
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(1px);
   z-index: 10;
   left: 0;
   left: 0px;
-  top: 108px;
+  top: 0px;
 `;
 const Main = styled(Box)`
   display: flex;
@@ -153,6 +153,13 @@ const Main = styled(Box)`
   top: 0;
   border: 1px solid black;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d1c5c5; /* color of the thumb */
+    border-radius: 6px; /* roundness of the thumb */
+  }
 `;
 
 const Header = styled(Box)`
