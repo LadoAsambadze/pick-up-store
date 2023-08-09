@@ -23,7 +23,8 @@ interface Type {
 export default function Clothes() {
   const dispatch = useDispatch();
   const [clothes, setClothes] = useState<Type[]>([]);
-  const redux = useSelector((state: RootState) => state);
+  const redux = useSelector((state: RootState) => state.filter);
+  const search = useSelector((state: RootState) => state.search.search);
 
   useEffect(() => {
     const getClothes = async () => {
@@ -72,6 +73,9 @@ export default function Clothes() {
               (item) =>
                 redux.sizeType === null ||
                 item.size === redux.sizeType.toLowerCase()
+            )
+            .filter(
+              (item) => search === null || item.name === search.toLowerCase()
             )
             .map((item, index) => (
               <ArrivalDiv key={index}>

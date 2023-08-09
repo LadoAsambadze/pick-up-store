@@ -4,13 +4,19 @@ import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/redux";
+import { setSearch } from "../store/search-slice";
 
 export default function Header() {
+  const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const menuHandler = () => {
     setMenu(!menu);
   };
+ 
+ 
 
   return (
     <>
@@ -48,7 +54,12 @@ export default function Header() {
         <Shop>
           <SearchDiv>
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
-            <SearchInput placeholder="Search" />
+            <SearchInput
+              placeholder="Search"
+              onChange={(e) => {
+                dispatch(setSearch(e.target.value));
+              }}
+            />
           </SearchDiv>
           <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
           <HeaderIcon src="/user.svg" alt="User icon" />
