@@ -6,7 +6,7 @@ import { useState } from "react";
 import {
   setGenderType,
   setCategoryType,
-  setValue,
+  setPriceAmount,
   setFilter,
   setBrandType,
 } from "../store/filter-slice";
@@ -20,12 +20,10 @@ export default function FilterComponent() {
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
 
-  const value = useSelector((state: RootState) => state.filter.value);
+  const value = useSelector((state: RootState) => state.filter.priceAmount);
 
-
-  
   const handleChange = (event: Event, newValue: number | number[]) => {
-    dispatch(setValue(newValue as number[]));
+    dispatch(setPriceAmount(newValue as number[]));
   };
   const filter = useSelector((store: RootState) => store.filter.filter);
 
@@ -142,7 +140,7 @@ const MainBack = styled(Box)`
   height: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   z-index: 90;
   left: 0;
   left: 0px;

@@ -36,7 +36,9 @@ export default function Clothes() {
   );
 
   const brandType = useSelector((state: RootState) => state.filter.brandType);
-  const value = useSelector((state: RootState) => state.filter.value);
+  const priceAmount = useSelector(
+    (state: RootState) => state.filter.priceAmount
+  );
 
   useEffect(() => {
     getClothes();
@@ -64,7 +66,10 @@ export default function Clothes() {
               (item) => categoryType === null || item.category === categoryType
             )
             .filter((item) => brandType === null || item.brand === brandType)
-            .filter((item) => item.price > value[0] && item.price < value[1])
+            .filter(
+              (item) =>
+                item.price > priceAmount[0] && item.price < priceAmount[1]
+            )
             .map((item, index) => (
               <ArrivalDiv key={index}>
                 <ImageDiv
