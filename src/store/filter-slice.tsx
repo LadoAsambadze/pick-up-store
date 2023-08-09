@@ -10,7 +10,7 @@ interface FilterState {
 
 const initialState: FilterState = {
   filter: false,
-  value: [20, 37],
+  value: [0, 100],
   genderType: null,
   categoryType: null,
   brandType: null,

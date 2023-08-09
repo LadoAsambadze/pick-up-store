@@ -12,7 +12,7 @@ interface Type {
   type: string;
   gender: string;
   category: string;
-  price: string;
+  price: number;
   size: string;
   brand: string;
   name: string;
@@ -64,6 +64,7 @@ export default function Clothes() {
               (item) => categoryType === null || item.category === categoryType
             )
             .filter((item) => brandType === null || item.brand === brandType)
+            .filter((item) => item.price > value[0] && item.price < value[1])
             .map((item, index) => (
               <ArrivalDiv key={index}>
                 <ImageDiv

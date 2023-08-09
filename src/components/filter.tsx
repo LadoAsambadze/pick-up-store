@@ -8,7 +8,7 @@ import {
   setCategoryType,
   setValue,
   setFilter,
-  setBrandType
+  setBrandType,
 } from "../store/filter-slice";
 
 export default function FilterComponent() {
@@ -21,6 +21,9 @@ export default function FilterComponent() {
   const [size, setSize] = useState(false);
 
   const value = useSelector((state: RootState) => state.filter.value);
+
+
+  
   const handleChange = (event: Event, newValue: number | number[]) => {
     dispatch(setValue(newValue as number[]));
   };
@@ -83,10 +86,6 @@ export default function FilterComponent() {
               <p onClick={() => dispatch(setBrandType("Zara"))}>Zara</p>
               <p onClick={() => dispatch(setBrandType("Reebok"))}>Reebok</p>
             </div>
-            <HeaderDiv>
-              <Type>Color</Type>
-              <Arrow src="/Icon.svg" />
-            </HeaderDiv>
           </ListDiv>
           <Line></Line>
           <PriceDiv
