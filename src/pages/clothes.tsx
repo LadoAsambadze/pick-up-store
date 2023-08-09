@@ -22,12 +22,20 @@ interface Type {
 
 export default function Clothes() {
   const dispatch = useDispatch();
-  const value = useSelector((state: RootState) => state.filter.value);
+
   const [clothes, setClothes] = useState<Type[]>([]);
   const getClothes = async () => {
     const response = await axios.get("http://localhost:3000/clothes");
     setClothes(response.data.clothes);
   };
+
+  const genderType = useSelector((store: RootState) => store.filter.genderType);
+
+  const categoryType = useSelector(
+    (store: RootState) => store.filter.categoryType
+  );
+
+  const value = useSelector((state: RootState) => state.filter.value);
 
   useEffect(() => {
     getClothes();
@@ -49,24 +57,29 @@ export default function Clothes() {
           <Sort />
         </FindBy>
         <MainGrid>
-          {clothes.map((item, index) => (
-            <ArrivalDiv key={index}>
-              <ImageDiv
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item.image})`,
-                }}
-              ></ImageDiv>
+          {clothes
+            .filter((item) => genderType === null || item.gender === genderType)
+            .filter(
+              (item) => categoryType === null || item.category === categoryType
+            )
+            .map((item, index) => (
+              <ArrivalDiv key={index}>
+                <ImageDiv
+                  style={{
+                    backgroundImage: `url(http://localhost:3000${item.image})`,
+                  }}
+                ></ImageDiv>
 
-              <About>
-                <Description>
-                  <Name>{item.name}</Name>
-                  <Brand>{item.brand}</Brand>
-                </Description>
-                <Price>{item.price}</Price>
-                <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-              </About>
-            </ArrivalDiv>
-          ))}
+                <About>
+                  <Description>
+                    <Name>{item.name}</Name>
+                    <Brand>{item.brand}</Brand>
+                  </Description>
+                  <Price>{item.price}</Price>
+                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+                </About>
+              </ArrivalDiv>
+            ))}
         </MainGrid>
       </Main>
     </>
@@ -109,7 +122,6 @@ const FilterIcon = styled("img")`
 const MainGrid = styled(Box)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
   gap: 25px;
   padding-top: 25px;
 `;
@@ -179,27 +191,3 @@ const Price = styled(Typography)`
   font-size: 16px;
   font-family: "Cousine", monospace;
 `;
-
-// const SizeDiv = styled(Box)`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `;
-
-// const Size = styled("button")`
-//   padding: 4px;
-//   border: 1px solid #d8d8e1;
-//   color: black;
-//   cursor: pointer;
-//   background: white;
-//   margin-right: 8px;
-//   margin-top: 5px;
-// `;
-
-// <SizeDiv>
-//                   <Size>XS</Size>
-//                   <Size>S</Size>
-//                   <Size>M</Size>
-//                   <Size>L</Size>
-//                   <Size>XL</Size>
-//                 </SizeDiv>

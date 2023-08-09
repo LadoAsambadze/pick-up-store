@@ -1,16 +1,23 @@
 import { Box, Typography, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import { setFilter } from "../store/filter-slice";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
-import { setValue } from "../store/filter-slice";
+import {
+  setGenderType,
+  setCategoryType,
+  setValue,
+  setFilter,
+} from "../store/filter-slice";
 
 export default function FilterComponent() {
   const dispatch = useDispatch();
+  const [gender, setGender] = useState(false);
+  const [category, setCategory] = useState(false);
 
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
+
   const value = useSelector((state: RootState) => state.filter.value);
   const handleChange = (event: Event, newValue: number | number[]) => {
     dispatch(setValue(newValue as number[]));
@@ -19,97 +26,125 @@ export default function FilterComponent() {
 
   return (
     <>
-      <Main style={{ display: filter ? "flex" : "none" }}>
-        <Header>
-          <FilterDiv>
-            <FilterHead>Filter</FilterHead>
-            <FilterIcon src="/filter.svg" alt="Filter icon " />
-          </FilterDiv>
-          <Xdiv
+      <MainBack style={{ display: filter ? "flex" : "none" }}>
+        <Main style={{ display: filter ? "flex" : "none" }}>
+          <Header>
+            <FilterDiv>
+              <FilterHead>Filter</FilterHead>
+              <FilterIcon src="/filter.svg" alt="Filter icon " />
+            </FilterDiv>
+            <Xdiv
+              onClick={() => {
+                dispatch(setFilter(false));
+              }}
+            >
+              <CloseIcon src="/close.png" />
+            </Xdiv>
+          </Header>
+          <Line></Line>
+          <ListDiv>
+            <HeaderDiv
+              onClick={() => {
+                setGender(!gender);
+              }}
+            >
+              <Type>Gender</Type>
+              <Arrow src="/Icon.svg" />
+            </HeaderDiv>
+            <div
+              style={{ display: gender ? "block" : "none", marginTop: "20px" }}
+            >
+              <p onClick={() => dispatch(setGenderType("Girl"))}>Girl</p>
+              <p onClick={() => dispatch(setGenderType("Boy"))}>Boy</p>
+            </div>
+            <HeaderDiv onClick={() => setCategory(!category)}>
+              <Type>Category</Type>
+              <Arrow src="/Icon.svg" />
+            </HeaderDiv>
+            <div style={{ display: category ? "block" : "none" }}>
+              <p onClick={() => dispatch(setCategoryType("Men"))}>Men</p>
+              <p onClick={() => dispatch(setCategoryType("Women"))}>Women</p>
+              <p onClick={() => dispatch(setCategoryType("Kid"))}>Kid</p>
+            </div>
+            <HeaderDiv>
+              <Type>Style</Type>
+              <Arrow src="/Icon.svg" />
+            </HeaderDiv>
+            <HeaderDiv>
+              <Type>Color</Type>
+              <Arrow src="/Icon.svg" />
+            </HeaderDiv>
+          </ListDiv>
+          <Line></Line>
+          <PriceDiv
             onClick={() => {
-              dispatch(setFilter(false));
+              setPrice(!price);
             }}
           >
-            <CloseIcon src="/close.png" />
-          </Xdiv>
-        </Header>
-        <Line></Line>
-        <ListDiv>
-          <HeaderDiv>
-            <Type>Gender</Type>
-            <Arrow src="/Icon.svg" />
-          </HeaderDiv>
-          <HeaderDiv>
-            <Type>Category</Type>
-            <Arrow src="/Icon.svg" />
-          </HeaderDiv>
-          <HeaderDiv>
-            <Type>Style</Type>
-            <Arrow src="/Icon.svg" />
-          </HeaderDiv>
-          <HeaderDiv>
-            <Type>Color</Type>
-            <Arrow src="/Icon.svg" />
-          </HeaderDiv>
-        </ListDiv>
-        <Line></Line>
-        <PriceDiv
-          onClick={() => {
-            setPrice(!price);
-          }}
-        >
-          <FilterHead style={{ cursor: "pointer" }}>Price</FilterHead>
-          <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
-        </PriceDiv>
-        <ShowMain style={{ display: price ? "flex" : "none" }}>
-          <PriceRangeDiv>
-            <Box sx={{ width: "100%" }}>
-              <Slider
-                getAriaLabel={() => "Price Range"}
-                value={value}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-              />
-            </Box>
-          </PriceRangeDiv>
-          <RangesDiv>
-            <RangeBox>{value[0]}</RangeBox>
-            <RangeBox>{value[1]}</RangeBox>
-          </RangesDiv>
-        </ShowMain>
-        <Line></Line>
-        <SizeDiv onClick={() => setSize(!size)}>
-          <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
-          <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
-        </SizeDiv>
-        <Line></Line>
-        <ShowMain style={{ display: size ? "flex" : "none" }}>
-          <SizeListDiv>
-            <SizeChoose>XXS</SizeChoose>
-            <SizeChoose>XL</SizeChoose>
-            <SizeChoose>XS</SizeChoose>
-            <SizeChoose>S</SizeChoose>
-            <SizeChoose>M</SizeChoose>
-            <SizeChoose>L</SizeChoose>
-            <SizeChoose>XXL</SizeChoose>
-            <SizeChoose>3XS</SizeChoose>
-            <SizeChoose>4XS</SizeChoose>
-          </SizeListDiv>
-        </ShowMain>
-      </Main>
+            <FilterHead style={{ cursor: "pointer" }}>Price</FilterHead>
+            <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
+          </PriceDiv>
+          <ShowMain style={{ display: price ? "flex" : "none" }}>
+            <PriceRangeDiv>
+              <Box sx={{ width: "100%" }}>
+                <Slider
+                  getAriaLabel={() => "Price Range"}
+                  value={value}
+                  onChange={handleChange}
+                  valueLabelDisplay="auto"
+                />
+              </Box>
+            </PriceRangeDiv>
+            <RangesDiv>
+              <RangeBox>{value[0]}</RangeBox>
+              <RangeBox>{value[1]}</RangeBox>
+            </RangesDiv>
+          </ShowMain>
+          <Line></Line>
+          <SizeDiv onClick={() => setSize(!size)}>
+            <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
+            <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
+          </SizeDiv>
+          <Line></Line>
+          <ShowMain style={{ display: size ? "flex" : "none" }}>
+            <SizeListDiv>
+              <SizeChoose>XXS</SizeChoose>
+              <SizeChoose>XL</SizeChoose>
+              <SizeChoose>XS</SizeChoose>
+              <SizeChoose>S</SizeChoose>
+              <SizeChoose>M</SizeChoose>
+              <SizeChoose>L</SizeChoose>
+              <SizeChoose>XXL</SizeChoose>
+              <SizeChoose>3XS</SizeChoose>
+              <SizeChoose>4XS</SizeChoose>
+            </SizeListDiv>
+          </ShowMain>
+        </Main>
+      </MainBack>
     </>
   );
 }
 
+const MainBack = styled(Box)`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 90;
+  left: 0;
+  left: 0px;
+  top: 108px;
+`;
 const Main = styled(Box)`
-  width: 350px;
   display: flex;
+  height: 100%;
   flex-direction: column;
   background-color: white;
-  position: absolute;
-  z-index: 100;
-  left: 3px;
-  top: 108px;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
   border: 1px solid black;
 `;
 
@@ -127,7 +162,6 @@ const FilterDiv = styled(Box)`
 `;
 const FilterHead = styled(Typography)`
   color: #807d7e;
-
   font-size: 22px;
   font-style: normal;
   font-weight: 600;
@@ -154,6 +188,7 @@ const Xdiv = styled(Box)`
   &:hover {
     border-color: black;
   }
+  margin-left: 200px;
 `;
 
 const CloseIcon = styled("img")`

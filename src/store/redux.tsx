@@ -5,6 +5,8 @@ const store = configureStore({
   reducer: {
     filter: filterSlice,
     value: filterSlice,
+    genderType: filterSlice,
+    categoryType: filterSlice,
   },
 });
 
