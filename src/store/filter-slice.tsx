@@ -45,6 +45,7 @@ const filterSlice = createSlice({
         state.sizeType.push(selectedSize);
       }
     },
+    resetFilter: () => initialState,
   },
 });
 
@@ -55,5 +56,6 @@ export const {
   setCategoryType,
   setBrandType,
   setSizeType,
+  resetFilter
 } = filterSlice.actions;
 export default filterSlice.reducer;

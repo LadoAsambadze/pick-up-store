@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearch } from "../store/search-slice";
 
+import { resetFilter } from "../store/filter-slice";
+
 export default function Header() {
   const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
@@ -14,6 +16,8 @@ export default function Header() {
   const menuHandler = () => {
     setMenu(!menu);
   };
+
+  // ...
 
   return (
     <>
@@ -32,6 +36,7 @@ export default function Header() {
             <Type
               onClick={() => {
                 navigate("/clothes");
+                dispatch(resetFilter());
               }}
             >
               Clothes
@@ -39,6 +44,7 @@ export default function Header() {
             <Type
               onClick={() => {
                 navigate("/shoes");
+                dispatch(resetFilter());
               }}
             >
               Shoes
