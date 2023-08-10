@@ -7,6 +7,7 @@ interface FilterState {
   categoryType: string | null;
   brandType: string | null;
   sizeType: string[];
+  sortType: string | null;
 }
 
 const initialState: FilterState = {
@@ -16,6 +17,7 @@ const initialState: FilterState = {
   categoryType: null,
   brandType: null,
   sizeType: [],
+  sortType: null,
 };
 
 const filterSlice = createSlice({
@@ -45,6 +47,9 @@ const filterSlice = createSlice({
         state.sizeType.push(selectedSize);
       }
     },
+    setSortType: (state, action: PayloadAction<string>) => {
+      state.sortType = action.payload;
+    },
     resetFilter: () => initialState,
   },
 });
@@ -56,6 +61,7 @@ export const {
   setCategoryType,
   setBrandType,
   setSizeType,
-  resetFilter
+  resetFilter,
+  setSortType,
 } = filterSlice.actions;
 export default filterSlice.reducer;

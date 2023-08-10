@@ -80,6 +80,19 @@ export default function Clothes() {
                 search === "" ||
                 item.name.toLowerCase().includes(search.toLowerCase())
             )
+            .sort((itemA, itemB) => {
+              if (redux.sortType === "low") {
+                return itemA.price - itemB.price;
+              } else if (redux.sortType === "high") {
+                return itemB.price - itemA.price;
+              } else if (itemA.new && !itemB.new && redux.sortType === "new") {
+                return -1; //
+              } else if (!itemA.new && itemB.new && redux.sortType === "old") {
+                return 1;
+              } else {
+                return 0;
+              }
+            })
             .map((item, index) => (
               <ArrivalDiv key={index}>
                 <ImageDiv

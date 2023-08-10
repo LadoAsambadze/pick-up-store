@@ -5,12 +5,18 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import "../index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/redux";
+import { setSortType } from "../store/filter-slice";
 export default function Sort() {
-  const [age, setAge] = React.useState("");
+  const dispatch = useDispatch();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    dispatch(setSortType(event.target.value as string));
   };
+
+  const redux = useSelector((state: RootState) => state.filter);
+
   return (
     <Box className="sort-box">
       <FormControl className="sort-box">
@@ -18,14 +24,14 @@ export default function Sort() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={redux.sortType || undefined}
           label="Sort By"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Price - Low to High</MenuItem>
-          <MenuItem value={20}>Price - High to low</MenuItem>
-          <MenuItem value={30}>New to old</MenuItem>
-          <MenuItem value={30}>Old to new</MenuItem>
+          <MenuItem value="low">Price - Low to High</MenuItem>
+          <MenuItem value="high">Price - High to low</MenuItem>
+          <MenuItem value="new">New to old</MenuItem>
+          <MenuItem value="old">Old to new</MenuItem>
         </Select>
       </FormControl>
     </Box>

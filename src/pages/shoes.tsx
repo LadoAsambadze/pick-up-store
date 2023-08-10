@@ -2,16 +2,17 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { RootState } from "../store/redux";
 
 interface Type {
   type: string;
   gender: string;
   category: string;
-  price: string;
+  price: number;
   size: string;
   brand: string;
   name: string;
@@ -22,6 +23,8 @@ interface Type {
 export default function Shoes() {
   const dispatch = useDispatch();
   const [shoes, setShoes] = useState<Type[]>([]);
+  const redux = useSelector((state: RootState) => state.filter);
+  const search = useSelector((state: RootState) => state.search.search);
 
   const getShoes = async () => {
     const response = await axios.get("http://localhost:3000/shoes");
@@ -48,24 +51,67 @@ export default function Shoes() {
           <Sort />
         </FindBy>
         <MainGrid>
-          {shoes.map((item, index) => (
-            <ArrivalDiv key={index}>
-              <ImageDiv
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item.image})`,
-                }}
-              ></ImageDiv>
+          {shoes
+            .sort((itemA, itemB) => {
+              if (redux.sortType === "low") {
+                return itemA.price - itemB.price;
+              } else if (redux.sortType === "high") {
+                return itemB.price - itemA.price;
+              } else if (itemA.new && !itemB.new && redux.sortType === "new") {
+                return -1; //
+              } else if (!itemA.new && itemB.new && redux.sortType === "old") {
+                return 1;
+              } else {
+                return 0;
+              }
+            })
+            .filter(
+              (item) =>
+                redux.sizeType.length === 0 ||
+                redux.sizeType.includes(item.size)
+            )
+            .filter(
+              (item) =>
+                redux.brandType === null || item.brand === redux.brandType
+            )
+            .filter(
+              (item) =>
+                item.price > redux.priceAmount[0] &&
+                item.price < redux.priceAmount[1]
+            )
+            .filter(
+              (item) =>
+                search === "" ||
+                item.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .filter(
+              (item) =>
+                redux.genderType === null || redux.genderType === item.gender
+            )
+            .filter(
+              (item) =>
+                redux.categoryType === null ||
+                redux.categoryType === item.category
+            )
 
-              <About>
-                <Description>
-                  <Name>{item.name}</Name>
-                  <Brand>{item.brand}</Brand>
-                </Description>
-                <Price>{item.price}</Price>
-                <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-              </About>
-            </ArrivalDiv>
-          ))}
+            .map((item, index) => (
+              <ArrivalDiv key={index}>
+                <ImageDiv
+                  style={{
+                    backgroundImage: `url(http://localhost:3000${item.image})`,
+                  }}
+                ></ImageDiv>
+
+                <About>
+                  <Description>
+                    <Name>{item.name}</Name>
+                    <Brand>{item.brand}</Brand>
+                  </Description>
+                  <Price>{item.price}</Price>
+                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+                </About>
+              </ArrivalDiv>
+            ))}
         </MainGrid>
       </Main>
     </>
