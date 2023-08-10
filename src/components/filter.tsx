@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+
 import {
   setGenderType,
   setCategoryType,
@@ -26,7 +27,6 @@ export default function FilterComponent() {
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
-
   return (
     <>
       <MainBack style={{ display: redux.filter ? "flex" : "none" }}>
@@ -119,7 +119,11 @@ export default function FilterComponent() {
           <ShowMain style={{ display: size ? "flex" : "none" }}>
             <SizeListDiv>
               {sizeOptions.map((size) => (
-                <SizeChoose key={size} onClick={() => handleSize(size)}>
+                <SizeChoose
+                  key={size}
+                  onClick={() => handleSize(size)}
+                  className={redux.sizeType.includes(size) ? "selected" : ""}
+                >
                   {size}
                 </SizeChoose>
               ))}

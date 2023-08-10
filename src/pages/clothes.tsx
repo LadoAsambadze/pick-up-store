@@ -34,6 +34,8 @@ export default function Clothes() {
     getClothes();
   }, []);
 
+  console.log(redux.sizeType);
+
   return (
     <>
       <Main>
@@ -71,8 +73,8 @@ export default function Clothes() {
             )
             .filter(
               (item) =>
-                redux.sizeType === null ||
-                item.size === redux.sizeType.toLowerCase()
+                redux.sizeType.length === 0 ||
+                redux.sizeType.includes(item.size.toUpperCase())
             )
             .filter(
               (item) => search === null || item.name === search.toLowerCase()

@@ -11,7 +11,6 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-
 }
 
 .carousel-item {
@@ -20,4 +19,8 @@ body {
 
 .sort-box {
   width: 200px;
+}
+
+.selected {
+  background-color: lightblue; /* or any other style you prefer */
 }

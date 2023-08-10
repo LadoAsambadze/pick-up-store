@@ -6,7 +6,7 @@ interface FilterState {
   genderType: string | null;
   categoryType: string | null;
   brandType: string | null;
-  sizeType: string | null;
+  sizeType: string[];
 }
 
 const initialState: FilterState = {
@@ -15,7 +15,7 @@ const initialState: FilterState = {
   genderType: null,
   categoryType: null,
   brandType: null,
-  sizeType: null,
+  sizeType: [],
 };
 
 const filterSlice = createSlice({
@@ -38,7 +38,12 @@ const filterSlice = createSlice({
       state.brandType = action.payload;
     },
     setSizeType: (state, action: PayloadAction<string>) => {
-      state.sizeType = action.payload;
+      const selectedSize = action.payload;
+      if (state.sizeType.includes(selectedSize)) {
+        state.sizeType = state.sizeType.filter((size) => size !== selectedSize);
+      } else {
+        state.sizeType.push(selectedSize);
+      }
     },
   },
 });
