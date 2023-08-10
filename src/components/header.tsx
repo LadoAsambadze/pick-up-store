@@ -4,8 +4,7 @@ import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/redux";
+import { useDispatch } from "react-redux";
 import { setSearch } from "../store/search-slice";
 
 export default function Header() {
@@ -15,10 +14,6 @@ export default function Header() {
   const menuHandler = () => {
     setMenu(!menu);
   };
-
- 
-
-
 
   return (
     <>

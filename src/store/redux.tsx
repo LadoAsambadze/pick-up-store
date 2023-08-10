@@ -1,32 +1,33 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import filterSlice from "./filter-slice";
 import searchSlice from "./search-slice";
-import createTransform from "redux-persist/es/createTransform";
-
-const persistConfig = {
-  key: "root",
-  storage,
-  transforms: [
-    createTransform((inboundedState, key) => {
-      if (key === "search") {
-        return undefined;
-      }
-      return inboundedState;
-    }),
-  ],
-};
 
 const rootReducer = combineReducers({
   filter: filterSlice,
   search: searchSlice,
 });
 
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["search"],
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ["persist/PERSIST"],
+    },
+  }),
 });
 
 export const persistor = persistStore(store);

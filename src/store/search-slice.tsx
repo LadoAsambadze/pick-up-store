@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Type {
-  search: string | null;
+  search: string;
 }
 
 const initialState: Type = {
-  search: null,
+  search: "",
 };
 
 const searchSlice = createSlice({

@@ -34,8 +34,6 @@ export default function Clothes() {
     getClothes();
   }, []);
 
-  console.log(redux.sizeType);
-
   return (
     <>
       <Main>
@@ -48,6 +46,7 @@ export default function Clothes() {
             <Filter>Filter</Filter>
             <FilterIcon src="/filter.png" />
           </FilterDiv>
+
           <FilterComponent />
           <Sort />
         </FindBy>
@@ -78,7 +77,8 @@ export default function Clothes() {
             )
             .filter(
               (item) =>
-                search === "" || item.name.toLowerCase().includes(search.toLowerCase())
+                search === "" ||
+                item.name.toLowerCase().includes(search.toLowerCase())
             )
             .map((item, index) => (
               <ArrivalDiv key={index}>
