@@ -154,7 +154,6 @@ const FilterIcon = styled("img")`
 const MainGrid = styled(Box)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
   gap: 25px;
   padding-top: 25px;
 `;

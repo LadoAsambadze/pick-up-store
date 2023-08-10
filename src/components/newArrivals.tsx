@@ -5,7 +5,10 @@ import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { setLoading } from "../store/loading-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/redux";
+import CircularProgress from "@mui/material/CircularProgress";
 interface Type {
   type: string;
   gender: string;
@@ -20,14 +23,26 @@ interface Type {
 
 export default function NewArrivals(props: any) {
   const [arrivals, setArrivals] = useState<Type[]>([]);
-
-  const getShoesAndClothes = async () => {
-    const shoesResponse = await axios.get("http://localhost:3000/shoes");
-    const clothesResponse = await axios.get("http://localhost:3000/clothes");
-    setArrivals([...shoesResponse.data.shoes, ...clothesResponse.data.clothes]);
-  };
+  const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.loading.loading);
 
   useEffect(() => {
+    const getShoesAndClothes = async () => {
+      try {
+        const shoesResponse = await axios.get("http://localhost:3000/shoes");
+        const clothesResponse = await axios.get(
+          "http://localhost:3000/clothes"
+        );
+        setArrivals([
+          ...shoesResponse.data.shoes,
+          ...clothesResponse.data.clothes,
+        ]);
+        dispatch(setLoading(false));
+      } catch (error) {
+        console.error({ message: "lado yyyyyyyyyyy", error });
+        prompt("qegqegqegqe");
+      }
+    };
     getShoesAndClothes();
   }, []);
 
@@ -56,33 +71,48 @@ export default function NewArrivals(props: any) {
           <Kind>New Arrivals</Kind>
           <View>View All</View>
         </HeaderDiv>
-        <Carousel
-          responsive={responsive}
-          autoPlay={props.deviceType === "mobile" ? true : false}
-          itemClass="carousel-item"
-          infinite={true}
-        >
-          {arrivals
-            .filter((item) => item.new)
-            .map((item, index) => (
-              <ArrivalDiv key={index}>
-                <ImageDiv
-                  style={{
-                    backgroundImage: `url(http://localhost:3000${item.image})`,
-                  }}
-                ></ImageDiv>
-
-                <About>
-                  <Description>
-                    <Name>{item.name}</Name>
-                    <Brand>{item.brand}</Brand>
-                  </Description>
-                  <Price>{item.price}</Price>
-                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-                </About>
-              </ArrivalDiv>
-            ))}
-        </Carousel>
+        {loading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <CircularProgress />
+          </div>
+        ) : (
+          <Carousel
+            responsive={responsive}
+            autoPlay={props.deviceType === "mobile"}
+            itemClass="carousel-item"
+            infinite={true}
+          >
+            {arrivals
+              .filter((item) => item.new)
+              .map((item, index) => (
+                <ArrivalDiv key={index}>
+                  <ImageDiv
+                    style={{
+                      backgroundImage: `url(http://localhost:3000${item.image})`,
+                    }}
+                  ></ImageDiv>
+                  <About>
+                    <Description>
+                      <Name>{item.name}</Name>
+                      <Brand>{item.brand}</Brand>
+                    </Description>
+                    <Price>{item.price}</Price>
+                    <Favourite
+                      src="/heart.svg"
+                      alt="Favourite add icon, heart"
+                    />
+                  </About>
+                </ArrivalDiv>
+              ))}
+          </Carousel>
+        )}
       </Section>
     </>
   );
@@ -108,7 +138,6 @@ const HeaderDiv = styled(Box)`
   @media (min-width: 1440px) {
     padding: 30px 25px 25px 25px;
   }
-
 `;
 
 const Kind = styled(Typography)`

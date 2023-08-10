@@ -37,81 +37,99 @@ export default function Clothes() {
   return (
     <>
       <Main>
-        <FindBy>
-          <FilterDiv
-            onClick={() => {
-              dispatch(setFilter(true));
-            }}
-          >
-            <Filter>Filter</Filter>
-            <FilterIcon src="/filter.png" />
-          </FilterDiv>
+        <FilterComponent />
+        <div
+          style={{
+            filter: redux.filter ? "blur(5px)" : "none",
+            pointerEvents: redux.filter ? "none" : "auto",
+          }}
+        >
+          <FindBy>
+            <FilterDiv
+              onClick={() => {
+                dispatch(setFilter(true));
+              }}
+            >
+              <Filter>Filter</Filter>
+              <FilterIcon src="/filter.png" />
+            </FilterDiv>
 
-          <FilterComponent />
-          <Sort />
-        </FindBy>
-        <MainGrid>
-          {clothes
-            .filter(
-              (item) =>
-                redux.genderType === null || item.gender === redux.genderType
-            )
-            .filter(
-              (item) =>
-                redux.categoryType === null ||
-                item.category === redux.categoryType
-            )
-            .filter(
-              (item) =>
-                redux.brandType === null || item.brand === redux.brandType
-            )
-            .filter(
-              (item) =>
-                item.price > redux.priceAmount[0] &&
-                item.price < redux.priceAmount[1]
-            )
-            .filter(
-              (item) =>
-                redux.sizeType.length === 0 ||
-                redux.sizeType.includes(item.size.toUpperCase())
-            )
-            .filter(
-              (item) =>
-                search === "" ||
-                item.name.toLowerCase().includes(search.toLowerCase())
-            )
-            .sort((itemA, itemB) => {
-              if (redux.sortType === "low") {
-                return itemA.price - itemB.price;
-              } else if (redux.sortType === "high") {
-                return itemB.price - itemA.price;
-              } else if (itemA.new && !itemB.new && redux.sortType === "new") {
-                return -1; //
-              } else if (!itemA.new && itemB.new && redux.sortType === "old") {
-                return 1;
-              } else {
-                return 0;
-              }
-            })
-            .map((item, index) => (
-              <ArrivalDiv key={index}>
-                <ImageDiv
-                  style={{
-                    backgroundImage: `url(http://localhost:3000${item.image})`,
-                  }}
-                ></ImageDiv>
+            <Sort />
+          </FindBy>
+          <MainGrid>
+            {clothes
+              .filter(
+                (item) =>
+                  redux.genderType === null || item.gender === redux.genderType
+              )
+              .filter(
+                (item) =>
+                  redux.categoryType === null ||
+                  item.category === redux.categoryType
+              )
+              .filter(
+                (item) =>
+                  redux.brandType === null || item.brand === redux.brandType
+              )
+              .filter(
+                (item) =>
+                  item.price > redux.priceAmount[0] &&
+                  item.price < redux.priceAmount[1]
+              )
+              .filter(
+                (item) =>
+                  redux.sizeType.length === 0 ||
+                  redux.sizeType.includes(item.size.toUpperCase())
+              )
+              .filter(
+                (item) =>
+                  search === "" ||
+                  item.name.toLowerCase().includes(search.toLowerCase())
+              )
+              .sort((itemA, itemB) => {
+                if (redux.sortType === "low") {
+                  return itemA.price - itemB.price;
+                } else if (redux.sortType === "high") {
+                  return itemB.price - itemA.price;
+                } else if (
+                  itemA.new &&
+                  !itemB.new &&
+                  redux.sortType === "new"
+                ) {
+                  return -1; //
+                } else if (
+                  !itemA.new &&
+                  itemB.new &&
+                  redux.sortType === "old"
+                ) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              })
+              .map((item, index) => (
+                <ArrivalDiv key={index}>
+                  <ImageDiv
+                    style={{
+                      backgroundImage: `url(http://localhost:3000${item.image})`,
+                    }}
+                  ></ImageDiv>
 
-                <About>
-                  <Description>
-                    <Name>{item.name}</Name>
-                    <Brand>{item.brand}</Brand>
-                  </Description>
-                  <Price>{item.price}</Price>
-                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
-                </About>
-              </ArrivalDiv>
-            ))}
-        </MainGrid>
+                  <About>
+                    <Description>
+                      <Name>{item.name}</Name>
+                      <Brand>{item.brand}</Brand>
+                    </Description>
+                    <Price>{item.price}</Price>
+                    <Favourite
+                      src="/heart.svg"
+                      alt="Favourite add icon, heart"
+                    />
+                  </About>
+                </ArrivalDiv>
+              ))}
+          </MainGrid>
+        </div>
       </Main>
     </>
   );
@@ -121,6 +139,7 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 100vh;
   padding: 10px 100px 10px 100px;
 `;
 

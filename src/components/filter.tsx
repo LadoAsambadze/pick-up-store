@@ -33,125 +33,113 @@ export default function FilterComponent() {
   const isShoesPage = location.pathname === "/shoes";
   return (
     <>
-      <MainBack style={{ display: redux.filter ? "flex" : "none" }}>
-        <Main style={{ display: redux.filter ? "flex" : "none" }}>
-          <Header>
-            <FilterDiv>
-              <FilterHead>Filter</FilterHead>
-              <FilterIcon src="/filter.svg" alt="Filter icon " />
-            </FilterDiv>
-            <Xdiv
-              onClick={() => {
-                dispatch(setFilter(false));
-              }}
-            >
-              <CloseIcon src="/close.png" />
-            </Xdiv>
-          </Header>
-          <Line></Line>
-          <ListDiv>
-            <HeaderDiv
-              onClick={() => {
-                setGender(!gender);
-              }}
-            >
-              <Type>Gender</Type>
-              <Arrow src="/Icon.svg" />
-            </HeaderDiv>
-            <div
-              style={{ display: gender ? "block" : "none", marginTop: "20px" }}
-            >
-              <p onClick={() => dispatch(setGenderType("Girl"))}>Girl</p>
-              <p onClick={() => dispatch(setGenderType("Boy"))}>Boy</p>
-            </div>
-            <HeaderDiv onClick={() => setCategory(!category)}>
-              <Type>Category</Type>
-              <Arrow src="/Icon.svg" />
-            </HeaderDiv>
-            <div style={{ display: category ? "block" : "none" }}>
-              <p onClick={() => dispatch(setCategoryType("Men"))}>Men</p>
-              <p onClick={() => dispatch(setCategoryType("Women"))}>Women</p>
-              <p onClick={() => dispatch(setCategoryType("Kid"))}>Kid</p>
-            </div>
-            <HeaderDiv
-              onClick={() => {
-                setBrand(!brand);
-              }}
-            >
-              <Type>Brand</Type>
-              <Arrow src="/Icon.svg" />
-            </HeaderDiv>
-            <div style={{ display: brand ? "block" : "none" }}>
-              <p onClick={() => dispatch(setBrandType("Nike"))}>Nike</p>
-              <p onClick={() => dispatch(setBrandType("Adidas"))}>Adidas</p>
-              <p onClick={() => dispatch(setBrandType("Puma"))}>Puma</p>
-              <p onClick={() => dispatch(setBrandType("Zara"))}>Zara</p>
-              <p onClick={() => dispatch(setBrandType("Reebok"))}>Reebok</p>
-            </div>
-          </ListDiv>
-          <Line></Line>
-          <PriceDiv
+      <Main style={{ display: redux.filter ? "flex" : "none" }}>
+        <Header>
+          <FilterDiv>
+            <FilterHead>Filter</FilterHead>
+            <FilterIcon src="/filter.svg" alt="Filter icon " />
+          </FilterDiv>
+          <Xdiv
             onClick={() => {
-              setPrice(!price);
+              dispatch(setFilter(false));
             }}
           >
-            <FilterHead style={{ cursor: "pointer" }}>Price</FilterHead>
-            <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
-          </PriceDiv>
-          <ShowMain style={{ display: price ? "flex" : "none" }}>
-            <PriceRangeDiv>
-              <Box sx={{ width: "100%" }}>
-                <Slider
-                  getAriaLabel={() => "Price Range"}
-                  value={redux.priceAmount}
-                  onChange={handleChange}
-                  valueLabelDisplay="auto"
-                />
-              </Box>
-            </PriceRangeDiv>
-            <RangesDiv>
-              <RangeBox>{redux.priceAmount[0]}</RangeBox>
-              <RangeBox>{redux.priceAmount[1]}</RangeBox>
-            </RangesDiv>
-          </ShowMain>
-          <Line></Line>
-          <SizeDiv onClick={() => setSize(!size)}>
-            <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
-            <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
-          </SizeDiv>
-          <Line></Line>
-          <ShowMain style={{ display: size ? "flex" : "none" }}>
-            <SizeListDiv>
-              {(isShoesPage ? shoesOptions : clotheOptions).map((size) => (
-                <SizeChoose
-                  key={size}
-                  onClick={() => handleSize(size)}
-                  className={redux.sizeType.includes(size) ? "selected" : ""}
-                >
-                  {size}
-                </SizeChoose>
-              ))}
-            </SizeListDiv>
-          </ShowMain>
-        </Main>
-      </MainBack>
+            <CloseIcon src="/close.png" />
+          </Xdiv>
+        </Header>
+        <Line></Line>
+        <ListDiv>
+          <HeaderDiv
+            onClick={() => {
+              setGender(!gender);
+            }}
+          >
+            <Type>Gender</Type>
+            <Arrow src="/Icon.svg" />
+          </HeaderDiv>
+          <div
+            style={{ display: gender ? "block" : "none", marginTop: "20px" }}
+          >
+            <p onClick={() => dispatch(setGenderType("Girl"))}>Girl</p>
+            <p onClick={() => dispatch(setGenderType("Boy"))}>Boy</p>
+          </div>
+          <HeaderDiv onClick={() => setCategory(!category)}>
+            <Type>Category</Type>
+            <Arrow src="/Icon.svg" />
+          </HeaderDiv>
+          <div style={{ display: category ? "block" : "none" }}>
+            <p onClick={() => dispatch(setCategoryType("Men"))}>Men</p>
+            <p onClick={() => dispatch(setCategoryType("Women"))}>Women</p>
+            <p onClick={() => dispatch(setCategoryType("Kid"))}>Kid</p>
+          </div>
+          <HeaderDiv
+            onClick={() => {
+              setBrand(!brand);
+            }}
+          >
+            <Type>Brand</Type>
+            <Arrow src="/Icon.svg" />
+          </HeaderDiv>
+          <div style={{ display: brand ? "block" : "none" }}>
+            <p onClick={() => dispatch(setBrandType("Nike"))}>Nike</p>
+            <p onClick={() => dispatch(setBrandType("Adidas"))}>Adidas</p>
+            <p onClick={() => dispatch(setBrandType("Puma"))}>Puma</p>
+            <p onClick={() => dispatch(setBrandType("Zara"))}>Zara</p>
+            <p onClick={() => dispatch(setBrandType("Reebok"))}>Reebok</p>
+          </div>
+        </ListDiv>
+        <Line></Line>
+        <PriceDiv
+          onClick={() => {
+            setPrice(!price);
+          }}
+        >
+          <FilterHead style={{ cursor: "pointer" }}>Price</FilterHead>
+          <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
+        </PriceDiv>
+        <ShowMain style={{ display: price ? "flex" : "none" }}>
+          <PriceRangeDiv>
+            <Box sx={{ width: "100%" }}>
+              <Slider
+                getAriaLabel={() => "Price Range"}
+                value={redux.priceAmount}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+              />
+            </Box>
+          </PriceRangeDiv>
+          <RangesDiv>
+            <RangeBox>{redux.priceAmount[0]}</RangeBox>
+            <RangeBox>{redux.priceAmount[1]}</RangeBox>
+          </RangesDiv>
+        </ShowMain>
+        <Line></Line>
+        <SizeDiv onClick={() => setSize(!size)}>
+          <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
+          <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
+        </SizeDiv>
+        <Line></Line>
+        <ShowMain style={{ display: size ? "flex" : "none" }}>
+          <SizeListDiv>
+            {(isShoesPage ? shoesOptions : clotheOptions).map((size) => (
+              <SizeChoose
+                key={size}
+                onClick={() => handleSize(size)}
+                className={redux.sizeType.includes(size) ? "selected" : ""}
+              >
+                {size}
+              </SizeChoose>
+            ))}
+          </SizeListDiv>
+        </ShowMain>
+      </Main>
     </>
   );
 }
 
-const MainBack = styled(Box)`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(1px);
-  z-index: 10;
-  left: 0;
-  left: 0px;
-  top: 0px;
-`;
 const Main = styled(Box)`
   display: flex;
+  position: absolute;
   height: 100%;
   flex-direction: column;
   background-color: white;
