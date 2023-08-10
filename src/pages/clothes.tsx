@@ -77,7 +77,8 @@ export default function Clothes() {
                 redux.sizeType.includes(item.size.toUpperCase())
             )
             .filter(
-              (item) => search === null || item.name === search.toLowerCase()
+              (item) =>
+                search === "" || item.name.toLowerCase().includes(search.toLowerCase())
             )
             .map((item, index) => (
               <ArrivalDiv key={index}>
