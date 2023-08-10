@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import {
   setGenderType,
@@ -23,10 +24,13 @@ export default function FilterComponent() {
   const handleChange = (event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
   };
-  const sizeOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
+  const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
+  const shoesOptions = ["36", "37", "38", "39", "40", "41", "42", "43", "44"];
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
+  const location = useLocation();
+  const isShoesPage = location.pathname === "/shoes";
   return (
     <>
       <MainBack style={{ display: redux.filter ? "flex" : "none" }}>
@@ -118,7 +122,7 @@ export default function FilterComponent() {
           <Line></Line>
           <ShowMain style={{ display: size ? "flex" : "none" }}>
             <SizeListDiv>
-              {sizeOptions.map((size) => (
+              {(isShoesPage ? shoesOptions : clotheOptions).map((size) => (
                 <SizeChoose
                   key={size}
                   onClick={() => handleSize(size)}
