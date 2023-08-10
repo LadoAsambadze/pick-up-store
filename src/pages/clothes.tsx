@@ -4,32 +4,20 @@ import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
 import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
-interface Type {
-  type: string;
-  gender: string;
-  category: string;
-  price: number;
-  size: string;
-  brand: string;
-  name: string;
-  image: string;
-  new: boolean;
-}
+import { setData } from "../store/data-slice";
 
 export default function Clothes() {
   const dispatch = useDispatch();
-  const [clothes, setClothes] = useState<Type[]>([]);
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
-
+  const data = useSelector((state: RootState) => state.data.data);
   useEffect(() => {
     const getClothes = async () => {
       const response = await axios.get("http://localhost:3000/clothes");
-      setClothes(response.data.clothes);
+      dispatch(setData(response.data.clothes));
     };
     getClothes();
   }, []);
@@ -57,7 +45,7 @@ export default function Clothes() {
             <Sort />
           </FindBy>
           <MainGrid>
-            {clothes
+            {data
               .filter(
                 (item) =>
                   redux.genderType === null || item.gender === redux.genderType

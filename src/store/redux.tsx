@@ -8,17 +8,19 @@ import storage from "redux-persist/lib/storage";
 import filterSlice from "./filter-slice";
 import searchSlice from "./search-slice";
 import loadingSlice from "./loading-slice";
+import dataSlice from "./data-slice";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
   search: searchSlice,
   loading: loadingSlice,
+  data: dataSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["search", "loading"],
+  blacklist: ["search", "loading", "data"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
