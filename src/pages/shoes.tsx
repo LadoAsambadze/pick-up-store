@@ -5,12 +5,15 @@ import FilterComponent from "../components/filter";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Shoes() {
   const dispatch = useDispatch();
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
+  const shoes = data.filter((item) => item.type === "sneakers");
+  const navigate = useNavigate();
 
   return (
     <>
@@ -28,7 +31,7 @@ export default function Shoes() {
           <Sort />
         </FindBy>
         <MainGrid>
-          {data
+          {shoes
 
             .filter(
               (item) =>
@@ -73,7 +76,13 @@ export default function Shoes() {
             })
 
             .map((item, index) => (
-              <ArrivalDiv key={index}>
+              <ArrivalDiv
+                onClick={() => {
+                  const id = item._id;
+                  navigate(`/shoes/${id}`);
+                }}
+                key={index}
+              >
                 <ImageDiv
                   style={{
                     backgroundImage: `url(http://localhost:3000${item.image})`,

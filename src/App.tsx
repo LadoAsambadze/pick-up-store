@@ -36,7 +36,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/shoes" element={<Shoes />} />
-        <Route path="/clothes/:id" element={<Selected />} />
+        <Route path="/shoes/:id" element={<Selected />} />
       </Routes>
       <Footer />
     </>

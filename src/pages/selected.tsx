@@ -4,13 +4,14 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { setSizeType } from "../store/filter-slice";
 
 export default function Selected() {
   const dispatch = useDispatch();
   const redux = useSelector((state: RootState) => state.filter);
   const location = useLocation();
+  const data = useSelector((state: RootState) => state.data.data);
   const isShoesPage = location.pathname === "/selected";
   const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
   const shoesOptions = [
@@ -28,6 +29,7 @@ export default function Selected() {
     "43",
     "44",
   ];
+
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
@@ -67,6 +69,12 @@ export default function Selected() {
       items: 3,
     },
   };
+
+  const { id } = useParams();
+  console.log(id);
+  const filt = data.find((item) => item._id === id);
+  console.log(filt);
+
   return (
     <>
       <Main>
@@ -76,7 +84,7 @@ export default function Selected() {
             itemClass="carousel-itemDesktop"
             infinite={true}
           >
-            <ImageDiv src="/Capture.PNG" />
+            <ImageDiv src={`http://localhost:3000${filt?.image}`} />
             <ImageDiv src="/Capture.PNG" />
           </Carousel>
         </DivideDivFirst>
