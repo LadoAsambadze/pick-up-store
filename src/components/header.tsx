@@ -75,8 +75,22 @@ export default function Header() {
           display: menu ? "flex" : "none",
         }}
       >
-        <Choose variant="text">Men</Choose>
-        <Choose variant="text">Women</Choose>
+        <Choose
+          onClick={() => {
+            navigate("/shoes");
+          }}
+          variant="text"
+        >
+          Men
+        </Choose>
+        <Choose
+          onClick={() => {
+            navigate("/clothes");
+          }}
+          variant="text"
+        >
+          Women
+        </Choose>
         <Choose variant="text">Kids</Choose>
         <Choose variant="text">Sale</Choose>
         <Line></Line>

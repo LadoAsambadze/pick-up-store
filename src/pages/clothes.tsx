@@ -8,17 +8,22 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../store/data-slice";
+import CircularProgress from "@mui/material/CircularProgress";
+import { setLoading } from "../store/loading-slice";
 
 export default function Clothes() {
   const dispatch = useDispatch();
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
+  const loading = useSelector((state: RootState) => state.loading.loading);
   useEffect(() => {
     const getClothes = async () => {
       const response = await axios.get("http://localhost:3000/clothes");
       dispatch(setData(response.data.clothes));
+      dispatch(setLoading(false));
     };
+
     getClothes();
   }, []);
 
@@ -44,79 +49,95 @@ export default function Clothes() {
 
             <Sort />
           </FindBy>
-          <MainGrid>
-            {data
-              .filter(
-                (item) =>
-                  redux.genderType === null || item.gender === redux.genderType
-              )
-              .filter(
-                (item) =>
-                  redux.categoryType === null ||
-                  item.category === redux.categoryType
-              )
-              .filter(
-                (item) =>
-                  redux.brandType === null || item.brand === redux.brandType
-              )
-              .filter(
-                (item) =>
-                  item.price > redux.priceAmount[0] &&
-                  item.price < redux.priceAmount[1]
-              )
-              .filter(
-                (item) =>
-                  redux.sizeType.length === 0 ||
-                  redux.sizeType.includes(item.size.toUpperCase())
-              )
-              .filter(
-                (item) =>
-                  search === "" ||
-                  item.name.toLowerCase().includes(search.toLowerCase())
-              )
-              .sort((itemA, itemB) => {
-                if (redux.sortType === "low") {
-                  return itemA.price - itemB.price;
-                } else if (redux.sortType === "high") {
-                  return itemB.price - itemA.price;
-                } else if (
-                  itemA.new &&
-                  !itemB.new &&
-                  redux.sortType === "new"
-                ) {
-                  return -1; //
-                } else if (
-                  !itemA.new &&
-                  itemB.new &&
-                  redux.sortType === "old"
-                ) {
-                  return 1;
-                } else {
-                  return 0;
-                }
-              })
-              .map((item, index) => (
-                <ArrivalDiv key={index}>
-                  <ImageDiv
-                    style={{
-                      backgroundImage: `url(http://localhost:3000${item.image})`,
-                    }}
-                  ></ImageDiv>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                minHeight: "100vh",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          ) : (
+            <MainGrid>
+              {data
+                .filter(
+                  (item) =>
+                    redux.genderType === null ||
+                    item.gender === redux.genderType
+                )
+                .filter(
+                  (item) =>
+                    redux.categoryType === null ||
+                    item.category === redux.categoryType
+                )
+                .filter(
+                  (item) =>
+                    redux.brandType === null || item.brand === redux.brandType
+                )
+                .filter(
+                  (item) =>
+                    item.price > redux.priceAmount[0] &&
+                    item.price < redux.priceAmount[1]
+                )
+                .filter(
+                  (item) =>
+                    redux.sizeType.length === 0 ||
+                    redux.sizeType.includes(item.size.toUpperCase())
+                )
+                .filter(
+                  (item) =>
+                    search === "" ||
+                    item.name.toLowerCase().includes(search.toLowerCase())
+                )
+                .sort((itemA, itemB) => {
+                  if (redux.sortType === "low") {
+                    return itemA.price - itemB.price;
+                  } else if (redux.sortType === "high") {
+                    return itemB.price - itemA.price;
+                  } else if (
+                    itemA.new &&
+                    !itemB.new &&
+                    redux.sortType === "new"
+                  ) {
+                    return -1; //
+                  } else if (
+                    !itemA.new &&
+                    itemB.new &&
+                    redux.sortType === "old"
+                  ) {
+                    return 1;
+                  } else {
+                    return 0;
+                  }
+                })
+                .map((item, index) => (
+                  <ArrivalDiv key={index}>
+                    <ImageDiv
+                      style={{
+                        backgroundImage: `url(http://localhost:3000${item.image})`,
+                      }}
+                    ></ImageDiv>
 
-                  <About>
-                    <Description>
+                    <About>
                       <Name>{item.name}</Name>
-                      <Brand>{item.brand}</Brand>
-                    </Description>
-                    <Price>{item.price}</Price>
-                    <Favourite
-                      src="/heart.svg"
-                      alt="Favourite add icon, heart"
-                    />
-                  </About>
-                </ArrivalDiv>
-              ))}
-          </MainGrid>
+
+                      <Description>
+                        <Price>{item.price}</Price>
+                        <Brand>{item.brand}</Brand>
+                      </Description>
+                      <Favourite
+                        src="/heart.svg"
+                        alt="Favourite add icon, heart"
+                      />
+                    </About>
+                  </ArrivalDiv>
+                ))}
+            </MainGrid>
+          )}
         </div>
       </Main>
     </>
@@ -128,7 +149,16 @@ const Main = styled(Box)`
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 10px 100px 10px 100px;
+  padding: 10px 20px 10px 20px;
+  @media (min-width: 500px) {
+    padding: 10px 35px 10px 35px;
+  }
+  @media (min-width: 768px) {
+    padding: 10px 50px 10px 50px;
+  }
+  @media (min-width: 1200px) {
+    padding: 10px 100px 10px 100px;
+  }
 `;
 
 const FindBy = styled(Box)`
@@ -159,28 +189,48 @@ const FilterIcon = styled("img")`
 
 const MainGrid = styled(Box)`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  padding-top: 25px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  padding-top: 10px;
+  @media (min-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding-top: 25px;
+  }
 `;
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid #d8d8e1;
+  border: 1px solid #d8d8e1;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
   position: relative;
+  @media (min-width: 1440px) {
+    border: 2px solid #d8d8e1;
+  }
 `;
 
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-  height: 300px;
+  height: 150px;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid #d8d8e1;
   background-position: center;
+  @media (min-width: 500px) {
+    height: 200px;
+  }
+  @media (min-width: 1200px) {
+    height: 300px;
+  }
 `;
 
 const About = styled(Box)`
@@ -190,19 +240,27 @@ const About = styled(Box)`
   align-items: flex-start;
   justify-content: center;
   background-color: white;
-  padding: 10px 20px 20px 20px;
+  padding: 10px 10px 10px 10px;
+  @media (min-width: 1440px) {
+    padding: 10px 20px 20px 20px;
+  }
 `;
 
 const Favourite = styled("img")`
   display: flex;
-  padding: 6px;
+  padding: 3px;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   cursor: pointer;
   position: absolute;
   top: 12px;
   right: 12px;
+  @media (min-width: 1440px) {
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+  }
 `;
 
 const Description = styled(Box)`
@@ -214,18 +272,28 @@ const Description = styled(Box)`
 `;
 const Name = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
+
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 const Brand = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
   text-transform: uppercase;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 const Price = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
