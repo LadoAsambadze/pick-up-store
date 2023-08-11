@@ -1,4 +1,4 @@
-import {  Typography, styled } from "@mui/material";
+import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -41,11 +41,11 @@ export default function Selected() {
       items: 3,
     },
     tabletOne: {
-      breakpoint: { max: 1000, min: 450 },
+      breakpoint: { max: 1000, min: 768 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 450, min: 0 },
+      breakpoint: { max: 768, min: 0 },
       items: 1,
     },
   };
@@ -60,11 +60,11 @@ export default function Selected() {
       items: 3,
     },
     tabletOne: {
-      breakpoint: { max: 1000, min: 450 },
-      items: 2,
+      breakpoint: { max: 1000, min: 550 },
+      items: 4,
     },
     mobile: {
-      breakpoint: { max: 450, min: 0 },
+      breakpoint: { max: 550, min: 0 },
       items: 3,
     },
   };
@@ -81,9 +81,9 @@ export default function Selected() {
           itemClass="carousel-item2"
           infinite={true}
           removeArrowOnDeviceType={["mobile"]}
-          showDots={true}
         >
-          <ImageDiv></ImageDiv>
+          <ImageDiv src="/Capture.PNG" />
+          <ImageDiv src="/Capture.PNG" />
         </Carousel>
         <Carousel
           responsive={responsive2}
@@ -145,13 +145,11 @@ const Price = styled(Typography)`
   text-align: left;
   margin-top: 15px;
 `;
-const ImageDiv = styled(Box)`
+const ImageDiv = styled("img")`
   width: 100%;
-  height: 300px;
-  background-image: url("/Capture.PNG");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @media (min-width: 768px) {
+    width: 97%;
+  }
 `;
 
 const SmallImageDiv = styled(Box)`
@@ -161,6 +159,9 @@ const SmallImageDiv = styled(Box)`
   background-repeat: no-repeat;
   background-size: cover;
   margin: 5px 2px 2px 2px;
+  @media (min-width: 500px) {
+    height: 150px;
+  }
 `;
 
 const SizeDiv = styled(Box)`
@@ -173,9 +174,16 @@ const SizeHeader = styled(Typography)`
 const SizeListDiv = styled(Box)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
-  gap: 18px;
+  gap: 10px;
   padding: 20px 0px 20px 0px;
+  justify-items: center;
+  align-items: center;
+  @media (min-width: 500px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 `;
 
 const SizeChoose = styled(Box)`
