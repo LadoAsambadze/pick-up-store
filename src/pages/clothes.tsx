@@ -4,12 +4,8 @@ import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
 import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
-import { useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setData } from "../store/data-slice";
 import CircularProgress from "@mui/material/CircularProgress";
-import { setLoading } from "../store/loading-slice";
 
 export default function Clothes() {
   const dispatch = useDispatch();
@@ -17,15 +13,6 @@ export default function Clothes() {
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
-  useEffect(() => {
-    const getClothes = async () => {
-      const response = await axios.get("http://localhost:3000/clothes");
-      dispatch(setData(response.data.clothes));
-      dispatch(setLoading(false));
-    };
-
-    getClothes();
-  }, []);
 
   return (
     <>
@@ -115,7 +102,12 @@ export default function Clothes() {
                   }
                 })
                 .map((item, index) => (
-                  <ArrivalDiv key={index}>
+                  <ArrivalDiv
+                    onClick={() => {
+                      console.log(item._id);
+                    }}
+                    key={index}
+                  >
                     <ImageDiv
                       style={{
                         backgroundImage: `url(http://localhost:3000${item.image})`,

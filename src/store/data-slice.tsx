@@ -22,6 +22,7 @@ export const { setData } = dataSlice.actions;
 export default dataSlice.reducer;
 
 interface Item {
+  _id: string;
   type: string;
   gender: string;
   category: string;

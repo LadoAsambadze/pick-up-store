@@ -3,40 +3,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
-import { useEffect } from "react";
-import axios from "axios";
-import { setLoading } from "../store/loading-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import { setData } from "../store/data-slice";
 
 export default function NewArrivals(props: any) {
-  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading.loading);
   const data = useSelector((state: RootState) => state.data.data);
-
-  useEffect(() => {
-    const getShoesAndClothes = async () => {
-      try {
-        const shoesResponse = await axios.get("http://localhost:3000/shoes");
-        const clothesResponse = await axios.get(
-          "http://localhost:3000/clothes"
-        );
-        dispatch(
-          setData([
-            ...shoesResponse.data.shoes,
-            ...clothesResponse.data.clothes,
-          ])
-        );
-        dispatch(setLoading(false));
-      } catch (error) {
-        console.error({ message: "lado yyyyyyyyyyy", error });
-        prompt("qegqegqegqe");
-      }
-    };
-    getShoesAndClothes();
-  }, []);
 
   const responsive = {
     desktop: {

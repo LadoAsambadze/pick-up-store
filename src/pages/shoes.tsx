@@ -4,36 +4,13 @@ import Sort from "../components/sort";
 import FilterComponent from "../components/filter";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { RootState } from "../store/redux";
-
-interface Type {
-  type: string;
-  gender: string;
-  category: string;
-  price: number;
-  size: string;
-  brand: string;
-  name: string;
-  image: string;
-  new: boolean;
-}
 
 export default function Shoes() {
   const dispatch = useDispatch();
-  const [shoes, setShoes] = useState<Type[]>([]);
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
-
-  const getShoes = async () => {
-    const response = await axios.get("http://localhost:3000/shoes");
-    setShoes(response.data.shoes);
-  };
-
-  useEffect(() => {
-    getShoes();
-  }, []);
+  const data = useSelector((state: RootState) => state.data.data);
 
   return (
     <>
@@ -51,20 +28,8 @@ export default function Shoes() {
           <Sort />
         </FindBy>
         <MainGrid>
-          {shoes
-            .sort((itemA, itemB) => {
-              if (redux.sortType === "low") {
-                return itemA.price - itemB.price;
-              } else if (redux.sortType === "high") {
-                return itemB.price - itemA.price;
-              } else if (itemA.new && !itemB.new && redux.sortType === "new") {
-                return -1; //
-              } else if (!itemA.new && itemB.new && redux.sortType === "old") {
-                return 1;
-              } else {
-                return 0;
-              }
-            })
+          {data
+
             .filter(
               (item) =>
                 redux.sizeType.length === 0 ||
@@ -93,6 +58,19 @@ export default function Shoes() {
                 redux.categoryType === null ||
                 redux.categoryType === item.category
             )
+            .sort((itemA, itemB) => {
+              if (redux.sortType === "low") {
+                return itemA.price - itemB.price;
+              } else if (redux.sortType === "high") {
+                return itemB.price - itemA.price;
+              } else if (itemA.new && !itemB.new && redux.sortType === "new") {
+                return -1; //
+              } else if (!itemA.new && itemB.new && redux.sortType === "old") {
+                return 1;
+              } else {
+                return 0;
+              }
+            })
 
             .map((item, index) => (
               <ArrivalDiv key={index}>
