@@ -19,11 +19,26 @@ body {
 .carousel-item2 {
   padding: 0px 0px 0px 0px;
 }
+.carousel-item-small {
+  padding: 0px 0px 0px 0px;
+}
 
 .sort-box {
   width: 200px;
 }
+.carousel-itemDesktop {
+  display: none;
+}
 
 .selected {
   background-color: lightblue; /* or any other style you prefer */
+}
+
+@media (min-width: 900px) {
+  .carousel-item2 {
+    display: none;
+  }
+  .carousel-itemDesktop {
+    display: block;
+  }
 }
