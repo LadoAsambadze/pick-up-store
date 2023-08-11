@@ -7,6 +7,7 @@ import store, { persistor } from "./store/redux";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Shoes from "./pages/shoes";
+import Selected from "./pages/selected";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/clothes" element={<Clothes />} />
             <Route path="/shoes" element={<Shoes />} />
+            <Route path="/selected" element={<Selected />} />
           </Routes>
           <Footer />
         </PersistGate>

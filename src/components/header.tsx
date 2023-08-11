@@ -91,7 +91,9 @@ export default function Header() {
         >
           Women
         </Choose>
-        <Choose variant="text">Kids</Choose>
+        <Choose variant="text"  onClick={() => {
+            navigate("/selected");
+          }}>Kids</Choose>
         <Choose variant="text">Sale</Choose>
         <Line></Line>
         <Login>Login</Login>
