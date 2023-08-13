@@ -9,12 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Shoes() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const shoes = data.filter((item) => item.type === "shoes");
-  const navigate = useNavigate();
-  console.log(data);
 
   return (
     <>
@@ -37,8 +36,9 @@ export default function Shoes() {
             .filter(
               (item) =>
                 redux.sizeType.length === 0 ||
-                redux.sizeType.includes(item.size)
+                item.size.some((size) => redux.sizeType.includes(size))
             )
+
             .filter(
               (item) =>
                 redux.brandType === null || item.brand === redux.brandType
@@ -211,27 +211,3 @@ const Price = styled(Typography)`
   font-size: 16px;
   font-family: "Cousine", monospace;
 `;
-
-// const SizeDiv = styled(Box)`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `;
-
-// const Size = styled("button")`
-//   padding: 4px;
-//   border: 1px solid #d8d8e1;
-//   color: black;
-//   cursor: pointer;
-//   background: white;
-//   margin-right: 8px;
-//   margin-top: 5px;
-// `;
-
-// <SizeDiv>
-//                   <Size>XS</Size>
-//                   <Size>S</Size>
-//                   <Size>M</Size>
-//                   <Size>L</Size>
-//                   <Size>XL</Size>
-//                 </SizeDiv>

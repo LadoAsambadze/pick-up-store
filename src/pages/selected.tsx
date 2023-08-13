@@ -2,91 +2,19 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import { useLocation, useParams } from "react-router-dom";
-import { setSizeType } from "../store/filter-slice";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 export default function Selected() {
-  const dispatch = useDispatch();
-  const redux = useSelector((state: RootState) => state.filter);
-  const location = useLocation();
   const data = useSelector((state: RootState) => state.data.data);
   const { id } = useParams();
-
-  const filt = data.find((item) => item._id === id);
-  console.log(filt);
-  const [selectedImage, setSelectedImage] = useState(filt?.images[0].urls[0]);
-  const [selectedSort, setSelectedSort] = useState(filt?.images[0].urls);
-  console.log(selectedSort);
-
-  const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
-  const shoesOptions = [
-    "31",
-    "32",
-    "33",
-    "34",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44",
-  ];
-
-  const handleSize = (sizeContent: string) => {
-    dispatch(setSizeType(sizeContent));
-  };
-
-  const responsiveMain = {
-    desktop: {
-      breakpoint: { max: 4000, min: 0 },
-      items: 1,
-    },
-  };
-
-  const responsiveMobile = {
-    desktop: {
-      breakpoint: { max: 4000, min: 1100 },
-      items: 4,
-    },
-
-    tablet: {
-      breakpoint: { max: 1100, min: 900 },
-      items: 3,
-    },
-    tabletOne: {
-      breakpoint: { max: 900, min: 550 },
-      items: 4,
-    },
-    mobile: {
-      breakpoint: { max: 550, min: 0 },
-      items: 3,
-    },
-  };
-  const responsiveSort = {
-    desktop: {
-      breakpoint: { max: 4000, min: 1100 },
-      items: 4,
-    },
-
-    tablet: {
-      breakpoint: { max: 1100, min: 900 },
-      items: 3,
-    },
-    tabletOne: {
-      breakpoint: { max: 900, min: 550 },
-      items: 4,
-    },
-    mobile: {
-      breakpoint: { max: 550, min: 0 },
-      items: 3,
-    },
-  };
+  const shoesItem = data.find((item) => item._id === id);
+  const [selectedImage, setSelectedImage] = useState(
+    shoesItem?.images[0].urls[0]
+  );
+  const [selectedSort, setSelectedSort] = useState(shoesItem?.images[0].urls);
 
   return (
     <>
@@ -102,43 +30,46 @@ export default function Selected() {
           </Description>
 
           <Carousel responsive={responsiveSort} infinite={true}>
-            {selectedSort.map((item, index) => (
-              <SmallImageDivSort
-                key={index}
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item})`,
-                }}
-                onClick={() => {
-                  setSelectedImage(item);
-                }}
-              ></SmallImageDivSort>
-            ))}
+            {selectedSort &&
+              selectedSort.map((item, index) => (
+                <SmallImageDivSort
+                  key={index}
+                  style={{
+                    backgroundImage: `url(http://localhost:3000${item})`,
+                  }}
+                  onClick={() => {
+                    setSelectedImage(item);
+                  }}
+                ></SmallImageDivSort>
+              ))}
           </Carousel>
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
             <SizeListDiv>
-              {filt.size.map((item, index) => (
-                <SizeChoose key={index}>{item}</SizeChoose>
-              ))}
+              {shoesItem &&
+                shoesItem.size.map((item, index) => (
+                  <SizeChoose key={index}>{item}</SizeChoose>
+                ))}
             </SizeListDiv>
             <Carousel
-              responsive={responsiveMobile}
+              responsive={responsiveColor}
               itemClass="carousel-item-small"
               infinite={true}
               removeArrowOnDeviceType={["tablet", "desktop"]}
             >
-              {filt.images.map((item, index) => (
-                <SmallImageDiv
-                  key={index}
-                  style={{
-                    backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
-                  }}
-                  onClick={() => {
-                    setSelectedImage(item.urls[0]);
-                    setSelectedSort(item.urls);
-                  }}
-                ></SmallImageDiv>
-              ))}
+              {shoesItem &&
+                shoesItem.images.map((item, index) => (
+                  <SmallImageDiv
+                    key={index}
+                    style={{
+                      backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
+                    }}
+                    onClick={() => {
+                      setSelectedImage(item.urls[0]);
+                      setSelectedSort(item.urls);
+                    }}
+                  ></SmallImageDiv>
+                ))}
             </Carousel>
             <AddToCart>Add to bag</AddToCart>
             <AddToFav>Add to favourite</AddToFav>
@@ -344,3 +275,40 @@ const ArrowDiv = styled(Box)`
   flex-direction: row;
   align-items: center;
 `;
+
+const responsiveColor = {
+  desktop: {
+    breakpoint: { max: 4000, min: 1100 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: { max: 1100, min: 900 },
+    items: 3,
+  },
+  tabletOne: {
+    breakpoint: { max: 900, min: 550 },
+    items: 4,
+  },
+  mobile: {
+    breakpoint: { max: 550, min: 0 },
+    items: 3,
+  },
+};
+const responsiveSort = {
+  desktop: {
+    breakpoint: { max: 4000, min: 1440 },
+    items: 5,
+  },
+  tablet: {
+    breakpoint: { max: 1440, min: 900 },
+    items: 4,
+  },
+  tabletOne: {
+    breakpoint: { max: 900, min: 550 },
+    items: 6,
+  },
+  mobile: {
+    breakpoint: { max: 550, min: 0 },
+    items: 5,
+  },
+};
