@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography/Typography";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 export default function NewArrivals(props: any) {
+  const navigate = useNavigate();
   const loading = useSelector((state: RootState) => state.loading.loading);
   const data = useSelector((state: RootState) => state.data.data);
 
@@ -57,7 +59,21 @@ export default function NewArrivals(props: any) {
             {data
               .filter((item) => item.new)
               .map((item, index) => (
-                <ArrivalDiv key={index}>
+                <ArrivalDiv
+                  onClick={() => {
+                    const id = item._id;
+                    const newData = data.find((item) => item._id === id);
+
+                    if (newData) {
+                      if (newData.type === "shoes") {
+                        navigate(`/shoes/${id}`);
+                      } else if (newData.type === "clothes") {
+                        navigate(`/clothes/${id}`);
+                      }
+                    }
+                  }}
+                  key={index}
+                >
                   <ImageDiv
                     style={{
                       backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,

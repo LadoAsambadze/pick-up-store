@@ -38,6 +38,7 @@ function App() {
         <Route path="/clothes" element={<Clothes />} />
         <Route path="/shoes" element={<Shoes />} />
         <Route path="/shoes/:id" element={<Selected />} />
+        <Route path="/clothes/:id" element={<Selected />} />
       </Routes>
       <Footer />
     </>
