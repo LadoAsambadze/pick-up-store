@@ -6,13 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import { useLocation, useParams } from "react-router-dom";
 import { setSizeType } from "../store/filter-slice";
+import { useState } from "react";
 
 export default function Selected() {
   const dispatch = useDispatch();
   const redux = useSelector((state: RootState) => state.filter);
   const location = useLocation();
   const data = useSelector((state: RootState) => state.data.data);
-  const isShoesPage = location.pathname === "/selected";
+  const { id } = useParams();
+
+  const filt = data.find((item) => item._id === id);
+  console.log(filt);
+  const [selectedImage, setSelectedImage] = useState(filt?.images[0].urls[0]);
+  const [selectedSort, setSelectedSort] = useState(filt?.images[0].urls);
+  console.log(selectedSort);
+  const isShoesPage = location.pathname === "/shoes";
   const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
   const shoesOptions = [
     "31",
@@ -70,11 +78,6 @@ export default function Selected() {
     },
   };
 
-  const { id } = useParams();
-  console.log(id);
-  const filt = data.find((item) => item._id === id);
-  console.log(filt);
-
   return (
     <>
       <Main>
@@ -84,8 +87,24 @@ export default function Selected() {
             itemClass="carousel-itemDesktop"
             infinite={true}
           >
-            <ImageDiv src={`http://localhost:3000${filt?.image}`} />
-            <ImageDiv src="/Capture.PNG" />
+            <ImageDiv src={`http://localhost:3000${selectedImage}`} />
+          </Carousel>
+          <Carousel
+            responsive={responsive2}
+            infinite={true}
+            removeArrowOnDeviceType={["tablet", "desktop"]}
+          >
+            {selectedSort.map((item, index) => (
+              <SmallImageDivSort
+                key={index}
+                style={{
+                  backgroundImage: `url(http://localhost:3000${item})`,
+                }}
+                onClick={() => {
+                  setSelectedImage(item);
+                }}
+              ></SmallImageDivSort>
+            ))}
           </Carousel>
         </DivideDivFirst>
         <DivideDivSecond>
@@ -100,8 +119,7 @@ export default function Selected() {
             infinite={true}
             removeArrowOnDeviceType={["mobile"]}
           >
-            <ImageDiv src="/Capture.PNG" />
-            <ImageDiv src="/Capture.PNG" />
+            <ImageDiv src={`http://localhost:3000${selectedImage}`} />
           </Carousel>
           <Carousel
             responsive={responsive2}
@@ -109,10 +127,18 @@ export default function Selected() {
             infinite={true}
             removeArrowOnDeviceType={["tablet", "desktop"]}
           >
-            <SmallImageDiv></SmallImageDiv>
-            <SmallImageDiv></SmallImageDiv>
-            <SmallImageDiv></SmallImageDiv>
-            <SmallImageDiv></SmallImageDiv>
+            {filt.images.map((item, index) => (
+              <SmallImageDiv
+                key={index}
+                style={{
+                  backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
+                }}
+                onClick={() => {
+                  setSelectedImage(item.urls[0]);
+                  setSelectedSort(item.urls);
+                }}
+              ></SmallImageDiv>
+            ))}
           </Carousel>
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
@@ -121,7 +147,7 @@ export default function Selected() {
                 <SizeChoose
                   key={size}
                   onClick={() => handleSize(size)}
-                  className={redux.sizeType.includes(size) ? "selected" : ""}
+                  className={redux.sizeType.includes(size) ? "" : "shoes"}
                 >
                   {size}
                 </SizeChoose>
@@ -196,7 +222,7 @@ const ImageDiv = styled("img")`
 
 const SmallImageDiv = styled(Box)`
   height: 100px;
-  background-image: url("/Capture.PNG");
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -207,6 +233,21 @@ const SmallImageDiv = styled(Box)`
   }
   @media (min-width: 900px) {
     height: 120px;
+  }
+`;
+
+const SmallImageDivSort = styled(Box)`
+  height: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 5px 2px 2px 2px;
+  cursor: pointer;
+  @media (min-width: 500px) {
+    height: 100px;
+  }
+  @media (min-width: 900px) {
+    height: 100px;
   }
 `;
 

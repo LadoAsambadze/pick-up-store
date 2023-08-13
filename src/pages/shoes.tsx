@@ -12,8 +12,9 @@ export default function Shoes() {
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
-  const shoes = data.filter((item) => item.type === "sneakers");
+  const shoes = data.filter((item) => item.type === "shoes");
   const navigate = useNavigate();
+  console.log(data);
 
   return (
     <>
@@ -85,7 +86,7 @@ export default function Shoes() {
               >
                 <ImageDiv
                   style={{
-                    backgroundImage: `url(http://localhost:3000${item.image})`,
+                    backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
                   }}
                 ></ImageDiv>
 

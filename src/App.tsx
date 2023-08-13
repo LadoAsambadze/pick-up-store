@@ -14,6 +14,7 @@ import { setLoading } from "./store/loading-slice";
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchData = async () => {
       try {

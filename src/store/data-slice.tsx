@@ -30,6 +30,6 @@ interface Item {
   size: string;
   brand: string;
   name: string;
-  image: string;
+  images: string[];
   new: boolean;
 }
