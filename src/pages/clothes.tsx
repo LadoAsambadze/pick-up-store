@@ -76,7 +76,7 @@ export default function Clothes() {
                 .filter(
                   (item) =>
                     redux.sizeType.length === 0 ||
-                    redux.sizeType.includes(item.size.toUpperCase())
+                    item.size.some((size) => redux.sizeType.includes(size))
                 )
                 .filter(
                   (item) =>
