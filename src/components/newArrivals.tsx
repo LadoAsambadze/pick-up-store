@@ -60,7 +60,7 @@ export default function NewArrivals(props: any) {
                 <ArrivalDiv key={index}>
                   <ImageDiv
                     style={{
-                      backgroundImage: `url(http://localhost:3000${item.image})`,
+                      backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
                     }}
                   ></ImageDiv>
                   <About>
