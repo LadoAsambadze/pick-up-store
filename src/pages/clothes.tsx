@@ -6,13 +6,16 @@ import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 export default function Clothes() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
+  const clothes = data.filter((item) => item.type === "clothes");
 
   return (
     <>
@@ -50,7 +53,7 @@ export default function Clothes() {
             </div>
           ) : (
             <MainGrid>
-              {data
+              {clothes
                 .filter(
                   (item) =>
                     redux.genderType === null ||
@@ -104,23 +107,23 @@ export default function Clothes() {
                 .map((item, index) => (
                   <ArrivalDiv
                     onClick={() => {
-                      console.log(item._id);
+                      const id = item._id;
+                      navigate(`/shoes/${id}`);
                     }}
                     key={index}
                   >
                     <ImageDiv
                       style={{
-                        backgroundImage: `url(http://localhost:3000${item.image})`,
+                        backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
                       }}
                     ></ImageDiv>
 
                     <About>
-                      <Name>{item.name}</Name>
-
                       <Description>
-                        <Price>{item.price}</Price>
+                        <Name>{item.name}</Name>
                         <Brand>{item.brand}</Brand>
                       </Description>
+                      <Price>{item.price}</Price>
                       <Favourite
                         src="/heart.svg"
                         alt="Favourite add icon, heart"
