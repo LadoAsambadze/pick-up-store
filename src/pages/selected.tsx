@@ -20,7 +20,7 @@ export default function Selected() {
   const [selectedImage, setSelectedImage] = useState(filt?.images[0].urls[0]);
   const [selectedSort, setSelectedSort] = useState(filt?.images[0].urls);
   console.log(selectedSort);
-  const isShoesPage = location.pathname === "/shoes";
+
   const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
   const shoesOptions = [
     "31",
@@ -41,24 +41,34 @@ export default function Selected() {
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
-  const responsive = {
-    tabletOne: {
-      breakpoint: { max: 900, min: 768 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 768, min: 0 },
-      items: 1,
-    },
-  };
-  const responsiveDesktop = {
+
+  const responsiveMain = {
     desktop: {
-      breakpoint: { max: 4000, min: 900 },
+      breakpoint: { max: 4000, min: 0 },
       items: 1,
     },
   };
 
-  const responsive2 = {
+  const responsiveMobile = {
+    desktop: {
+      breakpoint: { max: 4000, min: 1100 },
+      items: 4,
+    },
+
+    tablet: {
+      breakpoint: { max: 1100, min: 900 },
+      items: 3,
+    },
+    tabletOne: {
+      breakpoint: { max: 900, min: 550 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 550, min: 0 },
+      items: 3,
+    },
+  };
+  const responsiveSort = {
     desktop: {
       breakpoint: { max: 4000, min: 1100 },
       items: 4,
@@ -82,18 +92,16 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <Carousel
-            responsive={responsiveDesktop}
-            itemClass="carousel-itemDesktop"
-            infinite={true}
-          >
-            <ImageDiv src={`http://localhost:3000${selectedImage}`} />
-          </Carousel>
-          <Carousel
-            responsive={responsive2}
-            infinite={true}
-            removeArrowOnDeviceType={["tablet", "desktop"]}
-          >
+          <ImageDiv src={`http://localhost:3000${selectedImage}`} />
+        </DivideDivFirst>
+        <DivideDivSecond>
+          <Description>
+            <Name>Nike Pegasus Turbo Next Nature</Name>
+            <Brand>Brand: Puma</Brand>
+            <Price>$ 40.33</Price>
+          </Description>
+
+          <Carousel responsive={responsiveSort} infinite={true}>
             {selectedSort.map((item, index) => (
               <SmallImageDivSort
                 key={index}
@@ -106,53 +114,32 @@ export default function Selected() {
               ></SmallImageDivSort>
             ))}
           </Carousel>
-        </DivideDivFirst>
-        <DivideDivSecond>
-          <Description>
-            <Name>Nike Pegasus Turbo Next Nature</Name>
-            <Brand>Brand: Puma</Brand>
-            <Price>$ 40.33</Price>
-          </Description>
-          <Carousel
-            responsive={responsive}
-            itemClass="carousel-item2"
-            infinite={true}
-            removeArrowOnDeviceType={["mobile"]}
-          >
-            <ImageDiv src={`http://localhost:3000${selectedImage}`} />
-          </Carousel>
-          <Carousel
-            responsive={responsive2}
-            itemClass="carousel-item-small"
-            infinite={true}
-            removeArrowOnDeviceType={["tablet", "desktop"]}
-          >
-            {filt.images.map((item, index) => (
-              <SmallImageDiv
-                key={index}
-                style={{
-                  backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
-                }}
-                onClick={() => {
-                  setSelectedImage(item.urls[0]);
-                  setSelectedSort(item.urls);
-                }}
-              ></SmallImageDiv>
-            ))}
-          </Carousel>
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
             <SizeListDiv>
-              {(isShoesPage ? shoesOptions : clotheOptions).map((size) => (
-                <SizeChoose
-                  key={size}
-                  onClick={() => handleSize(size)}
-                  className={redux.sizeType.includes(size) ? "" : "shoes"}
-                >
-                  {size}
-                </SizeChoose>
+              {filt.size.map((item, index) => (
+                <SizeChoose key={index}>{item}</SizeChoose>
               ))}
             </SizeListDiv>
+            <Carousel
+              responsive={responsiveMobile}
+              itemClass="carousel-item-small"
+              infinite={true}
+              removeArrowOnDeviceType={["tablet", "desktop"]}
+            >
+              {filt.images.map((item, index) => (
+                <SmallImageDiv
+                  key={index}
+                  style={{
+                    backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
+                  }}
+                  onClick={() => {
+                    setSelectedImage(item.urls[0]);
+                    setSelectedSort(item.urls);
+                  }}
+                ></SmallImageDiv>
+              ))}
+            </Carousel>
             <AddToCart>Add to bag</AddToCart>
             <AddToFav>Add to favourite</AddToFav>
             <ReviewsDiv>
@@ -243,6 +230,7 @@ const SmallImageDivSort = styled(Box)`
   background-size: cover;
   margin: 5px 2px 2px 2px;
   cursor: pointer;
+
   @media (min-width: 500px) {
     height: 100px;
   }

@@ -26,7 +26,7 @@ body {
 .sort-box {
   width: 200px;
 }
-.carousel-itemDesktop {
+.carousel-item1 {
   display: none;
 }
 
@@ -38,7 +38,7 @@ body {
   .carousel-item2 {
     display: none;
   }
-  .carousel-itemDesktop {
+  .carousel-item1 {
     display: block;
   }
 }
