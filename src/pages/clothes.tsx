@@ -16,7 +16,7 @@ export default function Clothes() {
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
   const clothes = data.filter((item) => item.type === "clothes");
-  console.log(data);
+
   return (
     <>
       <Main>
