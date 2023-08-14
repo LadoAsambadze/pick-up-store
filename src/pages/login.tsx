@@ -4,22 +4,54 @@ import { Typography } from "@mui/material";
 import { Input } from "@mui/material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const data = {
+        email: email,
+        password: password,
+      };
+      const response = await axios.post("http://localhost:3000/login", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Login failed:", error);
+      console.log(error.response.data);
+    }
+  };
+
   return (
     <>
       <Main>
         <LogIn>
           <Header>Login</Header>
           <Form>
-            <InputField placeholder="Email address" type="email" />
+            <InputField
+              placeholder="Email address"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
             {/* <Warn>Please enter email address</Warn> */}
             {/* <Warn>Incorrect email</Warn> */}
-            <InputField placeholder="Password" />
+            <InputField
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
             {/* <Warn>Please enter password</Warn>
             <Warn>Wrong password</Warn> */}
-            <LogDone>Login to your account</LogDone>
+            <LogDone
+              onClick={() => {
+                handleLogin();
+              }}
+            >
+              Login to your account
+            </LogDone>
             <SingDiv>
               <Question>Don’t have an account?</Question>
               <SignUp onClick={() => navigate("/singup")}>Sing Up</SignUp>
