@@ -22,7 +22,6 @@ export default function Login() {
       console.log(response.data);
     } catch (error) {
       console.error("Login failed:", error);
-      console.log(error.response.data);
     }
   };
 
