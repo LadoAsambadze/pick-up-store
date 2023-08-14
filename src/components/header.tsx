@@ -66,7 +66,11 @@ export default function Header() {
           </SearchDiv>
           <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
           <HeaderIcon src="/user.svg" alt="User icon" />
-          <HeaderIcon src="/cart.svg" alt="Shoping cart icon" />
+          <HeaderIcon
+            onClick={() => navigate("/cart")}
+            src="/cart.svg"
+            alt="Shoping cart icon"
+          />
           <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
       </Main>
@@ -91,9 +95,14 @@ export default function Header() {
         >
           Women
         </Choose>
-        <Choose variant="text"  onClick={() => {
+        <Choose
+          variant="text"
+          onClick={() => {
             navigate("/selected");
-          }}>Kids</Choose>
+          }}
+        >
+          Kids
+        </Choose>
         <Choose variant="text">Sale</Choose>
         <Line></Line>
         <Login>Login</Login>

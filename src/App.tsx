@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { setData } from "./store/data-slice";
 import { setLoading } from "./store/loading-slice";
+import Cart from "./pages/cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
         <Route path="/shoes" element={<Shoes />} />
         <Route path="/shoes/:id" element={<Selected />} />
         <Route path="/clothes/:id" element={<Selected />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />
     </>
