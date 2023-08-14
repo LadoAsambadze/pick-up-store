@@ -1,7 +1,6 @@
 import Main from "./pages/main";
 import { Routes, Route } from "react-router-dom";
 import Clothes from "./pages/clothes";
-
 import { useDispatch } from "react-redux";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -12,6 +11,8 @@ import axios from "axios";
 import { setData } from "./store/data-slice";
 import { setLoading } from "./store/loading-slice";
 import Cart from "./pages/cart";
+import Login from "./pages/login";
+import Singup from "./pages/singup";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ function App() {
         <Route path="/shoes/:id" element={<Selected />} />
         <Route path="/clothes/:id" element={<Selected />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Singup" element={<Singup />} />
       </Routes>
       <Footer />
     </>

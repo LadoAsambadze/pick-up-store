@@ -65,7 +65,11 @@ export default function Header() {
             />
           </SearchDiv>
           <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
-          <HeaderIcon src="/user.svg" alt="User icon" />
+          <HeaderIcon
+            onClick={() => navigate("/login")}
+            src="/user.svg"
+            alt="User icon"
+          />
           <HeaderIcon
             onClick={() => navigate("/cart")}
             src="/cart.svg"
@@ -98,7 +102,7 @@ export default function Header() {
         <Choose
           variant="text"
           onClick={() => {
-            navigate("/selected");
+            navigate("/login");
           }}
         >
           Kids
