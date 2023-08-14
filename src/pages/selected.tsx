@@ -20,7 +20,7 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`} />
+          <ImageDiv src={`http://localhost:3000${selectedImage}`} />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
@@ -35,7 +35,7 @@ export default function Selected() {
                 <SmallImageDivSort
                   key={index}
                   style={{
-                    backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item})`,
+                    backgroundImage: `url(http://localhost:3000${item})`,
                   }}
                   onClick={() => {
                     setSelectedImage(item);
@@ -62,7 +62,7 @@ export default function Selected() {
                   <SmallImageDiv
                     key={index}
                     style={{
-                      backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.urls[0]})`,
+                      backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
                     }}
                     onClick={() => {
                       setSelectedImage(item.urls[0]);
