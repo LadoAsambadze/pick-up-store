@@ -12,7 +12,7 @@ export default function Cart() {
           <ProductDiv key={index}>
             <ImageDiv
               style={{
-                backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
+                backgroundImage: `url(pick-up-store-backend-production.up.railway.app${item.images[0].urls[0]})`,
               }}
             ></ImageDiv>
             <DescriptionDiv>
@@ -71,7 +71,6 @@ const Name = styled(Typography)`
 `;
 const Size = styled(Typography)`
   font-size: 14px;
-
 `;
 
 const PiceXquantity = styled(Box)`
@@ -80,7 +79,6 @@ const PiceXquantity = styled(Box)`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-
 `;
 const Price = styled(Typography)`
   font-size: 16px;
@@ -93,7 +91,6 @@ const Quantity = styled(Typography)`
 const ControlDiv = styled(Box)`
   display: flex;
   flex-direction: row;
- 
 `;
 
 const ControlIcon = styled("img")`

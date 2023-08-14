@@ -16,7 +16,7 @@ export default function Clothes() {
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
   const clothes = data.filter((item) => item.type === "clothes");
-
+  console.log(data);
   return (
     <>
       <Main>
@@ -114,7 +114,7 @@ export default function Clothes() {
                   >
                     <ImageDiv
                       style={{
-                        backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
+                        backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.images[0].urls[0]})`,
                       }}
                     ></ImageDiv>
 
