@@ -27,12 +27,13 @@ interface Item {
   gender: string;
   category: string;
   price: number;
-  size: string[];
+
   brand: string;
   name: string;
   images: {
     color: string;
     urls: string[];
+   
   }[];
   new: boolean;
 }

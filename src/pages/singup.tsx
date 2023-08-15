@@ -4,29 +4,65 @@ import { Typography } from "@mui/material";
 import { Input } from "@mui/material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { useState } from "react";
 export default function Singup() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const handleSignup = async () => {
+    if (password !== repeatPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      const data = {
+        email: email,
+        password: password,
+      };
+      const response = await axios.post("http://localhost:3000/singup", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Signup failed:", error);
+      console.log(error.response.data);
+    }
+  };
+
   return (
     <>
       <Main>
         <LogIn>
-          <Header>Sing Up</Header>
+          <Header>Sign Up</Header>
           <Form>
-            <InputField placeholder="Email address" type="email" />
-            {/* <Warn>Please enter your email address.</Warn>
-            <Warn>Incorrect email</Warn>
-            <Warn>Email adress already exist</Warn> */}
-            <InputField placeholder="Password" />
-            {/* <Warn>Please enter your password.</Warn> */}
-            <InputField placeholder="Repeat Password" />
-            {/* <Warn>Please confirm your password.</Warn>
-            <Warn>Passwords don t match</Warn> */}
-            <LogDone  type="submit">
+            <InputField
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              type="email"
+            />
+
+            <InputField
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <InputField
+              placeholder="Repeat Password"
+              onChange={(e) => setRepeatPassword(e.target.value)}
+            />
+
+            <LogDone
+              onClick={() => {
+                handleSignup();
+              }}
+              type="submit"
+            >
               Create an account
             </LogDone>
             <SingDiv>
-              <Question>Alread have an account?</Question>
+              <Question>Already have an account?</Question>
               <SignUp onClick={() => navigate("/login")}>Login</SignUp>
             </SingDiv>
           </Form>

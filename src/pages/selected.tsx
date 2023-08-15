@@ -14,7 +14,17 @@ export default function Selected() {
   const [selectedImage, setSelectedImage] = useState(
     shoesItem?.images[0].urls[0]
   );
+  const initialResult = shoesItem?.images[0];
   const [selectedSort, setSelectedSort] = useState(shoesItem?.images[0].urls);
+  const [selectedColor, setSelectedColor] = useState(initialResult.color);
+  console.log(selectedColor);
+
+  const result = shoesItem?.images.find((item) => item.color === selectedColor);
+  if (result) {
+    console.log(Object.keys(result.size));
+  } else {
+    console.log("No image found with the selected color");
+  }
 
   return (
     <>
@@ -45,12 +55,12 @@ export default function Selected() {
           </Carousel>
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
-            <SizeListDiv>
-              {shoesItem &&
-                shoesItem.size.map((item, index) => (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {result &&
+                Object.keys(result.size).map((item, index) => (
                   <SizeChoose key={index}>{item}</SizeChoose>
                 ))}
-            </SizeListDiv>
+            </div>
             <Carousel
               responsive={responsiveColor}
               itemClass="carousel-item-small"
@@ -67,6 +77,7 @@ export default function Selected() {
                     onClick={() => {
                       setSelectedImage(item.urls[0]);
                       setSelectedSort(item.urls);
+                      setSelectedColor(item.color);
                     }}
                   ></SmallImageDiv>
                 ))}

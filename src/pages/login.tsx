@@ -6,22 +6,39 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(1).max(32).required(),
+});
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleLogin = async () => {
-    try {
-      const data = {
-        email: email,
-        password: password,
-      };
-      const response = await axios.post("http://localhost:3000/login", data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Login failed:", error);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    if (!errors.email) {
+      try {
+        const response = await axios.post("http://localhost:3000/login", data);
+        Cookies.set("token", response.data.token);
+        navigate("/");
+      } catch (error) {
+        console.error("Login failed:", error);
+        console.log(error.response.data);
+        setErrorMessage(error.response.data.message);
+      }
     }
   };
 
@@ -30,27 +47,22 @@ export default function Login() {
       <Main>
         <LogIn>
           <Header>Login</Header>
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <InputField
               placeholder="Email address"
               type="email"
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: true })}
             />
-            {/* <Warn>Please enter email address</Warn> */}
-            {/* <Warn>Incorrect email</Warn> */}
+            {errors.email && <Warn>Please enter email address</Warn>}
+            {errorMessage && <Warn>{errorMessage}</Warn>}
             <InputField
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              {...register("password", { required: true })}
             />
-            {/* <Warn>Please enter password</Warn>
-            <Warn>Wrong password</Warn> */}
-            <LogDone
-              onClick={() => {
-                handleLogin();
-              }}
-            >
-              Login to your account
-            </LogDone>
+            {errors.password && <Warn>Please enter password</Warn>}
+            {errorMessage && <Warn>{errorMessage}</Warn>}
+            <LogDone type="submit">Login to your account</LogDone>
             <SingDiv>
               <Question>Don’t have an account?</Question>
               <SignUp onClick={() => navigate("/singup")}>Sing Up</SignUp>
@@ -100,7 +112,7 @@ const Header = styled(Typography)`
   letter-spacing: -0.5px;
 `;
 
-const Form = styled(Box)`
+const Form = styled("form")`
   width: 100%;
   margin-top: 16px;
   display: flex;
@@ -163,13 +175,13 @@ const SignUp = styled(Button)`
   line-height: normal;
 `;
 
-// const Warn = styled(Typography)`
-//   font-size: 12px;
-//   font-family: Outfit;
-//   font-style: normal;
-//   font-weight: 300;
-//   line-height: normal;
-//   color: red;
-//   margin-top: 5px;
-//   margin-left: 3px;
-// `;
+const Warn = styled(Typography)`
+  font-size: 12px;
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: red;
+  margin-top: 5px;
+  margin-left: 3px;
+`;
