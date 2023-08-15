@@ -10,6 +10,8 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { setUser } from "../store/user-slice";
+import { useDispatch } from "react-redux";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -20,6 +22,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -33,6 +36,7 @@ export default function Login() {
       try {
         const response = await axios.post("http://localhost:3000/login", data);
         Cookies.set("token", response.data.token);
+        dispatch(setUser(response.data.token));
         navigate("/");
       } catch (error) {
         console.error("Login failed:", error);

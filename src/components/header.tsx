@@ -4,20 +4,23 @@ import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../store/search-slice";
-
+import { deleteCookie } from "cookies-next";
 import { resetFilter } from "../store/filter-slice";
+import { RootState } from "../store/redux";
+import { setUser } from "../store/user-slice";
 
 export default function Header() {
   const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
+  const user = useSelector((state: RootState) => state.user.username);
   const navigate = useNavigate();
   const menuHandler = () => {
     setMenu(!menu);
   };
 
-  // ...
+  console.log(user);
 
   return (
     <>
@@ -25,6 +28,15 @@ export default function Header() {
         <Description>
           <Logo src="/vite.svg" alt="Website pick up store logo" />
           <Name>Pick Up Store </Name>
+          <h1>{user}</h1>
+          <h2
+            onClick={() => {
+              deleteCookie("token");
+              dispatch(setUser(null));
+            }}
+          >
+            log out
+          </h2>
           <DestkopMenu>
             <Type
               onClick={() => {

@@ -1,7 +1,7 @@
 import Main from "./pages/main";
 import { Routes, Route } from "react-router-dom";
 import Clothes from "./pages/clothes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Shoes from "./pages/shoes";
@@ -13,16 +13,18 @@ import { setLoading } from "./store/loading-slice";
 import Cart from "./pages/cart";
 import Login from "./pages/login";
 import Singup from "./pages/singup";
+import { getCookie } from "cookies-next";
+import { setUser } from "./store/user-slice";
+import { RootState } from "./store/redux";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.username);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get(
-          "https://pick-up-store-backend-production.up.railway.app/all"
-        );
+        const getAll = await axios.get("http://localhost:3000/all");
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
@@ -31,7 +33,21 @@ function App() {
       }
     };
 
+    const funct = async () => {
+      const cookieToken = getCookie("token");
+
+      if (cookieToken) {
+        const response = await axios.get("http://localhost:3000/profile", {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        });
+        dispatch(setUser(response.data.user));
+      }
+    };
+
     fetchData();
+    funct();
   }, []);
 
   return (

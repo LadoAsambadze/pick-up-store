@@ -9,12 +9,14 @@ import filterSlice from "./filter-slice";
 import searchSlice from "./search-slice";
 import loadingSlice from "./loading-slice";
 import dataSlice from "./data-slice";
+import userSlice from "./user-slice";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
   search: searchSlice,
   loading: loadingSlice,
   data: dataSlice,
+  user: userSlice
 });
 
 const persistConfig = {

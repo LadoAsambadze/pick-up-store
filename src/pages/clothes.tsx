@@ -73,11 +73,11 @@ export default function Clothes() {
                     item.price > redux.priceAmount[0] &&
                     item.price < redux.priceAmount[1]
                 )
-                .filter(
-                  (item) =>
-                    redux.sizeType.length === 0 ||
-                    item.size.some((size) => redux.sizeType.includes(size))
-                )
+                // .filter(
+                //   (item) =>
+                //     redux.sizeType.length === 0 ||
+                //     item.size.some((size) => redux.sizeType.includes(size))
+                // )
                 .filter(
                   (item) =>
                     search === "" ||
