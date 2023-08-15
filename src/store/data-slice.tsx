@@ -33,7 +33,10 @@ interface Item {
   images: {
     color: string;
     urls: string[];
-   
+    size: {
+      size: string;
+      quantityt: number;
+    };
   }[];
   new: boolean;
 }

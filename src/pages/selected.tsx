@@ -16,7 +16,9 @@ export default function Selected() {
   );
   const initialResult = shoesItem?.images[0];
   const [selectedSort, setSelectedSort] = useState(shoesItem?.images[0].urls);
-  const [selectedColor, setSelectedColor] = useState(initialResult.color);
+  const [selectedColor, setSelectedColor] = useState(
+    initialResult && initialResult.color
+  );
   console.log(selectedColor);
 
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
@@ -186,27 +188,6 @@ const SizeDiv = styled(Box)`
 `;
 const SizeHeader = styled(Typography)`
   font-size: 20px;
-`;
-
-const SizeListDiv = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  padding: 20px 0px 20px 0px;
-  justify-items: center;
-  align-items: center;
-  @media (min-width: 500px) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(7, 1fr);
-  }
-  @media (min-width: 900px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-  @media (min-width: 1440px) {
-    grid-template-columns: repeat(7, 1fr);
-  }
 `;
 
 const SizeChoose = styled(Box)`

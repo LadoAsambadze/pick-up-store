@@ -33,11 +33,11 @@ export default function Shoes() {
         <MainGrid>
           {shoes
 
-            .filter(
-              (item) =>
-                redux.sizeType.length === 0 ||
-                item.size.some((size) => redux.sizeType.includes(size))
-            )
+            // .filter(
+            //   (item) =>
+            //     redux.sizeType.length === 0 ||
+            //     item.size.some((size) => redux.sizeType.includes(size))
+            // )
 
             .filter(
               (item) =>
