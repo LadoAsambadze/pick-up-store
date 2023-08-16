@@ -10,8 +10,9 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { setUser } from "../store/user-slice";
 import { useDispatch } from "react-redux";
+import { getCookie } from "cookies-next";
+import { setUser } from "../store/user-slice";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -21,6 +22,18 @@ const schema = yup.object().shape({
 export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
+  const getUserInfo = async () => {
+    const cookieToken = getCookie("token");
+
+    if (cookieToken) {
+      const response = await axios.get("http://localhost:3000/profile", {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
+      dispatch(setUser(response.data.user));
+    }
+  };
 
   const dispatch = useDispatch();
   const {
@@ -36,7 +49,7 @@ export default function Login() {
       try {
         const response = await axios.post("http://localhost:3000/login", data);
         Cookies.set("token", response.data.token);
-        dispatch(setUser(response.data.token));
+
         navigate("/");
       } catch (error) {
         console.error("Login failed:", error);
@@ -44,6 +57,7 @@ export default function Login() {
         setErrorMessage(error.response.data.message);
       }
     }
+    getUserInfo();
   };
 
   return (
