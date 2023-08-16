@@ -85,7 +85,12 @@ export default function Selected() {
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
             <div
-              style={{ display: "flex", flexDirection: "row", flex: "wrap" }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                paddingRight: "0%",
+              }}
             >
               {result &&
                 Object.entries(result.size).map(([key, value], index) => (
@@ -127,8 +132,14 @@ export default function Selected() {
                   ></SmallImageDiv>
                 ))}
             </Carousel>
-            <AddToCart onClick={addToCart}>Add to bag</AddToCart>
-            <AddToFav>Add to favourite</AddToFav>
+            <AddToCart onClick={addToCart}>
+              <CartIcon src="/cart-icon.svg" alt="Cart Icon" />
+              <ButtonText>Add To Cart</ButtonText>
+            </AddToCart>
+            <AddToFav>
+              <HeartIcon src="/heart-white.png" alt="Favorite/heart icon" />
+              <ButtonText>Add To Favourite</ButtonText>
+            </AddToFav>
             <ReviewsDiv>
               <ReviewHeader>Reviews</ReviewHeader>
               <ArrowDiv>
@@ -155,7 +166,6 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   padding-bottom: 60px;
-  padding-top: 20px;
   @media (min-width: 900px) {
     flex-direction: row;
     padding-left: 40px;
@@ -217,6 +227,7 @@ const SmallImageDivSort = styled(Box)`
   background-size: cover;
   margin: 5px 2px 2px 2px;
   cursor: pointer;
+  border-radius: 5px;
 
   @media (min-width: 500px) {
     height: 100px;
@@ -243,32 +254,66 @@ const SizeChoose = styled(Box)`
   align-items: center;
   justify-content: center;
   margin: 10px;
+  cursor: pointer;
 `;
 
-const AddToCart = styled("button")`
-  padding: 18px 24px 18px 24px;
+const AddToCart = styled("div")`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 77px 16px 77px;
   width: 100%;
-  border-radius: 30px;
   border: none;
-  background: #655a5a;
   color: white;
-
+  border-radius: 10px;
+  background: var(--orange, #ff7d1a);
+  box-shadow: 0px 8px 10px 0px #ffede0;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); /* Add white shadow on hover */
+  }
   @media (min-width: 900px) {
     width: 70%;
     margin-top: 20px;
   }
 `;
 
-const AddToFav = styled("button")`
-  padding: 18px 24px 18px 24px;
+const CartIcon = styled("img")`
+  width: 17px;
+  height: 15px;
+`;
+const HeartIcon = styled("img")`
+  width: 16px;
+  height: 16px;
+`;
+const ButtonText = styled(Typography)`
+  font-size: 12px;
+  margin-left: 7px;
+`;
+const AddToFav = styled("div")`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 77px 16px 77px;
   width: 100%;
-  border-radius: 30px;
-  border: 1px solid gray;
-  background: white;
-  color: black;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  background: var(--orange, #ff7d1a);
+  box-shadow: 0px 8px 10px 0px #ffede0;
   margin-top: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); /* Add white shadow on hover */
+  }
   @media (min-width: 900px) {
     width: 70%;
+    margin-top: 20px;
   }
 `;
 
