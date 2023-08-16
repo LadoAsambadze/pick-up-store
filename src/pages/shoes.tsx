@@ -14,7 +14,7 @@ export default function Shoes() {
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const shoes = data.filter((item) => item.type === "shoes");
-  console.log(data);
+
   return (
     <>
       <Main>

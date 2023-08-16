@@ -4,7 +4,7 @@ import { RootState } from "../store/redux";
 
 export default function Cart() {
   const data = useSelector((state: RootState) => state.data.data);
-  console.log(data);
+
   return (
     <>
       <Main>

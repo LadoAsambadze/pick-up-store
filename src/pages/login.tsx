@@ -44,17 +44,18 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     if (!errors.email) {
       try {
         const response = await axios.post("http://localhost:3000/login", data);
         Cookies.set("token", response.data.token);
-
         navigate("/");
       } catch (error) {
-        console.error("Login failed:", error);
-        console.log(error.response.data);
-        setErrorMessage(error.response.data.message);
+        if (axios.isAxiosError(error)) {
+          console.error("Login failed:", error);
+          console.log(error.response?.data);
+          setErrorMessage(error.response?.data.message);
+        }
       }
     }
     getUserInfo();

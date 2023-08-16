@@ -17,17 +17,18 @@ export default function Singup() {
       console.error("Passwords do not match");
       return;
     }
-
     try {
       const data = {
         email: email,
         password: password,
       };
-      const response = await axios.post("http://localhost:3000/singup", data);
+      const response = await axios.post("http://localhost:3000/signup", data); // Fixed typo "singup" to "signup"
       console.log(response.data);
     } catch (error) {
       console.error("Signup failed:", error);
-      console.log(error.response.data);
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      }
     }
   };
 
