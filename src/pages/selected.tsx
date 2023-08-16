@@ -25,8 +25,6 @@ export default function Selected() {
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
   const [quantity, setQuantity] = useState(null);
 
-  console.log(shoesItem.name);
-
   function handleSelect(key, value) {
     setQuantity(value);
     setSelectedSize(key);
@@ -39,20 +37,22 @@ export default function Selected() {
     quantity: quantity,
     image: cartImage,
   };
-  console.log(cartData);
 
   const addToCart = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/addCart",
-        cartData
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error adding item to cart:", error);
+    if (Object.values(cartData).every((value) => value)) {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/addCart",
+          cartData
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error adding item to cart:", error);
+      }
+    } else {
+      console.log("Please select all options before adding to cart.");
     }
   };
-
   return (
     <>
       <Main>
