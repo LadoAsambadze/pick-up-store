@@ -20,14 +20,15 @@ export default function Selected() {
   const [selectedColor, setSelectedColor] = useState(
     initialResult && initialResult.color
   );
-  const [cartImage, setCartImage] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [cartImage, setCartImage] = useState<String | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
-  const [quantity, setQuantity] = useState(null);
+  const [quantity, setQuantity] = useState<Number | null>(null);
 
-  function handleSelect(key, value) {
+  function handleSelect(key: string | null, value: any) {
     setQuantity(value);
     setSelectedSize(key);
+    console.log(typeof key, typeof value);
   }
   const cartData = {
     product_id: id,
@@ -83,7 +84,9 @@ export default function Selected() {
           </Carousel>
           <SizeDiv>
             <SizeHeader>Select Size</SizeHeader>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              style={{ display: "flex", flexDirection: "row", flex: "wrap" }}
+            >
               {result &&
                 Object.entries(result.size).map(([key, value], index) => (
                   <SizeChoose
@@ -101,6 +104,7 @@ export default function Selected() {
                   </SizeChoose>
                 ))}
             </div>
+            <SizeHeader>Select Color</SizeHeader>
             <Carousel
               responsive={responsiveColor}
               itemClass="carousel-item-small"
@@ -238,6 +242,7 @@ const SizeChoose = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px;
 `;
 
 const AddToCart = styled("button")`
