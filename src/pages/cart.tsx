@@ -1,26 +1,41 @@
 import { Box, Typography, styled } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function Cart() {
   const data = useSelector((state: RootState) => state.data.data);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const getCart = async () => {
+    const response = await axios.get(`http://localhost:3000/getCart`);
+    setSelectedProducts(response.data.selectedItem);
+  };
+  console.log(selectedProducts);
+
+  useEffect(() => {
+    getCart();
+  }, []);
 
   return (
     <>
       <Main>
-        {data.map((item, index) => (
+        {selectedProducts.map((item, index) => (
           <ProductDiv key={index}>
             <ImageDiv
               style={{
-                backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
+                backgroundImage: `url(http://localhost:3000${item.image})`,
               }}
             ></ImageDiv>
             <DescriptionDiv>
-              <Name>Name of prgggggggggggggggggggggggoduct</Name>
-              <Size>Size : XS</Size>
+              <Name>{item.name}</Name>
+              <Size>Size: {item.size}</Size>
+              <h1>{item.color}</h1>
               <PiceXquantity>
                 <Price>75$</Price>
-                <Quantity>Quantity: 1</Quantity>
+                <Quantity>Quantity: {item.quantity}</Quantity>
               </PiceXquantity>
               <ControlDiv>
                 <ControlIcon src="/heart.svg" />

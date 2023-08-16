@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Selected() {
   const data = useSelector((state: RootState) => state.data.data);
@@ -19,14 +20,38 @@ export default function Selected() {
   const [selectedColor, setSelectedColor] = useState(
     initialResult && initialResult.color
   );
-  console.log(selectedColor);
-
+  const [cartImage, setCartImage] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
-  if (result) {
-    console.log(Object.keys(result.size));
-  } else {
-    console.log("No image found with the selected color");
+  const [quantity, setQuantity] = useState(null);
+
+  console.log(shoesItem.name);
+
+  function handleSelect(key, value) {
+    setQuantity(value);
+    setSelectedSize(key);
   }
+  const cartData = {
+    product_id: id,
+    name: shoesItem?.name,
+    size: selectedSize,
+    color: selectedColor,
+    quantity: quantity,
+    image: cartImage,
+  };
+  console.log(cartData);
+
+  const addToCart = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/addCart",
+        cartData
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
 
   return (
     <>
@@ -59,8 +84,20 @@ export default function Selected() {
             <SizeHeader>Select Size</SizeHeader>
             <div style={{ display: "flex", flexDirection: "row" }}>
               {result &&
-                Object.keys(result.size).map((item, index) => (
-                  <SizeChoose key={index}>{item}</SizeChoose>
+                Object.entries(result.size).map(([key, value], index) => (
+                  <SizeChoose
+                    style={{
+                      backgroundColor:
+                        key === selectedSize ? "lightblue" : "transparent",
+                      pointerEvents: value === 0 ? "none" : "auto",
+                      filter: value === 0 ? "blur(0.5px)" : "none",
+                      opacity: value === 0 ? "0.5" : "1",
+                    }}
+                    key={index}
+                    onClick={() => handleSelect(key, value)}
+                  >
+                    {key}
+                  </SizeChoose>
                 ))}
             </div>
             <Carousel
@@ -80,11 +117,12 @@ export default function Selected() {
                       setSelectedImage(item.urls[0]);
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
+                      setCartImage(item.urls[0]);
                     }}
                   ></SmallImageDiv>
                 ))}
             </Carousel>
-            <AddToCart>Add to bag</AddToCart>
+            <AddToCart onClick={addToCart}>Add to bag</AddToCart>
             <AddToFav>Add to favourite</AddToFav>
             <ReviewsDiv>
               <ReviewHeader>Reviews</ReviewHeader>
