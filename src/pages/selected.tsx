@@ -36,6 +36,7 @@ export default function Selected() {
     color: selectedColor,
     quantity: quantity,
     image: cartImage,
+    price: shoesItem?.price,
   };
 
   const addToCart = async () => {
