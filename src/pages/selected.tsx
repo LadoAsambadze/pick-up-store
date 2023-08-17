@@ -51,7 +51,7 @@ export default function Selected() {
       try {
         if (choosedAmount !== 0) {
           const response = await axios.post(
-            "https://pick-up-store-backend-production.up.railway.app//addCart",
+            "https://pick-up-store-backend-production.up.railway.app/addCart",
             cartData
           );
           console.log(response.data);
@@ -76,7 +76,9 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`} />
+          <ImageDiv
+            src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`}
+          />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>

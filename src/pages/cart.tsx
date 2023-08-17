@@ -9,13 +9,16 @@ interface Type {
   color: string;
   quantity: number;
   image: string;
+  amount: number;
 }
 
 export default function Cart() {
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
   useEffect(() => {
     const getCart = async () => {
-      const response = await axios.get(`https://pick-up-store-backend-production.up.railway.app/getCart`);
+      const response = await axios.get(
+        `https://pick-up-store-backend-production.up.railway.app/getCart`
+      );
       setSelectedProducts(response.data.selectedItem);
     };
     getCart();
