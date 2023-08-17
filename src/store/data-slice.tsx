@@ -27,7 +27,6 @@ interface Item {
   gender: string;
   category: string;
   price: number;
-
   brand: string;
   name: string;
   images: {

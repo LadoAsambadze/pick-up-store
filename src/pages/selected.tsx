@@ -23,12 +23,15 @@ export default function Selected() {
   const [cartImage, setCartImage] = useState<String | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
-  const [quantity, setQuantity] = useState<Number | null>(null);
+  const [quantity, setQuantity] = useState<number | null>(null);
+  const [choosedAmount, setChoosedAmount] = useState<number>(0);
+  const [check, setCheck] = useState(false);
+  const [checkImage, setCheckImage] = useState(false);
+  const [colorWarn, setColorWarn] = useState(false);
 
   function handleSelect(key: string | null, value: any) {
     setQuantity(value);
     setSelectedSize(key);
-    console.log(typeof key, typeof value);
   }
   const cartData = {
     product_id: id,
@@ -43,18 +46,25 @@ export default function Selected() {
   const addToCart = async () => {
     if (Object.values(cartData).every((value) => value)) {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/addCart",
-          cartData
-        );
-        console.log(response.data);
+        if (choosedAmount !== 0) {
+          const response = await axios.post(
+            "http://localhost:3000/addCart",
+            cartData
+          );
+          console.log(response.data);
+        }
       } catch (error) {
         console.error("Error adding item to cart:", error);
       }
     } else {
       console.log("Please select all options before adding to cart.");
+      if (!cartData.size) {
+        setCheck(true);
+      }
+      if (!cartData.image) setColorWarn(true);
     }
   };
+
   return (
     <>
       <Main>
@@ -65,7 +75,7 @@ export default function Selected() {
           <Description>
             <Name>Nike Pegasus Turbo Next Nature</Name>
             <Brand>Brand: {shoesItem?.brand}</Brand>
-            <Price>Price: ${shoesItem?.price}</Price>
+            <Price>Price: $ {shoesItem?.price}</Price>
           </Description>
 
           <Carousel responsive={responsiveSort} infinite={true}>
@@ -85,7 +95,13 @@ export default function Selected() {
               ))}
           </Carousel>
           <SizeDiv>
-            <SizeHeader>Select Size</SizeHeader>
+            <HeaderDiv>
+              <Header>Select Size</Header>
+              <Warning style={{ display: check ? "block" : "none" }}>
+                Please Select Size
+              </Warning>
+            </HeaderDiv>
+
             <ItemSizeSection>
               {result &&
                 Object.entries(result.size).map(([key, value], index) => (
@@ -98,13 +114,25 @@ export default function Selected() {
                       opacity: value === 0 ? "0.5" : "1",
                     }}
                     key={index}
-                    onClick={() => handleSelect(key, value)}
+                    onClick={() => {
+                      if (checkImage) {
+                        handleSelect(key, value), setCheck(false);
+                        setChoosedAmount(0);
+                      } else {
+                        setColorWarn(true);
+                      }
+                    }}
                   >
                     {key}
                   </SizeChoose>
                 ))}
             </ItemSizeSection>
-            <SizeHeader>Select Color</SizeHeader>
+            <HeaderDiv>
+              <Header>Select Color</Header>
+              <Warning style={{ display: colorWarn ? "block" : "none" }}>
+                Please Select Color
+              </Warning>
+            </HeaderDiv>
             <Carousel
               responsive={responsiveColor}
               itemClass="carousel-item-small"
@@ -118,7 +146,7 @@ export default function Selected() {
                     style={{
                       backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
                       border:
-                        selectedImage === item.urls[0]
+                        checkImage && selectedImage === item.urls[0]
                           ? "2px solid #cf9f58"
                           : "none",
                     }}
@@ -127,14 +155,44 @@ export default function Selected() {
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
                       setCartImage(item.urls[0]);
+                      setCheckImage(true);
+                      setColorWarn(false);
+                      setChoosedAmount(0);
+                      if (selectedColor !== item.color) {
+                        setSelectedSize(null);
+                        setQuantity(0);
+                      }
                     }}
                   ></SmallImageDiv>
                 ))}
             </Carousel>
+            <PriceSum>
+              $
+              {shoesItem?.price !== undefined
+                ? choosedAmount * shoesItem.price
+                : 0}
+            </PriceSum>
             <AddQuantity>
-              <Minus src="/icon-minus.svg" />
-              <Quantity>0</Quantity>
-              <Plus src="/icon-plus.svg" />
+              <Minus
+                onClick={() => {
+                  if (choosedAmount > 0) {
+                    setChoosedAmount(choosedAmount - 1);
+                  }
+                }}
+                src="/icon-minus.svg"
+              />
+              <Quantity>{choosedAmount}</Quantity>
+              <Plus
+                onClick={() => {
+                  if (choosedAmount < quantity && !colorWarn) {
+                    setChoosedAmount(choosedAmount + 1);
+                  }
+                  if (!cartData.size) {
+                    setCheck(true);
+                  }
+                }}
+                src="/icon-plus.svg"
+              />
             </AddQuantity>
             <AddToCart onClick={addToCart}>
               <CartIcon src="/cart-icon.svg" alt="Cart Icon" />
@@ -170,10 +228,11 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   padding-bottom: 60px;
-  @media (min-width: 900px) {
+  @media (min-width: 768px) {
     flex-direction: row;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
   }
   @media (min-width: 1100px) {
     padding-left: 100px;
@@ -205,9 +264,9 @@ const Brand = styled(Typography)`
 `;
 const Price = styled(Typography)`
   font-family: "Kumbh Sans", sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
   margin-top: 10px;
 `;
@@ -242,15 +301,25 @@ const SmallImageDivSort = styled(Box)`
   margin: 5px 2px 2px 2px;
   cursor: pointer;
   border-radius: 5px;
-
-  @media (min-width: 500px) {
-    height: 100px;
-  }
-  @media (min-width: 900px) {
+  @media (min-width: 550px) {
     height: 100px;
   }
 `;
 
+const HeaderDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`;
+
+const Warning = styled(Typography)`
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 500;
+  color: red;
+  font-size: 14px;
+  margin-left: 20px;
+`;
 const SizeDiv = styled(Box)`
   padding: 20px 20px 12px 20px;
 `;
@@ -260,7 +329,7 @@ const ItemSizeSection = styled(Box)`
   flex-direction: row;
   flex-wrap: wrap;
 `;
-const SizeHeader = styled(Typography)`
+const Header = styled(Typography)`
   font-family: "Kumbh Sans", sans-serif;
   font-weight: 700;
   color: black;
@@ -278,7 +347,7 @@ const SizeChoose = styled(Box)`
   cursor: pointer;
   font-family: "Kumbh Sans", sans-serif;
   font-weight: 400;
-  color: #534c4c;
+  color: #7a7070;
   font-size: 14px;
 `;
 
@@ -287,18 +356,25 @@ const AddQuantity = styled("div")`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 70px 10px 70px;
+  padding: 10px 90px 10px 90px;
   width: 100%;
   border: none;
   color: black;
   border-radius: 10px;
-  background: var(--light-grayish-blue, #f7f8fd);
+  background: var(--light-grayish-blue, #f4f5fd);
   margin-top: 10px;
 
   @media (min-width: 900px) {
     width: 70%;
     margin-top: 20px;
   }
+`;
+const PriceSum = styled(Typography)`
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 700;
+  color: #08213d;
+  font-size: 22px;
+  margin-top: 5px;
 `;
 
 const Minus = styled("img")`
@@ -312,10 +388,10 @@ const Plus = styled("img")`
   cursor: pointer;
 `;
 
-const Quantity = styled(Typography)`
+const Quantity = styled(Box)`
   font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
-  color: black;
+  font-weight: 700;
+  color: #08213d;
   font-size: 17px;
 `;
 
@@ -433,7 +509,7 @@ const responsiveColor = {
   },
   tabletOne: {
     breakpoint: { max: 900, min: 550 },
-    items: 4,
+    items: 3,
   },
   mobile: {
     breakpoint: { max: 550, min: 0 },
@@ -451,7 +527,7 @@ const responsiveSort = {
   },
   tabletOne: {
     breakpoint: { max: 900, min: 550 },
-    items: 6,
+    items: 4,
   },
   mobile: {
     breakpoint: { max: 550, min: 0 },
