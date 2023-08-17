@@ -28,6 +28,7 @@ export default function Selected() {
   const [check, setCheck] = useState(false);
   const [checkImage, setCheckImage] = useState(false);
   const [colorWarn, setColorWarn] = useState(false);
+  const [amountWarn, setAmountWarn] = useState(false);
 
   function handleSelect(key: string | null, value: any) {
     setQuantity(value);
@@ -52,6 +53,7 @@ export default function Selected() {
             cartData
           );
           console.log(response.data);
+          setAmountWarn(false);
         }
       } catch (error) {
         console.error("Error adding item to cart:", error);
@@ -62,6 +64,9 @@ export default function Selected() {
         setCheck(true);
       }
       if (!cartData.image) setColorWarn(true);
+    }
+    if (choosedAmount === 0) {
+      setAmountWarn(true);
     }
   };
 
@@ -172,6 +177,7 @@ export default function Selected() {
                 ? choosedAmount * shoesItem.price
                 : 0}
             </PriceSum>
+
             <AddQuantity>
               <Minus
                 onClick={() => {
@@ -182,10 +188,12 @@ export default function Selected() {
                 src="/icon-minus.svg"
               />
               <Quantity>{choosedAmount}</Quantity>
+
               <Plus
                 onClick={() => {
                   if (choosedAmount < quantity && !colorWarn) {
                     setChoosedAmount(choosedAmount + 1);
+                    setAmountWarn(false);
                   }
                   if (!cartData.size) {
                     setCheck(true);
@@ -194,6 +202,9 @@ export default function Selected() {
                 src="/icon-plus.svg"
               />
             </AddQuantity>
+            <Warning style={{ display: amountWarn ? "block" : "none" }}>
+              Please Select Amount
+            </Warning>
             <AddToCart onClick={addToCart}>
               <CartIcon src="/cart-icon.svg" alt="Cart Icon" />
               <ButtonText>Add To Cart</ButtonText>
