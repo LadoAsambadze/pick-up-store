@@ -7,6 +7,7 @@ import { RootState } from "../store/redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { Rating } from "@mui/material";
 
 export default function Selected() {
   const data = useSelector((state: RootState) => state.data.data);
@@ -23,7 +24,7 @@ export default function Selected() {
   const [cartImage, setCartImage] = useState<String | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
-  const [quantity, setQuantity] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState<number>(0);
   const [choosedAmount, setChoosedAmount] = useState<number>(0);
   const [check, setCheck] = useState(false);
   const [checkImage, setCheckImage] = useState(false);
@@ -42,6 +43,7 @@ export default function Selected() {
     quantity: quantity,
     image: cartImage,
     price: shoesItem?.price,
+    amount: choosedAmount,
   };
 
   const addToCart = async () => {
@@ -99,7 +101,7 @@ export default function Selected() {
                 ></SmallImageDivSort>
               ))}
           </Carousel>
-          <SizeDiv>
+          <FromSizeDiv>
             <HeaderDiv>
               <Header>Select Size</Header>
               <Warning style={{ display: check ? "block" : "none" }}>
@@ -213,20 +215,9 @@ export default function Selected() {
               <HeartIcon src="/heart-white.png" alt="Favorite/heart icon" />
               <ButtonText>Add To Favourite</ButtonText>
             </AddToFav>
-            <ReviewsDiv>
-              <ReviewHeader>Reviews</ReviewHeader>
-              <ArrowDiv>
-                <Star src="/star.png" />
-                <Star src="/star.png" />
-                <Star src="/star.png" />
-                <Star src="/star.png" />
-              </ArrowDiv>
-              <img
-                style={{ width: "20px", height: "20px" }}
-                src="/arrow-down-black.png"
-              />
-            </ReviewsDiv>
-          </SizeDiv>
+            <Reviews>Reviews</Reviews>
+            <Rating name="read-only" value={4.3} readOnly />
+          </FromSizeDiv>
         </DivideDivSecond>
       </Main>
     </>
@@ -331,7 +322,7 @@ const Warning = styled(Typography)`
   font-size: 14px;
   margin-left: 20px;
 `;
-const SizeDiv = styled(Box)`
+const FromSizeDiv = styled(Box)`
   padding: 20px 20px 12px 20px;
 `;
 
@@ -482,31 +473,12 @@ const DivideDivSecond = styled(Box)`
   }
 `;
 
-const ReviewsDiv = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-  @media (min-width: 900px) {
-    width: 50%;
-  }
-`;
-
-const ReviewHeader = styled(Typography)`
-  font-size: 20px;
-`;
-
-const Star = styled("img")`
-  width: 20px;
-  height: 20px;
-`;
-
-const ArrowDiv = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+const Reviews = styled(Typography)`
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 700;
+  color: #062950;
+  font-size: 17px;
+  margin-top: 10px;
 `;
 
 const responsiveColor = {
