@@ -26,7 +26,7 @@ export default function Login() {
     const cookieToken = getCookie("token");
 
     if (cookieToken) {
-      const response = await axios.get("http://localhost:3000/profile", {
+      const response = await axios.get("https://pick-up-store-backend-production.up.railway.app/profile", {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },

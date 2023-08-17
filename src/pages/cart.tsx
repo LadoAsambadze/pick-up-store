@@ -15,7 +15,7 @@ export default function Cart() {
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
   useEffect(() => {
     const getCart = async () => {
-      const response = await axios.get(`http://localhost:3000/getCart`);
+      const response = await axios.get(`https://pick-up-store-backend-production.up.railway.app/getCart`);
       setSelectedProducts(response.data.selectedItem);
     };
     getCart();
@@ -28,7 +28,7 @@ export default function Cart() {
           <ProductDiv key={index}>
             <ImageDiv
               style={{
-                backgroundImage: `url(http://localhost:3000${item.image})`,
+                backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.image})`,
               }}
             ></ImageDiv>
             <DescriptionDiv>

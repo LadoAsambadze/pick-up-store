@@ -22,7 +22,7 @@ export default function Singup() {
         email: email,
         password: password,
       };
-      const response = await axios.post("http://localhost:3000/signup", data); // Fixed typo "singup" to "signup"
+      const response = await axios.post("https://pick-up-store-backend-production.up.railway.app/signup", data); // Fixed typo "singup" to "signup"
       console.log(response.data);
     } catch (error) {
       console.error("Signup failed:", error);
