@@ -21,15 +21,12 @@ export default function Selected() {
   const [selectedColor, setSelectedColor] = useState(
     initialResult && initialResult.color
   );
-  const [cartImage, setCartImage] = useState<String | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
   const [quantity, setQuantity] = useState<number>(0);
   const [choosedAmount, setChoosedAmount] = useState<number>(0);
-  const [check, setCheck] = useState(false);
-  const [checkImage, setCheckImage] = useState(false);
-  const [colorWarn, setColorWarn] = useState(false);
   const [amountWarn, setAmountWarn] = useState(false);
+  const [check, setCheck] = useState(false);
 
   function handleSelect(key: string | null, value: any) {
     setQuantity(value);
@@ -41,7 +38,7 @@ export default function Selected() {
     size: selectedSize,
     color: selectedColor,
     quantity: quantity,
-    image: cartImage,
+    image: selectedImage,
     price: shoesItem?.price,
     amount: choosedAmount,
   };
@@ -62,16 +59,17 @@ export default function Selected() {
       }
     } else {
       console.log("Please select all options before adding to cart.");
-      if (!cartData.size) {
-        setCheck(true);
-      }
-      if (!cartData.image) setColorWarn(true);
     }
     if (choosedAmount === 0) {
       setAmountWarn(true);
     }
+    if (!selectedSize) {
+      setCheck(true);
+    }
   };
+  console.log(cartData);
 
+  console.log(selectedImage);
   return (
     <>
       <Main>
@@ -106,7 +104,9 @@ export default function Selected() {
           <FromSizeDiv>
             <HeaderDiv>
               <Header>Select Size</Header>
-              <Warning style={{ display: check ? "block" : "none" }}>
+              <Warning
+                style={{ display: selectedSize || !check ? "none" : "block" }}
+              >
                 Please Select Size
               </Warning>
             </HeaderDiv>
@@ -124,12 +124,7 @@ export default function Selected() {
                     }}
                     key={index}
                     onClick={() => {
-                      if (checkImage) {
-                        handleSelect(key, value), setCheck(false);
-                        setChoosedAmount(0);
-                      } else {
-                        setColorWarn(true);
-                      }
+                      handleSelect(key, value), setChoosedAmount(0);
                     }}
                   >
                     {key}
@@ -138,9 +133,6 @@ export default function Selected() {
             </ItemSizeSection>
             <HeaderDiv>
               <Header>Select Color</Header>
-              <Warning style={{ display: colorWarn ? "block" : "none" }}>
-                Please Select Color
-              </Warning>
             </HeaderDiv>
             <Carousel
               responsive={responsiveColor}
@@ -155,7 +147,7 @@ export default function Selected() {
                     style={{
                       backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.urls[0]})`,
                       border:
-                        checkImage && selectedImage === item.urls[0]
+                        selectedImage === item.urls[0]
                           ? "2px solid #cf9f58"
                           : "none",
                     }}
@@ -163,9 +155,6 @@ export default function Selected() {
                       setSelectedImage(item.urls[0]);
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
-                      setCartImage(item.urls[0]);
-                      setCheckImage(true);
-                      setColorWarn(false);
                       setChoosedAmount(0);
                       if (selectedColor !== item.color) {
                         setSelectedSize(null);
@@ -195,11 +184,11 @@ export default function Selected() {
 
               <Plus
                 onClick={() => {
-                  if (choosedAmount < quantity && !colorWarn) {
+                  if (choosedAmount < quantity) {
                     setChoosedAmount(choosedAmount + 1);
                     setAmountWarn(false);
                   }
-                  if (!cartData.size) {
+                  if (!selectedSize) {
                     setCheck(true);
                   }
                 }}
