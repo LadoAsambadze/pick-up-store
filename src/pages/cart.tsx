@@ -12,6 +12,7 @@ interface Type {
   image: string;
   amount: number;
   price: number;
+  purchase_id: string;
 }
 
 export default function Cart() {
@@ -28,10 +29,10 @@ export default function Cart() {
     getCart();
   }, []);
 
-  const updateAmount = async (product_id: string, new_amount: number) => {
+  const updateAmount = async (purchase_id: string, new_amount: number) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/updateCart/${product_id}`,
+        `https://pick-up-store-backend-production.up.railway.app/updateCart/${purchase_id}`,
         { new_amount }
       );
       console.log(response.data);
@@ -40,14 +41,16 @@ export default function Cart() {
     }
   };
 
-  const deleteProduct = async (product_id: string) => {
+  const deleteProduct = async (purchase_id: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/deleteProduct/${product_id}`
+        `https://pick-up-store-backend-production.up.railway.app/deleteProduct/${purchase_id}`
       );
       console.log(response.data);
       setSelectedProducts(
-        selectedProducts.filter((product) => product.product_id !== product_id)
+        selectedProducts.filter(
+          (product) => product.purchase_id !== purchase_id
+        )
       );
     } catch (error) {
       console.error(error);
@@ -80,7 +83,7 @@ export default function Cart() {
                     onClick={async () => {
                       const newAmount = item.amount - 1;
                       if (newAmount >= 0) {
-                        await updateAmount(item.product_id, newAmount);
+                        await updateAmount(item.purchase_id, newAmount);
                         setSelectedProducts(
                           selectedProducts.map((product) =>
                             product.name === item.name && product.amount > 0
@@ -98,7 +101,7 @@ export default function Cart() {
                     onClick={async () => {
                       const newAmount = item.amount + 1;
                       if (newAmount <= item.quantity) {
-                        await updateAmount(item.product_id, newAmount);
+                        await updateAmount(item.purchase_id, newAmount);
                         setSelectedProducts(
                           selectedProducts.map((product) =>
                             product.name === item.name &&
@@ -119,7 +122,8 @@ export default function Cart() {
                 <ControlIcon
                   src="/delete.png"
                   onClick={() => {
-                    deleteProduct(item.product_id);
+                    deleteProduct(item.purchase_id);
+                    console.log(item.purchase_id);
                   }}
                 />
                 <Change variant="contained">Change</Change>

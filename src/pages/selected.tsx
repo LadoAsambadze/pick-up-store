@@ -67,9 +67,7 @@ export default function Selected() {
       setCheck(true);
     }
   };
-  console.log(cartData);
 
-  console.log(selectedImage);
   return (
     <>
       <Main>
