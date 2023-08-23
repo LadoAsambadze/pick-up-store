@@ -24,7 +24,7 @@ export default function Selected() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const result = shoesItem?.images.find((item) => item.color === selectedColor);
   const [quantity, setQuantity] = useState<number>(0);
-  const [choosedAmount, setChoosedAmount] = useState<number>(0);
+  const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
 
@@ -122,7 +122,7 @@ export default function Selected() {
                     }}
                     key={index}
                     onClick={() => {
-                      handleSelect(key, value), setChoosedAmount(0);
+                      handleSelect(key, value), setChoosedAmount(1);
                     }}
                   >
                     {key}
@@ -402,7 +402,7 @@ const AddToCart = styled("div")`
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
   &:hover {
-    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); /* Add white shadow on hover */
+    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); 
   }
   @media (min-width: 900px) {
     width: 70%;
