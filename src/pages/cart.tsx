@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 interface Type {
+  product_id: string;
   name: string;
   size: string;
   color: string;
@@ -23,8 +24,36 @@ export default function Cart() {
       );
       setSelectedProducts(response.data.selectedItem);
     };
+
     getCart();
   }, []);
+
+  const updateAmount = async (product_id: string, new_amount: number) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/updateCart/${product_id}`,
+        { new_amount }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteProduct = async (product_id: string) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/deleteProduct/${product_id}`
+      );
+      console.log(response.data);
+      setSelectedProducts(
+        selectedProducts.filter((product) => product.product_id !== product_id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log(selectedProducts);
 
   return (
     <>
@@ -47,15 +76,52 @@ export default function Cart() {
               <DescriptionSecondary>
                 <Price>${item.price}</Price>
                 <AddQuantity>
-                  <Minus src="/icon-minus.svg" />
+                  <Minus
+                    onClick={async () => {
+                      const newAmount = item.amount - 1;
+                      if (newAmount >= 0) {
+                        await updateAmount(item.product_id, newAmount);
+                        setSelectedProducts(
+                          selectedProducts.map((product) =>
+                            product.name === item.name && product.amount > 0
+                              ? { ...product, amount: newAmount }
+                              : product
+                          )
+                        );
+                      }
+                    }}
+                    src="/icon-minus.svg"
+                  />
+
                   <Quantity>{item.amount}</Quantity>
-                  <Plus src="/icon-plus.svg" />
+                  <Plus
+                    onClick={async () => {
+                      const newAmount = item.amount + 1;
+                      if (newAmount <= item.quantity) {
+                        await updateAmount(item.product_id, newAmount);
+                        setSelectedProducts(
+                          selectedProducts.map((product) =>
+                            product.name === item.name &&
+                            product.amount < product.quantity
+                              ? { ...product, amount: newAmount }
+                              : product
+                          )
+                        );
+                      }
+                    }}
+                    src="/icon-plus.svg"
+                  />
                 </AddQuantity>
               </DescriptionSecondary>
 
               <DescriptionSecondary>
                 <ControlIcon src="/heart.svg" />
-                <ControlIcon src="/delete.png" />
+                <ControlIcon
+                  src="/delete.png"
+                  onClick={() => {
+                    deleteProduct(item.product_id);
+                  }}
+                />
                 <Change variant="contained">Change</Change>
               </DescriptionSecondary>
             </DescriptionDiv>
