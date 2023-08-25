@@ -37,6 +37,7 @@ function App() {
   return (
     <>
       <Header />
+
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/clothes" element={<Clothes />} />

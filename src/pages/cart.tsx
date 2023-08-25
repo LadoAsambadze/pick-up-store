@@ -2,6 +2,7 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import Checkout from "../components/Checkout";
 
 interface Type {
   product_id: string;
@@ -159,7 +160,7 @@ export default function Cart() {
               <PriceX>${totalPrice + shipping}</PriceX>
             </ItemDiv>
           </TotaltDiv>
-          <PayPall>Check out</PayPall>
+          <Checkout />
         </SecondDiv>
       </Main>
     </>
@@ -332,31 +333,6 @@ const PriceX = styled(Typography)`
   font-weight: 500;
   color: #08213d;
   font-size: 14px;
-`;
-
-const PayPall = styled("div")`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 77px 16px 77px;
-  margin: auto;
-  width: 70%;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  background: var(--orange, #ff7d1a);
-  box-shadow: 0px 8px 10px 0px #ffede0;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4);
-  }
-  @media (min-width: 900px) {
-    width: 70%;
-    margin-top: 20px;
-  }
 `;
 
 const FirstDiv = styled(Box)`
