@@ -26,12 +26,27 @@ body {
 .sort-box {
   width: 200px;
 }
+
+#demo-simple-select-label {
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 500;
+  color: black;
+  font-size: 16px;
+}
+
+#demo-simple-select {
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 500;
+  color: black;
+  font-size: 14px;
+}
+
 .carousel-item1 {
   display: none;
 }
 
 .selected {
-  background-color: lightblue; /* or any other style you prefer */
+  background-color: lightblue;
 }
 
 @media (min-width: 900px) {
@@ -40,5 +55,20 @@ body {
   }
   .carousel-item1 {
     display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .sort-box {
+    width: 170px;
+    padding: 0;
+  }
+
+  #demo-simple-select {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 500;
+    color: black;
+    font-size: 14px;
+    padding: 15px 10px 15px 10px;
   }
 }

@@ -2,7 +2,6 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import Checkout from "../components/Checkout";
 
 interface Type {
   product_id: string;
@@ -160,7 +159,6 @@ export default function Cart() {
               <PriceX>${totalPrice + shipping}</PriceX>
             </ItemDiv>
           </TotaltDiv>
-          <Checkout />
         </SecondDiv>
       </Main>
     </>

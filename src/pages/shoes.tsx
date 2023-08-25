@@ -110,7 +110,17 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px 100px 10px 100px;
+  min-height: 100vh;
+  padding: 10px 20px 10px 20px;
+  @media (min-width: 500px) {
+    padding: 10px 35px 10px 35px;
+  }
+  @media (min-width: 768px) {
+    padding: 10px 50px 10px 50px;
+  }
+  @media (min-width: 1200px) {
+    padding: 10px 100px 10px 100px;
+  }
 `;
 
 const FindBy = styled(Box)`
@@ -141,28 +151,48 @@ const FilterIcon = styled("img")`
 
 const MainGrid = styled(Box)`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  padding-top: 25px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  padding-top: 10px;
+  @media (min-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding-top: 25px;
+  }
 `;
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid #d8d8e1;
+  border: 1px solid #d8d8e1;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
   position: relative;
+  @media (min-width: 1440px) {
+    border: 2px solid #d8d8e1;
+  }
 `;
 
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-  height: 300px;
+  height: 150px;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid #d8d8e1;
   background-position: center;
+  @media (min-width: 500px) {
+    height: 200px;
+  }
+  @media (min-width: 1200px) {
+    height: 300px;
+  }
 `;
 
 const About = styled(Box)`
@@ -172,19 +202,27 @@ const About = styled(Box)`
   align-items: flex-start;
   justify-content: center;
   background-color: white;
-  padding: 10px 20px 20px 20px;
+  padding: 10px 10px 10px 10px;
+  @media (min-width: 1440px) {
+    padding: 10px 20px 20px 20px;
+  }
 `;
 
 const Favourite = styled("img")`
   display: flex;
-  padding: 6px;
+  padding: 3px;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   cursor: pointer;
   position: absolute;
   top: 12px;
   right: 12px;
+  @media (min-width: 1440px) {
+    top: 12px;
+    right: 12px;
+    padding: 6px;
+  }
 `;
 
 const Description = styled(Box)`
@@ -196,18 +234,30 @@ const Description = styled(Box)`
 `;
 const Name = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
+  overflow: hidden;
+  white-space: nowrap;
+
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 const Brand = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
   text-transform: uppercase;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 const Price = styled(Typography)`
   color: black;
-  font-size: 16px;
+  font-size: 10px;
   font-family: "Cousine", monospace;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;

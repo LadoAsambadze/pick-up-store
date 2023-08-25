@@ -269,7 +269,8 @@ const Name = styled(Typography)`
   color: black;
   font-size: 10px;
   font-family: "Cousine", monospace;
-
+  overflow: hidden;
+  white-space: nowrap;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
