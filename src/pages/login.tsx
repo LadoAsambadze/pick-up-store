@@ -25,11 +25,14 @@ export default function Login() {
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get("https://pick-up-store-backend-production.up.railway.app/profile", {
-        headers: {
-          authorization: `Bearer ${cookieToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://pick-up-store-backend-production.up.railway.app/profile",
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
       dispatch(setUser(response.data.user));
     }
   };
@@ -98,30 +101,41 @@ const Main = styled(Box)`
   flex-direction: column;
   align-items: center;
   overflow-y: none;
-  background: #d4c9c9;
+  background: #692bd5;
   @media (min-width: 768px) {
-    padding: 40px 150px 120px 150px;
+    padding: 40px 150px 40px 150px;
   }
   @media (min-width: 900px) {
     padding: 40px 200px 40px 200px;
   }
   @media (min-width: 1440px) {
-    padding: 40px 500px 120px 500px;
+    padding: 40px 500px 40px 500px;
   }
 `;
-
 const LogIn = styled(Box)`
   background: var(--semi-dark-blue, #14181a);
   width: 100%;
   padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
+  background: var(
+    --glass-1-fill-carey,
+    linear-gradient(
+      294deg,
+      rgba(191, 191, 191, 0.06) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    rgba(0, 0, 0, 0.14)
+  );
+  box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(26.5px);
   @media (min-width: 768px) {
     padding: 32px;
     border-radius: 10px;
   }
+  @media (min-width: 1440x) {
+  }
 `;
-
 const Header = styled(Typography)`
   color: var(--pure-white, #fff);
   font-size: 32px;
