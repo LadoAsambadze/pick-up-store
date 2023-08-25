@@ -176,7 +176,6 @@ const FilterDiv = styled(Box)`
   user-select: none;
   border-radius: 4px;
   cursor: pointer;
-
   border-color: #b8b2b2;
 `;
 const Filter = styled(Typography)`

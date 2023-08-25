@@ -24,7 +24,6 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState(null);
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
-
     if (cookieToken) {
       const response = await axios.get("https://pick-up-store-backend-production.up.railway.app/profile", {
         headers: {

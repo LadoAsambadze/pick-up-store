@@ -5,29 +5,42 @@ import { Input } from "@mui/material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
-export default function Singup() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
 
-  const handleSignup = async () => {
-    if (password !== repeatPassword) {
-      console.error("Passwords do not match");
-      return;
-    }
+export default function Signup() {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().required().min(4).max(32),
+    repeatPassword: yup
+      .string()
+      .oneOf([yup.ref("password")])
+
+      .required(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: any) => {
     try {
-      const data = {
-        email: email,
-        password: password,
-      };
-      const response = await axios.post("https://pick-up-store-backend-production.up.railway.app/signup", data); // Fixed typo "singup" to "signup"
+      setErrorMessage(null);
+      const response = await axios.post("http://localhost:3000/singup", data);
       console.log(response.data);
     } catch (error) {
       console.error("Signup failed:", error);
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
+        setErrorMessage(error.response?.data.message);
       }
     }
   };
@@ -37,31 +50,43 @@ export default function Singup() {
       <Main>
         <LogIn>
           <Header>Sign Up</Header>
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <InputField
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address"
               type="email"
+              {...register("email", { required: true })}
             />
+            {errors.email?.type === "required" && (
+              <Warn>Please enter email address</Warn>
+            )}
 
+            {errorMessage && <Warn>{errorMessage}</Warn>}
             <InputField
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              {...register("password", { required: true })}
             />
+            {errors.password?.type === "min" && (
+              <Warn>Password length must be minimum 4 digits</Warn>
+            )}
+            {errors.password?.type === "required" && (
+              <Warn>Please enter password</Warn>
+            )}
 
             <InputField
               placeholder="Repeat Password"
-              onChange={(e) => setRepeatPassword(e.target.value)}
+              type="password"
+              {...register("repeatPassword", { required: true })}
             />
 
-            <LogDone
-              onClick={() => {
-                handleSignup();
-              }}
-              type="submit"
-            >
-              Create an account
-            </LogDone>
+            {errors.repeatPassword?.type === "required" && (
+              <Warn>Please enter password</Warn>
+            )}
+            {errors.repeatPassword?.type === "oneOf" && (
+              <Warn>Passwords don't match</Warn>
+            )}
+
+            <LogDone type="submit">Create an account</LogDone>
             <SingDiv>
               <Question>Already have an account?</Question>
               <SignUp onClick={() => navigate("/login")}>Login</SignUp>
@@ -113,7 +138,7 @@ const Header = styled(Typography)`
   letter-spacing: -0.5px;
 `;
 
-const Form = styled(Box)`
+const Form = styled("form")`
   width: 100%;
   margin-top: 16px;
   display: flex;
@@ -176,13 +201,13 @@ const SignUp = styled(Button)`
   line-height: normal;
 `;
 
-// const Warn = styled(Typography)`
-//   font-size: 12px;
-//   font-family: Outfit;
-//   font-style: normal;
-//   font-weight: 300;
-//   line-height: normal;
-//   color: red;
-//   margin-top: 5px;
-//   margin-left: 3px;
-// `;
+const Warn = styled(Typography)`
+  font-size: 12px;
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: red;
+  margin-top: 5px;
+  margin-left: 3px;
+`;

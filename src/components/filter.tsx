@@ -153,8 +153,8 @@ const Main = styled(Box)`
     width: 12px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #d1c5c5; /* color of the thumb */
-    border-radius: 6px; /* roundness of the thumb */
+    background-color: #d1c5c5;
+    border-radius: 6px; 
   }
 `;
 
