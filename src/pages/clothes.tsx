@@ -169,11 +169,21 @@ const FilterDiv = styled(Box)`
   justify-content: space-between;
   align-items: center;
   border: 1px solid gray;
-  padding: 8px 15px 8px 15px;
+  width: 130px;
+  border-radius: 5px;
+  padding: 10px 15px 10px 15px;
   cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  border-color: #b8b2b2;
 `;
 const Filter = styled(Typography)`
-  font-size: 20px;
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 500;
+  color: black;
+  font-size: 18px;
 `;
 
 const FilterIcon = styled("img")`

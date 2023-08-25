@@ -115,7 +115,7 @@ export default function FilterComponent() {
         </ShowMain>
         <Line></Line>
         <SizeDiv onClick={() => setSize(!size)}>
-          <FilterHead style={{ cursor: "pointer" }}>Size</FilterHead>
+          <FilterHead>Size</FilterHead>
           <Arrow src="/arrow-up.svg" alt="Arrow icon up/down" />
         </SizeDiv>
         <Line></Line>
