@@ -8,9 +8,15 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Rating } from "@mui/material";
+interface User {
+  id: string;
+}
 
 export default function Selected() {
   const data = useSelector((state: RootState) => state.data.data);
+  const user = useSelector(
+    (state: RootState) => state.user.userinfo
+  ) as User | null;
   const { id } = useParams();
   const shoesItem = data.find((item) => item._id === id);
   const [selectedImage, setSelectedImage] = useState(
@@ -32,15 +38,22 @@ export default function Selected() {
     setQuantity(value);
     setSelectedSize(key);
   }
+  const user_id = user ? user.id : null;
+
   const cartData = {
-    product_id: id,
-    name: shoesItem?.name,
-    size: selectedSize,
-    color: selectedColor,
-    quantity: quantity,
-    image: selectedImage,
-    price: shoesItem?.price,
-    amount: choosedAmount,
+    user: user_id,
+    orderItems: [
+      {
+        product_id: id,
+        name: shoesItem?.name,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: quantity,
+        image: selectedImage,
+        price: shoesItem?.price,
+        amount: choosedAmount,
+      },
+    ],
   };
 
   const addToCart = async () => {
@@ -48,7 +61,7 @@ export default function Selected() {
       try {
         if (choosedAmount !== 0) {
           const response = await axios.post(
-            "https://pick-up-store-backend-production.up.railway.app/addCart",
+            "http://localhost:3000/addCart",
             cartData
           );
           console.log(response.data);
@@ -72,9 +85,7 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv
-            src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`}
-          />
+          <ImageDiv src={`http://localhost:3000${selectedImage}`} />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
@@ -89,7 +100,7 @@ export default function Selected() {
                 <SmallImageDivSort
                   key={index}
                   style={{
-                    backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item})`,
+                    backgroundImage: `url(http://localhost:3000${item})`,
                     border:
                       selectedImage === item ? "1px solid #cf9f58" : "none",
                   }}
@@ -143,7 +154,7 @@ export default function Selected() {
                   <SmallImageDiv
                     key={index}
                     style={{
-                      backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.urls[0]})`,
+                      backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
                       border:
                         selectedImage === item.urls[0]
                           ? "2px solid #cf9f58"
@@ -402,7 +413,7 @@ const AddToCart = styled("div")`
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
   &:hover {
-    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); 
+    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4);
   }
   @media (min-width: 900px) {
     width: 70%;

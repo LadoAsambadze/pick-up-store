@@ -10,9 +10,10 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "cookies-next";
 import { setUser } from "../store/user-slice";
+import { RootState } from "../store/redux";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -20,22 +21,22 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+  const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get(
-        "https://pick-up-store-backend-production.up.railway.app/profile",
-        {
-          headers: {
-            authorization: `Bearer ${cookieToken}`,
-          },
-        }
-      );
-      dispatch(setUser(response.data.user));
+      const response = await axios.get("http://localhost:3000/profile", {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
+
+      dispatch(setUser(response.data.useData));
     }
   };
+ 
 
   const dispatch = useDispatch();
   const {
@@ -49,7 +50,10 @@ export default function Login() {
   const onSubmit = async (data: any) => {
     if (!errors.email) {
       try {
-        const response = await axios.post("http://localhost:3000/login", data);
+        const response = await axios.post(
+          "http://localhost:3000/user/login",
+          data
+        );
         Cookies.set("token", response.data.token);
         navigate("/");
       } catch (error) {
@@ -62,6 +66,8 @@ export default function Login() {
     }
     getUserInfo();
   };
+
+  console.log(user);
 
   return (
     <>

@@ -86,7 +86,7 @@ export default function Shoes() {
               >
                 <ImageDiv
                   style={{
-                    backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.images[0].urls[0]})`,
+                    backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
                   }}
                 ></ImageDiv>
 
@@ -96,7 +96,13 @@ export default function Shoes() {
                     <Brand>{item.brand}</Brand>
                   </Description>
                   <Price>{item.price}</Price>
-                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+                  <Favourite
+                    src="/heart.svg"
+                    alt="Favourite add icon, heart"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                    }}
+                  />
                 </About>
               </ArrivalDiv>
             ))}
@@ -227,6 +233,7 @@ const Favourite = styled("img")`
   position: absolute;
   top: 12px;
   right: 12px;
+  z-index: 500;
   @media (min-width: 1440px) {
     top: 12px;
     right: 12px;

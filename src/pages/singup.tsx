@@ -34,7 +34,10 @@ export default function Signup() {
   const onSubmit = async (data: any) => {
     try {
       setErrorMessage(null);
-      const response = await axios.post("http://localhost:3000/singup", data);
+      const response = await axios.post(
+        "http://localhost:3000/user/singup",
+        data
+      );
       console.log(response.data);
     } catch (error) {
       console.error("Signup failed:", error);

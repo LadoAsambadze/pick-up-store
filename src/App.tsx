@@ -20,9 +20,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get(
-          "https://pick-up-store-backend-production.up.railway.app/all"
-        );
+        const getAll = await axios.get("http://localhost:3000/api/users");
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {

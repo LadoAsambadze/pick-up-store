@@ -2,6 +2,8 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/redux";
 
 interface Type {
   product_id: string;
@@ -14,28 +16,37 @@ interface Type {
   price: number;
   purchase_id: string;
 }
+interface User {
+  id: string;
+}
 
 export default function Cart() {
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
-
+  const user = useSelector(
+    (state: RootState) => state.user.userinfo
+  ) as User | null;
+  const user_id = user ? user.id : null;
   useEffect(() => {
-    const getCart = async () => {
-      const response = await axios.get(
-        `https://pick-up-store-backend-production.up.railway.app/getCart`
-      );
-      setSelectedProducts(response.data.selectedItem);
-    };
+    if (user) {
+      // access user properties here
 
-    getCart();
+      const getCart = async () => {
+        const { data } = await axios.get(
+          `http://localhost:3000/getCart?userId=${user.id}`
+        );
+        const order = data.selectedItem;
+        setSelectedProducts(order.flatMap((item: any) => item.orderItems));
+      };
+      getCart();
+    }
   }, []);
 
   const updateAmount = async (purchase_id: string, new_amount: number) => {
     try {
-      const response = await axios.put(
-        `https://pick-up-store-backend-production.up.railway.app/updateCart/${purchase_id}`,
-        { new_amount }
-      );
-      console.log(response.data);
+      await axios.put(`http://localhost:3000/updateCart/${purchase_id}`, {
+        new_amount,
+        user_id,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -43,10 +54,10 @@ export default function Cart() {
 
   const deleteProduct = async (purchase_id: string) => {
     try {
-      const response = await axios.delete(
-        `https://pick-up-store-backend-production.up.railway.app/deleteProduct/${purchase_id}`
-      );
-      console.log(response.data);
+      await axios.delete(`http://localhost:3000/deleteProduct/${purchase_id}`, {
+        data: { user_id },
+      });
+
       setSelectedProducts(
         selectedProducts.filter(
           (product) => product.purchase_id !== purchase_id
@@ -73,7 +84,7 @@ export default function Cart() {
               <ImageDiv>
                 <img
                   style={{ maxWidth: "100%" }}
-                  src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
+                  src={`http://localhost:3000${item.image}`}
                 />
               </ImageDiv>
               <DescriptionDiv>
@@ -93,7 +104,8 @@ export default function Cart() {
                           await updateAmount(item.purchase_id, newAmount);
                           setSelectedProducts(
                             selectedProducts.map((product) =>
-                              product.name === item.name && product.amount > 0
+                              product.purchase_id === item.purchase_id &&
+                              product.amount > 0
                                 ? { ...product, amount: newAmount }
                                 : product
                             )
@@ -111,7 +123,7 @@ export default function Cart() {
                           await updateAmount(item.purchase_id, newAmount);
                           setSelectedProducts(
                             selectedProducts.map((product) =>
-                              product.name === item.name &&
+                              product.purchase_id === item.purchase_id &&
                               product.amount < product.quantity
                                 ? { ...product, amount: newAmount }
                                 : product

@@ -62,6 +62,7 @@ export default function Header() {
               }}
             />
           </SearchDiv>
+
           <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
           <HeaderIcon
             onClick={() => navigate("/login")}
@@ -114,6 +115,7 @@ export default function Header() {
           <Icon src="/vite.svg" />
         </IconsDiv>
       </ListItem>
+ 
     </>
   );
 }
