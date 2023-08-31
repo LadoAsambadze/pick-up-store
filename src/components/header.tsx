@@ -8,17 +8,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../store/search-slice";
 import { resetFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
+import { deleteCookie } from "cookies-next";
+import { setAuth } from "../store/extra-slice";
+import { getCookie } from "cookies-next";
 
 export default function Header() {
   const dispatch = useDispatch();
-
+  const logged = useSelector((state: RootState) => state.extra.auth);
   const user = useSelector((state: RootState) => state.user);
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const menuHandler = () => {
     setMenu(!menu);
   };
-
+  const cookieToken = getCookie("token");
   return (
     <>
       <Main>
@@ -74,11 +77,6 @@ export default function Header() {
             alt="Shoping cart icon"
           />
           <HeaderIcon
-            onClick={() => navigate("/login")}
-            src="/user.svg"
-            alt="User icon"
-          />
-          <HeaderIcon
             style={{
               display:
                 user.userinfo && user.userinfo.isAdmin ? "block" : "none",
@@ -87,6 +85,26 @@ export default function Header() {
             src="/admin.png"
             alt="Admin"
           />
+
+          <HeaderIcon
+            style={{ display: logged ? "none" : "block" }}
+            onClick={() => {
+              if (!logged) {
+                navigate("/login");
+              }
+            }}
+            src="/user.svg"
+            alt="User icon"
+          />
+          <Logout
+            style={{ display: logged ? "block" : "none" }}
+            onClick={() => {
+              dispatch(setAuth(false));
+            }}
+          >
+            Log out
+          </Logout>
+
           <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
       </Main>
@@ -227,6 +245,7 @@ const HeaderIcon = styled("img")`
   padding: 4px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   @media (min-width: 1440px) {
     padding: 12px;
@@ -323,4 +342,10 @@ const IconsDiv = styled(Box)`
 const Icon = styled("img")`
   width: 20px;
   height: 20px;
+`;
+const Logout = styled(Box)`
+  background: white;
+  font-size: 17px;
+  margin-left: 15px;
+  cursor: pointer;
 `;

@@ -2,8 +2,10 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
+
+import { getCookie } from "cookies-next";
 
 interface Type {
   product_id: string;
@@ -21,18 +23,23 @@ interface User {
 }
 
 export default function Cart() {
+
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
   const user = useSelector(
     (state: RootState) => state.user.userinfo
   ) as User | null;
   const user_id = user ? user.id : null;
   useEffect(() => {
+    const cookieToken = getCookie("token");
     if (user) {
-      // access user properties here
-
       const getCart = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/getCart?userId=${user.id}`
+          `http://localhost:3000/order/getCart?userId=${user.id}`,
+          {
+            headers: {
+              authorization: `Bearer ${cookieToken}`,
+            },
+          }
         );
         const order = data.selectedItem;
         setSelectedProducts(order.flatMap((item: any) => item.orderItems));
@@ -41,22 +48,41 @@ export default function Cart() {
     }
   }, []);
 
+ 
+
   const updateAmount = async (purchase_id: string, new_amount: number) => {
+    const cookieToken = getCookie("token");
     try {
-      await axios.put(`http://localhost:3000/updateCart/${purchase_id}`, {
-        new_amount,
-        user_id,
-      });
+      await axios.put(
+        `http://localhost:3000/order/updateCart/${purchase_id}`,
+        {
+          new_amount,
+          user_id, // You need to define user_id somewhere before using it here
+        },
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.error(error);
     }
   };
 
   const deleteProduct = async (purchase_id: string) => {
+    const cookieToken = getCookie("token");
+
     try {
-      await axios.delete(`http://localhost:3000/deleteProduct/${purchase_id}`, {
-        data: { user_id },
-      });
+      await axios.delete(
+        `http://localhost:3000/order/deleteProduct/${purchase_id}`,
+        {
+          data: { user_id },
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
 
       setSelectedProducts(
         selectedProducts.filter(

@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Rating } from "@mui/material";
+import { getCookie } from "cookies-next";
 interface User {
   id: string;
 }
@@ -57,18 +58,23 @@ export default function Selected() {
   };
 
   const addToCart = async () => {
+    console.log(cartData);
     if (Object.values(cartData).every((value) => value)) {
+      const cookieToken = getCookie("token");
+
       try {
         if (choosedAmount !== 0) {
-          const response = await axios.post(
-            "http://localhost:3000/addCart",
-            cartData
-          );
-          console.log(response.data);
+          await axios.post("http://localhost:3000/order/addCart", cartData, {
+            headers: {
+              authorization: `Bearer ${cookieToken}`,
+            },
+          });
+
           setAmountWarn(false);
         }
       } catch (error) {
         console.error("Error adding item to cart:", error);
+        console.log("Please log in");
       }
     } else {
       console.log("Please select all options before adding to cart.");

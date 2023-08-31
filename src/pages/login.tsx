@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { getCookie } from "cookies-next";
 import { setUser } from "../store/user-slice";
+import { setAuth } from "../store/extra-slice";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -22,15 +23,17 @@ const schema = yup.object().shape({
 export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
+
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get("http://localhost:3000/profile", {
+      const response = await axios.get("http://localhost:3000/user/profile", {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },
       });
       dispatch(setUser(response.data.useData));
+      dispatch(setAuth(true));
     }
   };
 

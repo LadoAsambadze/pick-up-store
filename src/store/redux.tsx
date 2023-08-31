@@ -10,13 +10,15 @@ import searchSlice from "./search-slice";
 import loadingSlice from "./loading-slice";
 import dataSlice from "./data-slice";
 import userSlice from "./user-slice";
+import extraSlice from "./extra-slice";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
   search: searchSlice,
   loading: loadingSlice,
   data: dataSlice,
-  user: userSlice
+  user: userSlice,
+  extra: extraSlice,
 });
 
 const persistConfig = {
