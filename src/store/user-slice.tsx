@@ -1,7 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+interface UserInfo {
+  isAdmin: boolean;
+}
+
 interface Type {
-  userinfo: object | null;
+  userinfo: UserInfo | null;
 }
 
 const initialState: Type = {
@@ -12,7 +16,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<object | null>) => {
+    setUser: (state, action: PayloadAction<UserInfo | null>) => {
       state.userinfo = action.payload;
     },
   },

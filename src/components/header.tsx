@@ -4,12 +4,15 @@ import Typography from "@mui/material/Typography/Typography";
 import Button from "@mui/material/Button/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../store/search-slice";
 import { resetFilter } from "../store/filter-slice";
+import { RootState } from "../store/redux";
 
 export default function Header() {
   const dispatch = useDispatch();
+
+  const user = useSelector((state: RootState) => state.user);
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const menuHandler = () => {
@@ -64,15 +67,25 @@ export default function Header() {
           </SearchDiv>
 
           <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
+
+          <HeaderIcon
+            onClick={() => navigate("/cart")}
+            src="/cart.svg"
+            alt="Shoping cart icon"
+          />
           <HeaderIcon
             onClick={() => navigate("/login")}
             src="/user.svg"
             alt="User icon"
           />
           <HeaderIcon
-            onClick={() => navigate("/cart")}
-            src="/cart.svg"
-            alt="Shoping cart icon"
+            style={{
+              display:
+                user.userinfo && user.userinfo.isAdmin ? "block" : "none",
+              padding: 0,
+            }}
+            src="/admin.png"
+            alt="Admin"
           />
           <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
@@ -115,7 +128,6 @@ export default function Header() {
           <Icon src="/vite.svg" />
         </IconsDiv>
       </ListItem>
- 
     </>
   );
 }

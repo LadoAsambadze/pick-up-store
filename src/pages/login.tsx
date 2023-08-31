@@ -10,10 +10,9 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCookie } from "cookies-next";
 import { setUser } from "../store/user-slice";
-import { RootState } from "../store/redux";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -21,7 +20,6 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
-  const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const getUserInfo = async () => {
@@ -32,11 +30,9 @@ export default function Login() {
           authorization: `Bearer ${cookieToken}`,
         },
       });
-
       dispatch(setUser(response.data.useData));
     }
   };
- 
 
   const dispatch = useDispatch();
   const {
@@ -66,8 +62,6 @@ export default function Login() {
     }
     getUserInfo();
   };
-
-  console.log(user);
 
   return (
     <>
@@ -107,7 +101,7 @@ const Main = styled(Box)`
   flex-direction: column;
   align-items: center;
   overflow-y: none;
-  background: #692bd5;
+  background: #d4c9c9;
   @media (min-width: 768px) {
     padding: 40px 150px 40px 150px;
   }
@@ -124,15 +118,6 @@ const LogIn = styled(Box)`
   padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
-  background: var(
-    --glass-1-fill-carey,
-    linear-gradient(
-      294deg,
-      rgba(191, 191, 191, 0.06) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(0, 0, 0, 0.14)
-  );
   box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(26.5px);
   @media (min-width: 768px) {

@@ -34,11 +34,7 @@ export default function Signup() {
   const onSubmit = async (data: any) => {
     try {
       setErrorMessage(null);
-      const response = await axios.post(
-        "http://localhost:3000/user/singup",
-        data
-      );
-      console.log(response.data);
+      await axios.post("http://localhost:3000/user/singup", data);
     } catch (error) {
       console.error("Signup failed:", error);
       if (axios.isAxiosError(error)) {
@@ -107,7 +103,7 @@ const Main = styled(Box)`
   flex-direction: column;
   align-items: center;
   overflow-y: none;
-  background: #e07008;
+  background: #d4c9c9;
   @media (min-width: 768px) {
     padding: 40px 150px 40px 150px;
   }
@@ -125,15 +121,6 @@ const LogIn = styled(Box)`
   padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
-  background: var(
-    --glass-1-fill-carey,
-    linear-gradient(
-      294deg,
-      rgba(191, 191, 191, 0.06) 0%,
-      rgba(0, 0, 0, 0) 100%
-    ),
-    rgba(0, 0, 0, 0.14)
-  );
   box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(26.5px);
   @media (min-width: 768px) {
