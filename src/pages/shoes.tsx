@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { useNavigate } from "react-router-dom";
+import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function Shoes() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Shoes() {
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const shoes = data.filter((item) => item.type === "shoes");
+  const favourites = useSelector((state: RootState) => state.favourites);
 
   return (
     <>
@@ -101,6 +103,11 @@ export default function Shoes() {
                     alt="Favourite add icon, heart"
                     onClick={(event) => {
                       event.stopPropagation();
+                      if (favourites.favourites.includes(item._id)) {
+                        dispatch(removeFavourite(item._id));
+                      } else {
+                        dispatch(setFavourites(item._id));
+                      }
                     }}
                   />
                 </About>

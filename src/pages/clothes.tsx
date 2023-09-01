@@ -7,7 +7,7 @@ import { setFilter } from "../store/filter-slice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import { setFavourites } from "../store/favourites-slice";
+import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function Clothes() {
   const dispatch = useDispatch();
@@ -17,6 +17,8 @@ export default function Clothes() {
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
   const clothes = data.filter((item) => item.type === "clothes");
+  const favourites = useSelector((state: RootState) => state.favourites);
+
 
   return (
     <>
@@ -130,7 +132,11 @@ export default function Clothes() {
                         alt="Favourite add icon, heart"
                         onClick={(event) => {
                           event.stopPropagation();
-                          dispatch(setFavourites(item._id));
+                          if (favourites.favourites.includes(item._id)) {
+                            dispatch(removeFavourite(item._id));
+                          } else {
+                            dispatch(setFavourites(item._id));
+                          }
                         }}
                       />
                     </About>

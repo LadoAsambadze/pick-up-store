@@ -9,6 +9,11 @@ export default function Favourites() {
   const navigate = useNavigate();
   const loading = useSelector((state: RootState) => state.loading.loading);
   const data = useSelector((state: RootState) => state.data.data);
+  const favourites = useSelector(
+    (state: RootState) => state.favourites.favourites
+  );
+  const filteredData = data.filter((item) => favourites.includes(item._id));
+
   return (
     <>
       <Main>
@@ -26,7 +31,7 @@ export default function Favourites() {
           </div>
         ) : (
           <MainGrid>
-            {data.map((item, index) => (
+            {filteredData.map((item, index) => (
               <ArrivalDiv
                 onClick={() => {
                   const id = item._id;
