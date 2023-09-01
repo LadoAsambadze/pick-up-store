@@ -127,6 +127,10 @@ export default function Clothes() {
                       <Favourite
                         src="/heart.svg"
                         alt="Favourite add icon, heart"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          console.log(item._id);
+                        }}
                       />
                     </About>
                   </ArrivalDiv>
@@ -143,7 +147,7 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  
+
   min-height: 100vh;
   padding: 10px 20px 10px 20px;
   @media (min-width: 500px) {

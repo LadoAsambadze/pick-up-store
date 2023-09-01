@@ -9,7 +9,6 @@ import { setSearch } from "../store/search-slice";
 import { resetFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { deleteCookie } from "cookies-next";
-import { setAuth } from "../store/extra-slice";
 import { persistor } from "../store/redux";
 
 export default function Header() {
@@ -69,7 +68,11 @@ export default function Header() {
             />
           </SearchDiv>
 
-          <HeaderIcon src="/heart.svg" alt="Favourite section icon/button" />
+          <HeaderIcon
+            src="/heart.svg"
+            alt="Favourite section icon/button"
+            onClick={() => navigate("/Favourites")}
+          />
 
           <HeaderIcon
             onClick={() => navigate("/cart")}
@@ -99,7 +102,6 @@ export default function Header() {
           <Logout
             style={{ display: logged ? "block" : "none" }}
             onClick={() => {
-              dispatch(setAuth(false));
               deleteCookie("token");
               persistor.pause();
               persistor.flush().then(() => {

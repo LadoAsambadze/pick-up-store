@@ -11,6 +11,7 @@ import loadingSlice from "./loading-slice";
 import dataSlice from "./data-slice";
 import userSlice from "./user-slice";
 import extraSlice from "./extra-slice";
+import favouritesSlice from "./favourites-slice";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   data: dataSlice,
   user: userSlice,
   extra: extraSlice,
+  favourites: favouritesSlice,
 });
 
 const persistConfig = {

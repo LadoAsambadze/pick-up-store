@@ -13,6 +13,7 @@ import { setLoading } from "./store/loading-slice";
 import Cart from "./pages/cart";
 import Login from "./pages/login";
 import Singup from "./pages/singup";
+import Favourites from "./pages/Favourites";
 // import { getCookie } from "cookies-next";
 
 function App() {
@@ -33,27 +34,6 @@ function App() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const authMe = async () => {
-  //     const cookieToken = getCookie("token");
-  //     if (cookieToken) {
-  //       try {
-  //         await axios.get("http://localhost:3000/authme", {
-  //           headers: {
-  //             authorization: `Bearer ${cookieToken}`,
-  //           },
-  //         });
-  //         console.log("logged");
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     } else {
-  //       console.log("not logged");
-  //     }
-  //   };
-  //   authMe();
-  // }, []);
-
   return (
     <>
       <Header />
@@ -67,6 +47,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Singup" element={<Singup />} />
+        <Route path="/Favourites" element={<Favourites />} />
       </Routes>
       <Footer />
     </>
