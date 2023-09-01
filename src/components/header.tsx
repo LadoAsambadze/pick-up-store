@@ -10,6 +10,7 @@ import { resetFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { deleteCookie } from "cookies-next";
 import { setAuth } from "../store/extra-slice";
+import { persistor } from "../store/redux";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -100,6 +101,11 @@ export default function Header() {
             onClick={() => {
               dispatch(setAuth(false));
               deleteCookie("token");
+              persistor.pause();
+              persistor.flush().then(() => {
+                return persistor.purge();
+              });
+              window.location.reload();
             }}
           >
             Log out
