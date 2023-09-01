@@ -10,7 +10,6 @@ import { resetFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { deleteCookie } from "cookies-next";
 import { setAuth } from "../store/extra-slice";
-import { getCookie } from "cookies-next";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ export default function Header() {
   const menuHandler = () => {
     setMenu(!menu);
   };
-  const cookieToken = getCookie("token");
+
   return (
     <>
       <Main>
@@ -100,6 +99,7 @@ export default function Header() {
             style={{ display: logged ? "block" : "none" }}
             onClick={() => {
               dispatch(setAuth(false));
+              deleteCookie("token");
             }}
           >
             Log out
