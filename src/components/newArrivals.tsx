@@ -3,15 +3,22 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import BlackHeart from "/public/black-heart.png";
+import WhiteHeart from "/public/heart.svg";
+import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function NewArrivals(props: any) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading.loading);
   const data = useSelector((state: RootState) => state.data.data);
+  const favourites = useSelector(
+    (state: RootState) => state.favourites.favourites
+  );
 
   const responsive = {
     desktop: {
@@ -86,7 +93,17 @@ export default function NewArrivals(props: any) {
                     </Description>
                     <Price>{item.price}</Price>
                     <Favourite
-                      src="/heart.svg"
+                      src={
+                        favourites.includes(item._id) ? BlackHeart : WhiteHeart
+                      }
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (favourites.includes(item._id)) {
+                          dispatch(removeFavourite(item._id));
+                        } else {
+                          dispatch(setFavourites(item._id));
+                        }
+                      }}
                       alt="Favourite add icon, heart"
                     />
                   </About>
@@ -189,6 +206,12 @@ const Favourite = styled("img")`
   position: absolute;
   bottom: 45px;
   right: 40px;
+  width: 30px;
+  height: 30px;
+  @media (min-width: 1440px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const Description = styled(Typography)`

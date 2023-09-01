@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
+import BlackHeart from "/public/black-heart.png";
+import WhiteHeart from "/public/heart.svg";
 
 export default function Clothes() {
   const dispatch = useDispatch();
@@ -17,8 +19,9 @@ export default function Clothes() {
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
   const clothes = data.filter((item) => item.type === "clothes");
-  const favourites = useSelector((state: RootState) => state.favourites);
-
+  const favourites = useSelector(
+    (state: RootState) => state.favourites.favourites
+  );
 
   return (
     <>
@@ -128,11 +131,15 @@ export default function Clothes() {
                       </Description>
                       <Price>{item.price}</Price>
                       <Favourite
-                        src="/heart.svg"
+                        src={
+                          favourites.includes(item._id)
+                            ? BlackHeart
+                            : WhiteHeart
+                        }
                         alt="Favourite add icon, heart"
                         onClick={(event) => {
                           event.stopPropagation();
-                          if (favourites.favourites.includes(item._id)) {
+                          if (favourites.includes(item._id)) {
                             dispatch(removeFavourite(item._id));
                           } else {
                             dispatch(setFavourites(item._id));
@@ -272,10 +279,15 @@ const Favourite = styled("img")`
   position: absolute;
   top: 12px;
   right: 12px;
+  z-index: 500;
+  width: 20px;
+  height: 20px;
   @media (min-width: 1440px) {
     top: 12px;
     right: 12px;
     padding: 6px;
+    width: 40px;
+    height: 40px;
   }
 `;
 

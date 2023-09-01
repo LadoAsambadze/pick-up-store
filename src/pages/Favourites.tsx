@@ -2,11 +2,15 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/system";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
+import BlackHeart from "/public/black-heart.png";
+import WhiteHeart from "/public/heart.svg";
+import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function Favourites() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading.loading);
   const data = useSelector((state: RootState) => state.data.data);
   const favourites = useSelector(
@@ -50,7 +54,20 @@ export default function Favourites() {
                     <Brand>{item.brand}</Brand>
                   </Description>
                   <Price>{item.price}</Price>
-                  <Favourite src="/heart.svg" alt="Favourite add icon, heart" />
+                  <Favourite
+                    src={
+                      favourites.includes(item._id) ? BlackHeart : WhiteHeart
+                    }
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (favourites.includes(item._id)) {
+                        dispatch(removeFavourite(item._id));
+                      } else {
+                        dispatch(setFavourites(item._id));
+                      }
+                    }}
+                    alt="Favourite add icon, heart"
+                  />
                 </About>
               </ArrivalDiv>
             ))}
@@ -149,10 +166,15 @@ const Favourite = styled("img")`
   position: absolute;
   top: 12px;
   right: 12px;
+  z-index: 500;
+  width: 20px;
+  height: 20px;
   @media (min-width: 1440px) {
     top: 12px;
     right: 12px;
     padding: 6px;
+    width: 40px;
+    height: 40px;
   }
 `;
 
