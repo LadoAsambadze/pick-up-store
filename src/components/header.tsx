@@ -14,13 +14,15 @@ import { persistor } from "../store/redux";
 export default function Header() {
   const dispatch = useDispatch();
   const logged = useSelector((state: RootState) => state.extra.auth);
+  const search = useSelector((state: RootState) => state.search.search);
   const user = useSelector((state: RootState) => state.user);
+  const data = useSelector((state: RootState) => state.data.data);
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const menuHandler = () => {
     setMenu(!menu);
   };
-
+  console.log(search);
   return (
     <>
       <Main>
@@ -58,7 +60,7 @@ export default function Header() {
         </Description>
 
         <Shop>
-          <SearchDiv>
+          <SearchDiv style={{ position: "relative" }}>
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
             <SearchInput
               placeholder="Search"
@@ -66,6 +68,30 @@ export default function Header() {
                 dispatch(setSearch(e.target.value));
               }}
             />
+            {search !== "" && (
+              <LiveSearch>
+                {data
+                  .filter((item) =>
+                    item.name.toLowerCase().includes(search.toLowerCase())
+                  )
+                  .map((item, index) => (
+                    <LiveSearchItem key={index}>
+                      <SmallImageDiv>
+                        <SmallImage
+                          src={`http://localhost:3000${item.images[0].urls[0]}`}
+                        />
+                      </SmallImageDiv>
+                      <DescriptionDiv>
+                        <ItemName>{item.name}</ItemName>
+                        <ItemPrice>{item.price}</ItemPrice>
+                      </DescriptionDiv>
+                    </LiveSearchItem>
+                  ))}
+                {data.filter((item) =>
+                  item.name.toLowerCase().includes(search.toLowerCase())
+                ).length === 0 && <h1>Item not found</h1>}
+              </LiveSearch>
+            )}
           </SearchDiv>
 
           <HeaderIcon
@@ -168,6 +194,7 @@ const Main = styled(Box)`
   opacity: 0.92;
   border-bottom: 1px solid black;
   padding: 10px 18px 10px 18px;
+
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }
@@ -357,3 +384,48 @@ const Logout = styled(Box)`
   margin-left: 15px;
   cursor: pointer;
 `;
+
+const LiveSearch = styled(Box)`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 40px;
+  border: 1px solid gray;
+`;
+
+const LiveSearchItem = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`;
+
+const SmallImageDiv = styled(Box)`
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+const SmallImage = styled("img")`
+  cursor: pointer;
+  max-width: 100%;
+`;
+
+const DescriptionDiv = styled(Box)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: gray;
+`;
+
+const ItemName = styled(Typography)``;
+
+const ItemPrice = styled(Typography)``;

@@ -12,6 +12,7 @@ import dataSlice from "./data-slice";
 import userSlice from "./user-slice";
 import extraSlice from "./extra-slice";
 import favouritesSlice from "./favourites-slice";
+import { deleteCookie } from "cookies-next";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
@@ -44,5 +45,24 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+// Set an expiration date for the persisted state
+const EXPIRATION_TIME_IN_MINUTES = 1;
+const expirationDate = new Date(
+  new Date().getTime() + EXPIRATION_TIME_IN_MINUTES * 60 * 1000
+);
+localStorage.setItem("expirationDate", expirationDate.toString());
+
+const storedExpirationDate = localStorage.getItem("expirationDate");
+if (storedExpirationDate) {
+  const currentDate = new Date();
+  if (currentDate > new Date(storedExpirationDate)) {
+    deleteCookie("token");
+    persistor.pause();
+    persistor.flush().then(() => {
+      persistor.purge().then(() => {});
+    });
+  }
+}
 
 export default store;
