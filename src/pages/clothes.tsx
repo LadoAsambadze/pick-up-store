@@ -7,6 +7,7 @@ import { setFilter } from "../store/filter-slice";
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import { setFavourites } from "../store/favourites-slice";
 
 export default function Clothes() {
   const dispatch = useDispatch();
@@ -129,7 +130,7 @@ export default function Clothes() {
                         alt="Favourite add icon, heart"
                         onClick={(event) => {
                           event.stopPropagation();
-                          console.log(item._id);
+                          dispatch(setFavourites(item._id));
                         }}
                       />
                     </About>
