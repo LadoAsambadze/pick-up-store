@@ -14,7 +14,6 @@ import Cart from "./pages/cart";
 import Login from "./pages/login";
 import Singup from "./pages/singup";
 import Favourites from "./pages/Favourites";
-// import { getCookie } from "cookies-next";
 
 function App() {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { Box, Button, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 
 import { getCookie } from "cookies-next";
@@ -23,7 +23,6 @@ interface User {
 }
 
 export default function Cart() {
-
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
   const user = useSelector(
     (state: RootState) => state.user.userinfo
@@ -47,8 +46,6 @@ export default function Cart() {
       getCart();
     }
   }, []);
-
- 
 
   const updateAmount = async (purchase_id: string, new_amount: number) => {
     const cookieToken = getCookie("token");

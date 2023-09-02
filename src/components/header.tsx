@@ -75,7 +75,17 @@ export default function Header() {
                     item.name.toLowerCase().includes(search.toLowerCase())
                   )
                   .map((item, index) => (
-                    <LiveSearchItem key={index}>
+                    <LiveSearchItem
+                      key={index}
+                      onClick={() => {
+                        const id = item._id;
+                        if (item.type === "shoes") {
+                          window.location.href = `/shoes/${id}`;
+                        } else {
+                          window.location.href = `/clothes/${id}`;
+                        }
+                      }}
+                    >
                       <SmallImageDiv>
                         <SmallImage
                           src={`http://localhost:3000${item.images[0].urls[0]}`}

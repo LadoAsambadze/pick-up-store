@@ -9,27 +9,38 @@ import { useState } from "react";
 import axios from "axios";
 import { Rating } from "@mui/material";
 import { getCookie } from "cookies-next";
+import { useEffect } from "react";
 interface User {
   id: string;
 }
 
 export default function Selected() {
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data.data);
+  let shoesItem: any;
+  if (data) {
+    shoesItem = data.find((item) => item._id === id);
+  }
   const user = useSelector(
     (state: RootState) => state.user.userinfo
   ) as User | null;
-  const { id } = useParams();
-  const shoesItem = data.find((item) => item._id === id);
+
+  const [selectedColor, setSelectedColor] = useState(
+    shoesItem?.images[0] && shoesItem?.images[0].color
+  );
+  let result: any;
+  if (shoesItem) {
+    result = shoesItem?.images.find(
+      (item: any) => item.color === selectedColor
+    );
+  }
   const [selectedImage, setSelectedImage] = useState(
     shoesItem?.images[0].urls[0]
   );
-  const initialResult = shoesItem?.images[0];
   const [selectedSort, setSelectedSort] = useState(shoesItem?.images[0].urls);
-  const [selectedColor, setSelectedColor] = useState(
-    initialResult && initialResult.color
-  );
+
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const result = shoesItem?.images.find((item) => item.color === selectedColor);
   const [quantity, setQuantity] = useState<number>(0);
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
@@ -40,7 +51,6 @@ export default function Selected() {
     setSelectedSize(key);
   }
   const user_id = user ? user.id : null;
-
   const cartData = {
     user: user_id,
     orderItems: [
@@ -56,9 +66,18 @@ export default function Selected() {
       },
     ],
   };
+  useEffect(() => {
+    if (shoesItem) {
+      setSelectedColor(shoesItem.images[0].color);
+      setSelectedImage(shoesItem.images[0].urls[0]);
+      setSelectedSort(shoesItem.images[0].urls);
+      result = shoesItem.images.find(
+        (item: any) => item.color === selectedColor
+      );
+    }
+  }, [data, shoesItem]);
 
   const addToCart = async () => {
-    console.log(cartData);
     if (Object.values(cartData).every((value) => value)) {
       const cookieToken = getCookie("token");
 
@@ -86,7 +105,21 @@ export default function Selected() {
       setCheck(true);
     }
   };
+  useEffect(() => {
+    if (
+      data &&
+      shoesItem &&
+      result &&
+      selectedSort &&
+      selectedImage && selectedColor
+    ) {
+      setLoading(false);
+    }
+  }, [data, shoesItem, result, selectedColor, selectedImage, selectedSort]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Main>
