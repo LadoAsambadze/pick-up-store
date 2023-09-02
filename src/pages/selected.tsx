@@ -111,7 +111,8 @@ export default function Selected() {
       shoesItem &&
       result &&
       selectedSort &&
-      selectedImage && selectedColor
+      selectedImage &&
+      selectedColor
     ) {
       setLoading(false);
     }
@@ -135,7 +136,7 @@ export default function Selected() {
 
           <Carousel responsive={responsiveSort} infinite={true}>
             {selectedSort &&
-              selectedSort.map((item, index) => (
+              selectedSort.map((item: any, index: any) => (
                 <SmallImageDivSort
                   key={index}
                   style={{
@@ -189,7 +190,7 @@ export default function Selected() {
               removeArrowOnDeviceType={["tablet", "desktop"]}
             >
               {shoesItem &&
-                shoesItem.images.map((item, index) => (
+                shoesItem.images.map((item: any, index: any) => (
                   <SmallImageDiv
                     key={index}
                     style={{
