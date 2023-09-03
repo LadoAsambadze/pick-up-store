@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/system";
 
-export default function Admin() {
+export default function Order() {
   return (
     <>
       <Main></Main>

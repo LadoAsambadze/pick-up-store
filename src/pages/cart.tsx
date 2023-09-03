@@ -97,6 +97,13 @@ export default function Cart() {
   let shipping = 0;
 
   shipping = selectedProducts.length * 3;
+  const orderData = {
+    user: user_id,
+    items: selectedProducts,
+  };
+  const makeOrder = async () => {
+    axios.post("http://localhost:3000/makeorder", orderData);
+  };
 
   return (
     <>
@@ -194,6 +201,14 @@ export default function Cart() {
               <PriceX>${totalPrice + shipping}</PriceX>
             </ItemDiv>
           </TotaltDiv>
+          <div
+            style={{ background: "gray", width: "100%" }}
+            onClick={() => {
+              makeOrder();
+            }}
+          >
+            Check out
+          </div>
         </SecondDiv>
       </Main>
     </>
