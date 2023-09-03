@@ -123,6 +123,9 @@ export default function Header() {
             }}
             src="/admin.png"
             alt="Admin"
+            onClick={() => {
+              navigate("/Admin");
+            }}
           />
 
           <HeaderIcon

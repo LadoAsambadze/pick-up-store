@@ -14,6 +14,7 @@ import Cart from "./pages/cart";
 import Login from "./pages/login";
 import Singup from "./pages/singup";
 import Favourites from "./pages/Favourites";
+import Admin from "./pages/Admin";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Singup" element={<Singup />} />
         <Route path="/Favourites" element={<Favourites />} />
+        <Route path="/Admin" element={<Admin />} />
       </Routes>
       <Footer />
     </>
