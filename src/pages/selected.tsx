@@ -10,6 +10,7 @@ import axios from "axios";
 import { Rating } from "@mui/material";
 import { getCookie } from "cookies-next";
 import { useEffect } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 interface User {
   id: string;
 }
@@ -119,7 +120,22 @@ export default function Selected() {
   }, [data, shoesItem, result, selectedColor, selectedImage, selectedSort]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        {" "}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      </>
+    );
   }
   return (
     <>
