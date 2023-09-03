@@ -46,6 +46,7 @@ export default function Selected() {
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
+  const [selectedOwnId, setSelectedOwnId] = useState(shoesItem?.images[0]._id);
 
   function handleSelect(key: string | null, value: any) {
     setQuantity(value);
@@ -64,14 +65,18 @@ export default function Selected() {
         image: selectedImage,
         price: shoesItem?.price,
         amount: choosedAmount,
+        own_id: selectedOwnId,
       },
     ],
   };
+
+  console.log(cartData);
   useEffect(() => {
     if (shoesItem) {
       setSelectedColor(shoesItem.images[0].color);
       setSelectedImage(shoesItem.images[0].urls[0]);
       setSelectedSort(shoesItem.images[0].urls);
+      setSelectedOwnId(shoesItem?.images[0]._id);
       result = shoesItem.images.find(
         (item: any) => item.color === selectedColor
       );
@@ -220,6 +225,7 @@ export default function Selected() {
                       setSelectedImage(item.urls[0]);
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
+                      setSelectedOwnId(item._id);
                       setChoosedAmount(0);
                       if (selectedColor !== item.color) {
                         setSelectedSize(null);
