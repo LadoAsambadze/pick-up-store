@@ -24,6 +24,13 @@ interface User {
 
 export default function Cart() {
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
+  const [fullName, setFullName] = useState("");
+  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [stepone, setStepOne] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
+  const [check, setCheck] = useState(false);
   const user = useSelector(
     (state: RootState) => state.user.userinfo
   ) as User | null;
@@ -95,16 +102,40 @@ export default function Cart() {
     totalPrice += product.price * product.amount;
   });
   let shipping = 0;
+  const data = {
+    fullName,
+    city,
+    address,
+    phoneNumber,
+  };
 
-  shipping = selectedProducts.length * 3;
   const orderData = {
     user: user_id,
     items: selectedProducts,
-  };
-  const makeOrder = async () => {
-    axios.post("http://localhost:3000/makeorder", orderData);
+    shippingDetails: data,
   };
 
+  const makeOrder = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/makeorder",
+        orderData
+      );
+      console.log("Order successful!", response.data);
+    } catch (error) {
+      console.error("Error making the order:", error);
+    }
+  };
+
+  const submit = async (event: any) => {
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    if (isPaid) {
+      makeOrder();
+    }
+  }, [isPaid]);
   return (
     <>
       <Main>
@@ -204,10 +235,73 @@ export default function Cart() {
           <div
             style={{ background: "gray", width: "100%" }}
             onClick={() => {
-              makeOrder();
+              setCheck(!check);
             }}
           >
             Check out
+          </div>
+          <form
+            onSubmit={submit}
+            style={{
+              display: check ? "flex" : "none",
+              flexDirection: "column",
+            }}
+          >
+            <label>Full name</label>
+            <input
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              type="text"
+              disabled={stepone}
+            />
+            <label>City</label>
+            <input
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              type="text"
+              disabled={stepone}
+            />
+            <label>Address</label>
+            <input
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              type="text"
+              disabled={stepone}
+            />
+            <label>Phone number</label>
+            <input
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              type="text"
+              disabled={stepone}
+            />
+            <button
+              style={{ background: stepone ? "Green" : "gray" }}
+              type="submit"
+              onClick={() => {
+                if (
+                  fullName !== "" &&
+                  city !== "" &&
+                  address !== "" &&
+                  phoneNumber !== ""
+                ) {
+                  setStepOne(!stepone);
+                }
+              }}
+            >
+              {stepone ? "Change" : "Submit"}
+            </button>
+          </form>
+
+          <div style={{ display: stepone ? "block" : "none" }}>
+            <h1>make payment</h1>
+            <button
+              onClick={() => {
+                setIsPaid(true);
+              }}
+            >
+              Yes
+            </button>
           </div>
         </SecondDiv>
       </Main>
