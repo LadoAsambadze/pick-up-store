@@ -144,7 +144,10 @@ export default function Cart() {
       <Main>
         <FirstDiv>
           {selectedProducts.map((item, index) => (
-            <ProductDiv key={index}>
+            <ProductDiv
+              style={{ background: item.quantity > 0 ? null : "red" }}
+              key={index}
+            >
               <ImageDiv>
                 <img
                   style={{ maxWidth: "100%" }}
