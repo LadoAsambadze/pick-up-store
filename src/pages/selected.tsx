@@ -70,7 +70,6 @@ export default function Selected() {
     ],
   };
 
-  console.log(cartData);
   useEffect(() => {
     if (shoesItem) {
       setSelectedColor(shoesItem.images[0].color);
@@ -227,6 +226,7 @@ export default function Selected() {
                       setSelectedColor(item.color);
                       setSelectedOwnId(item._id);
                       setChoosedAmount(0);
+                      
                       if (selectedColor !== item.color) {
                         setSelectedSize(null);
                         setQuantity(0);

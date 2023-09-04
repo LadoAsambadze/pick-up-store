@@ -54,14 +54,19 @@ export default function Cart() {
     }
   }, []);
 
-  const updateAmount = async (purchase_id: string, new_amount: number) => {
+  const updateAmount = async (
+    purchase_id: string,
+    new_amount: number,
+    new_quantity: number
+  ) => {
     const cookieToken = getCookie("token");
     try {
       await axios.put(
         `http://localhost:3000/order/updateCart/${purchase_id}`,
         {
           new_amount,
-          user_id, // You need to define user_id somewhere before using it here
+          user_id,
+          new_quantity,
         },
         {
           headers: {
@@ -122,6 +127,7 @@ export default function Cart() {
         orderData
       );
       console.log("Order successful!", response.data);
+      window.location.reload();
     } catch (error) {
       console.error("Error making the order:", error);
     }
@@ -136,6 +142,8 @@ export default function Cart() {
       makeOrder();
     }
   }, [isPaid]);
+
+  console.log(selectedProducts);
   return (
     <>
       <Main>
@@ -152,7 +160,7 @@ export default function Cart() {
                 <Name>{item.name}</Name>
                 <DescriptionSecondary>
                   <Size>Size: {item.size}</Size>
-                  <Quantity>Avaliable: {item.quantity}</Quantity>
+                  <Quantity>Avaliable: {item.quantity - 1}</Quantity>
                 </DescriptionSecondary>
 
                 <DescriptionSecondary>
@@ -161,13 +169,22 @@ export default function Cart() {
                     <Minus
                       onClick={async () => {
                         const newAmount = item.amount - 1;
-                        if (newAmount >= 0) {
-                          await updateAmount(item.purchase_id, newAmount);
+                        const newQuantity = item.quantity + 1;
+                        if (newAmount >= 1) {
+                          await updateAmount(
+                            item.purchase_id,
+                            newAmount,
+                            newQuantity
+                          );
                           setSelectedProducts(
                             selectedProducts.map((product) =>
                               product.purchase_id === item.purchase_id &&
                               product.amount > 0
-                                ? { ...product, amount: newAmount }
+                                ? {
+                                    ...product,
+                                    amount: newAmount,
+                                    quantity: newQuantity,
+                                  }
                                 : product
                             )
                           );
@@ -180,13 +197,22 @@ export default function Cart() {
                     <Plus
                       onClick={async () => {
                         const newAmount = item.amount + 1;
-                        if (newAmount <= item.quantity) {
-                          await updateAmount(item.purchase_id, newAmount);
+                        const newQuantity = item.quantity - 1;
+                        if (item.quantity >= 1) {
+                          await updateAmount(
+                            item.purchase_id,
+                            newAmount,
+                            newQuantity
+                          );
                           setSelectedProducts(
                             selectedProducts.map((product) =>
                               product.purchase_id === item.purchase_id &&
-                              product.amount < product.quantity
-                                ? { ...product, amount: newAmount }
+                              product.quantity > 0
+                                ? {
+                                    ...product,
+                                    amount: newAmount,
+                                    quantity: newQuantity,
+                                  }
                                 : product
                             )
                           );
