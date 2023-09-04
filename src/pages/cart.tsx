@@ -54,11 +54,7 @@ export default function Cart() {
     }
   }, []);
 
-  const updateAmount = async (
-    purchase_id: string,
-    new_amount: number,
-    new_quantity: number
-  ) => {
+  const updateAmount = async (purchase_id: string, new_amount: number) => {
     const cookieToken = getCookie("token");
     try {
       await axios.put(
@@ -66,7 +62,6 @@ export default function Cart() {
         {
           new_amount,
           user_id,
-          new_quantity,
         },
         {
           headers: {
@@ -160,7 +155,7 @@ export default function Cart() {
                 <Name>{item.name}</Name>
                 <DescriptionSecondary>
                   <Size>Size: {item.size}</Size>
-                  <Quantity>Avaliable: {item.quantity - 1}</Quantity>
+                  <Quantity>Avaliable: {item.quantity}</Quantity>
                 </DescriptionSecondary>
 
                 <DescriptionSecondary>
@@ -169,13 +164,9 @@ export default function Cart() {
                     <Minus
                       onClick={async () => {
                         const newAmount = item.amount - 1;
-                        const newQuantity = item.quantity + 1;
+
                         if (newAmount >= 1) {
-                          await updateAmount(
-                            item.purchase_id,
-                            newAmount,
-                            newQuantity
-                          );
+                          await updateAmount(item.purchase_id, newAmount);
                           setSelectedProducts(
                             selectedProducts.map((product) =>
                               product.purchase_id === item.purchase_id &&
@@ -183,7 +174,6 @@ export default function Cart() {
                                 ? {
                                     ...product,
                                     amount: newAmount,
-                                    quantity: newQuantity,
                                   }
                                 : product
                             )
@@ -197,21 +187,16 @@ export default function Cart() {
                     <Plus
                       onClick={async () => {
                         const newAmount = item.amount + 1;
-                        const newQuantity = item.quantity - 1;
-                        if (item.quantity >= 1) {
-                          await updateAmount(
-                            item.purchase_id,
-                            newAmount,
-                            newQuantity
-                          );
+
+                        if (newAmount <= item.quantity) {
+                          await updateAmount(item.purchase_id, newAmount);
                           setSelectedProducts(
                             selectedProducts.map((product) =>
                               product.purchase_id === item.purchase_id &&
-                              product.quantity > 0
+                              product.quantity
                                 ? {
                                     ...product,
                                     amount: newAmount,
-                                    quantity: newQuantity,
                                   }
                                 : product
                             )
