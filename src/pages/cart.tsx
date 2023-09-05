@@ -145,7 +145,7 @@ export default function Cart() {
         <FirstDiv>
           {selectedProducts.map((item, index) => (
             <ProductDiv
-              style={{ background: item.quantity > 0 ? null : "red" }}
+              style={{ background: item.quantity > 0 ? "null" : "red" }}
               key={index}
             >
               <ImageDiv>
