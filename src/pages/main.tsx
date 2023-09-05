@@ -1,7 +1,7 @@
-import BrandCarousel from "../components/brandCarousel";
-import LightBanner from "../components/lightBanner";
-import NewArrivals from "../components/newArrivals";
-import Gender from "../components/gender";
+import BrandCarousel from "../components/BrandCarousel";
+import LightBanner from "../components/LightBanner";
+import NewArrivals from "../components/NewArrivals";
+import Gender from "../components/Gender";
 
 export default function Main() {
   return (

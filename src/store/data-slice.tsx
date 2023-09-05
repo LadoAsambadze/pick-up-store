@@ -29,7 +29,7 @@ interface Item {
   price: number;
   brand: string;
   name: string;
-  images: {
+  itemList: {
     color: string;
     urls: string[];
     size: {

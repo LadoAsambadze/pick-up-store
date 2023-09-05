@@ -28,25 +28,27 @@ export default function Selected() {
   ) as User | null;
 
   const [selectedColor, setSelectedColor] = useState(
-    shoesItem?.images[0] && shoesItem?.images[0].color
+    shoesItem?.itemList[0] && shoesItem?.itemList[0].color
   );
   let result: any;
   if (shoesItem) {
-    result = shoesItem?.images.find(
+    result = shoesItem?.itemList.find(
       (item: any) => item.color === selectedColor
     );
   }
   const [selectedImage, setSelectedImage] = useState(
-    shoesItem?.images[0].urls[0]
+    shoesItem?.itemList[0].urls[0]
   );
-  const [selectedSort, setSelectedSort] = useState(shoesItem?.images[0].urls);
+  const [selectedSort, setSelectedSort] = useState(shoesItem?.itemList[0].urls);
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(0);
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
-  const [selectedOwnId, setSelectedOwnId] = useState(shoesItem?.images[0]._id);
+  const [selectedOwnId, setSelectedOwnId] = useState(
+    shoesItem?.itemList[0]._id
+  );
 
   function handleSelect(key: string | null, value: any) {
     setQuantity(value);
@@ -72,11 +74,11 @@ export default function Selected() {
 
   useEffect(() => {
     if (shoesItem) {
-      setSelectedColor(shoesItem.images[0].color);
-      setSelectedImage(shoesItem.images[0].urls[0]);
-      setSelectedSort(shoesItem.images[0].urls);
-      setSelectedOwnId(shoesItem?.images[0]._id);
-      result = shoesItem.images.find(
+      setSelectedColor(shoesItem.itemList[0].color);
+      setSelectedImage(shoesItem.itemList[0].urls[0]);
+      setSelectedSort(shoesItem.itemList[0].urls);
+      setSelectedOwnId(shoesItem?.itemList[0]._id);
+      result = shoesItem.itemList.find(
         (item: any) => item.color === selectedColor
       );
     }
@@ -210,7 +212,7 @@ export default function Selected() {
               removeArrowOnDeviceType={["tablet", "desktop"]}
             >
               {shoesItem &&
-                shoesItem.images.map((item: any, index: any) => (
+                shoesItem.itemList.map((item: any, index: any) => (
                   <SmallImageDiv
                     key={index}
                     style={{
@@ -226,7 +228,7 @@ export default function Selected() {
                       setSelectedColor(item.color);
                       setSelectedOwnId(item._id);
                       setChoosedAmount(0);
-                      
+
                       if (selectedColor !== item.color) {
                         setSelectedSize(null);
                         setQuantity(0);

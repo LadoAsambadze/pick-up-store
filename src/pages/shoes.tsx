@@ -1,7 +1,7 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
-import Sort from "../components/sort";
-import FilterComponent from "../components/filter";
+import Sort from "../components/Sort";
+import FilterComponent from "../components/Filter";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
@@ -91,7 +91,7 @@ export default function Shoes() {
               >
                 <ImageDiv
                   style={{
-                    backgroundImage: `url(http://localhost:3000${item.images[0].urls[0]})`,
+                    backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
                   }}
                 ></ImageDiv>
 

@@ -22,7 +22,7 @@ export default function Header() {
   const menuHandler = () => {
     setMenu(!menu);
   };
-  console.log(search);
+
   return (
     <>
       <Main>
@@ -88,7 +88,7 @@ export default function Header() {
                     >
                       <SmallImageDiv>
                         <SmallImage
-                          src={`http://localhost:3000${item.images[0].urls[0]}`}
+                          src={`http://localhost:3000${item.itemList[0].urls[0]}`}
                         />
                       </SmallImageDiv>
                       <DescriptionDiv>
