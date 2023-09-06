@@ -18,7 +18,9 @@ export default function Main() {
       },
       { threshold: 1.0 }
     );
-    observer.observe(brandCarouselRef.current);
+    if (brandCarouselRef.current) {
+      observer.observe(brandCarouselRef.current);
+    }
     return () => observer.disconnect();
   }, []);
 
