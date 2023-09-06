@@ -226,7 +226,7 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background: #d4c9c9;
+  background: #d4d4c9;
   width: 100%;
   display: flex;
   flex-direction: row;

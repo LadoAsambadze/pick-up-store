@@ -168,7 +168,7 @@ const View = styled(Typography)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid #d8d8e1;
+  border: 3px solid #f7cc11;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
