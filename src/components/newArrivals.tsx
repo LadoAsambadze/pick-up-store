@@ -120,6 +120,7 @@ const Section = styled(Box)`
   width: 100%;
   padding-left: 30px;
   padding-right: 30px;
+
   @media (min-width: 1440px) {
     padding-left: 80px;
     padding-right: 80px;

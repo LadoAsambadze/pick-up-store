@@ -13,8 +13,10 @@ body {
   overflow-x: hidden;
 }
 
+
 .carousel-item {
   padding: 0px 25px 25px 25px;
+  
 }
 .carousel-item2 {
   padding: 0px 0px 0px 0px;

@@ -3,6 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
+import { keyframes } from "@mui/material";
 
 export default function BrandCarousel(props: any) {
   const responsive = {
@@ -50,9 +51,19 @@ export default function BrandCarousel(props: any) {
   );
 }
 
+const slideInFromLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
 const Section = styled(Box)`
   width: 100%;
   padding-bottom: 10px;
+  animation: ${slideInFromLeft} 1.5s ease-out;
   @media (min-width: 1440px) {
     padding-left: 80px;
     padding-right: 80px;
