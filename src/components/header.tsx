@@ -141,7 +141,6 @@ export default function Header() {
               style={{ position: "absolute", top: "-20px", right: "-20px" }}
               onClick={() => {
                 setSearchTab(false);
-                
               }}
             >
               X
@@ -183,7 +182,7 @@ export default function Header() {
           </SearchDivAbsolute>
         </SearchSection>
       </SearchAbsolute>
-      <ListItem
+      <MenuList
         style={{
           display: menu ? "flex" : "none",
         }}
@@ -194,7 +193,7 @@ export default function Header() {
           }}
           variant="text"
         >
-          Men
+          Shoes
         </Choose>
         <Choose
           onClick={() => {
@@ -202,25 +201,23 @@ export default function Header() {
           }}
           variant="text"
         >
-          Women
+          Clothes
         </Choose>
-        <Choose
-          variant="text"
+        <Choose variant="text">Sales</Choose>
+        <Line></Line>
+        <Login
           onClick={() => {
             navigate("/login");
           }}
         >
-          Kids
-        </Choose>
-        <Choose variant="text">Sale</Choose>
-        <Line></Line>
-        <Login>Login</Login>
+          Login
+        </Login>
         <IconsDiv>
           <Icon src="/vite.svg" />
           <Icon src="/vite.svg" />
           <Icon src="/vite.svg" />
         </IconsDiv>
-      </ListItem>
+      </MenuList>
     </>
   );
 }
@@ -397,7 +394,7 @@ const Type = styled(Typography)`
   cursor: pointer;
 `;
 
-const ListItem = styled(Box)`
+const MenuList = styled(Box)`
   width: 270px;
   height: 360px;
   background: linear-gradient(to top, black, #2c282c);
@@ -406,7 +403,7 @@ const ListItem = styled(Box)`
   align-items: center;
   position: absolute;
   right: 0;
-  top: 78px;
+  top: 58px;
   z-index: 2000;
   padding: 15px 0px 0px 0px;
   border: 1px solid lightgreen;
