@@ -2,7 +2,7 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -11,9 +11,6 @@ import { Rating } from "@mui/material";
 import { getCookie } from "cookies-next";
 import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-interface User {
-  id: string;
-}
 
 export default function Selected() {
   const { id } = useParams();
@@ -23,10 +20,14 @@ export default function Selected() {
   if (data) {
     shoesItem = data.find((item) => item._id === id);
   }
+
   const user = useSelector(
     (state: RootState) => state.user.userinfo
   ) as User | null;
 
+  interface User {
+    id: string;
+  }
   const [selectedColor, setSelectedColor] = useState(
     shoesItem?.itemList[0] && shoesItem?.itemList[0].color
   );
@@ -100,10 +101,10 @@ export default function Selected() {
         }
       } catch (error) {
         console.error("Error adding item to cart:", error);
-        console.log("Please log in");
       }
     } else {
       console.log("Please select all options before adding to cart.");
+      alert("Please log in");
     }
     if (choosedAmount === 0) {
       setAmountWarn(true);
