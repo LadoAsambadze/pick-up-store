@@ -141,6 +141,7 @@ export default function Header() {
               style={{ position: "absolute", top: "-20px", right: "-20px" }}
               onClick={() => {
                 setSearchTab(false);
+                
               }}
             >
               X

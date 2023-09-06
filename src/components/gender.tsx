@@ -1,5 +1,6 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
+import { keyframes } from "@mui/material";
 
 export default function Gender() {
   return (
@@ -27,6 +28,23 @@ export default function Gender() {
     </>
   );
 }
+const slideInFromLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+const slideInFromRight = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
 
 const MainGrid = styled(Box)`
   display: flex;
@@ -49,6 +67,7 @@ const LeftDiv = styled(Box)`
   border-bottom-left-radius: 5px;
   display: flex;
   align-items: flex-end;
+  animation: ${slideInFromLeft} 1.5s ease-out;
   @media (min-width: 1440px) {
     height: 300px;
   }
@@ -65,6 +84,7 @@ const RightDiv = styled(Box)`
   border-bottom-right-radius: 5px;
   display: flex;
   align-items: flex-end;
+  animation: ${slideInFromRight} 1.5s ease-out;
   @media (min-width: 1440px) {
     height: 300px;
   }
