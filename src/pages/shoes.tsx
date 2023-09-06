@@ -19,6 +19,7 @@ export default function Shoes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
+ 
 
   return (
     <>
@@ -85,6 +86,7 @@ export default function Shoes() {
               <ArrivalDiv
                 onClick={() => {
                   const id = item._id;
+
                   navigate(`/shoes/${id}`);
                 }}
                 key={index}

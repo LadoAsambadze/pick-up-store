@@ -220,7 +220,6 @@ export default function Cart() {
                       console.log(item.purchase_id);
                     }}
                   />
-                  <Change variant="contained">Change</Change>
                 </DescriptionSecondary>
               </DescriptionDiv>
             </ProductDiv>
@@ -438,15 +437,6 @@ const Quantity = styled(Box)`
   font-size: 14px;
   margin-left: 20px;
   margin-right: 20px;
-`;
-
-const Change = styled(Button)`
-  font-size: 10px;
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
-  background: #ff7d1a;
-  padding: 5px;
-  margin-left: 10px;
 `;
 
 const PaymentHeader = styled(Typography)`

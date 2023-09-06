@@ -17,6 +17,7 @@ export default function Header() {
   const search = useSelector((state: RootState) => state.search.search);
   const user = useSelector((state: RootState) => state.user);
   const data = useSelector((state: RootState) => state.data.data);
+  const [searchTab, setSearchTab] = useState(false);
   const [menu, setMenu] = useState(false);
   const navigate = useNavigate();
   const menuHandler = () => {
@@ -60,48 +61,14 @@ export default function Header() {
         </Description>
 
         <Shop>
-          <SearchDiv style={{ position: "relative" }}>
+          <SearchDiv
+            style={{ position: "relative" }}
+            onClick={() => {
+              setSearchTab(true);
+            }}
+          >
             <SearchIcon src="/search-black.png" alt="Search loop icon" />
-            <SearchInput
-              placeholder="Search"
-              onChange={(e) => {
-                dispatch(setSearch(e.target.value));
-              }}
-            />
-            {search !== "" && (
-              <LiveSearch>
-                {data
-                  .filter((item) =>
-                    item.name.toLowerCase().includes(search.toLowerCase())
-                  )
-                  .map((item, index) => (
-                    <LiveSearchItem
-                      key={index}
-                      onClick={() => {
-                        const id = item._id;
-                        if (item.type === "shoes") {
-                          window.location.href = `/shoes/${id}`;
-                        } else {
-                          window.location.href = `/clothes/${id}`;
-                        }
-                      }}
-                    >
-                      <SmallImageDiv>
-                        <SmallImage
-                          src={`http://localhost:3000${item.itemList[0].urls[0]}`}
-                        />
-                      </SmallImageDiv>
-                      <DescriptionDiv>
-                        <ItemName>{item.name}</ItemName>
-                        <ItemPrice>{item.price}</ItemPrice>
-                      </DescriptionDiv>
-                    </LiveSearchItem>
-                  ))}
-                {data.filter((item) =>
-                  item.name.toLowerCase().includes(search.toLowerCase())
-                ).length === 0 && <h1>Item not found</h1>}
-              </LiveSearch>
-            )}
+            <SearchLabel>Search</SearchLabel>
           </SearchDiv>
 
           <HeaderIcon
@@ -155,6 +122,66 @@ export default function Header() {
           <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
         </Shop>
       </Main>
+      <SearchAbsolute style={{ display: searchTab ? "block" : "none" }}>
+        <SearchSection>
+          <SearchDivAbsolute>
+            <SearchIcon src="/search-black.png" alt="Search loop icon" />
+            <SearchInput
+              style={{
+                display: "block",
+                border: "none",
+                outline: "none",
+              }}
+              placeholder="Search"
+              onChange={(e) => {
+                dispatch(setSearch(e.target.value));
+              }}
+            />
+            <div
+              style={{ position: "absolute", top: "-20px", right: "-20px" }}
+              onClick={() => {
+                setSearchTab(false);
+              }}
+            >
+              X
+            </div>
+            {search !== "" && (
+              <LiveSearch>
+                {data
+                  .filter((item) =>
+                    item.name.toLowerCase().includes(search.toLowerCase())
+                  )
+                  .map((item, index) => (
+                    <LiveSearchItem
+                      key={index}
+                      onClick={() => {
+                        const id = item._id;
+                        if (item.type === "shoes") {
+                          window.location.href = `/shoes/${id}`;
+                        } else {
+                          window.location.href = `/clothes/${id}`;
+                        }
+                      }}
+                    >
+                      <SmallImageDiv>
+                        <SmallImage
+                          src={`http://localhost:3000${item.itemList[0].urls[0]}`}
+                        />
+                      </SmallImageDiv>
+                      <DescriptionDiv>
+                        <ItemName>{item.name}</ItemName>
+                        <ItemPrice>{item.price}</ItemPrice>
+                      </DescriptionDiv>
+                    </LiveSearchItem>
+                  ))}
+                {data.filter((item) =>
+                  item.name.toLowerCase().includes(search.toLowerCase())
+                ).length === 0 && <h1>Item not found</h1>}
+              </LiveSearch>
+            )}
+          </SearchDivAbsolute>
+        </SearchSection>
+      </SearchAbsolute>
       <ListItem
         style={{
           display: menu ? "flex" : "none",
@@ -206,8 +233,8 @@ const Main = styled(Box)`
   align-items: center;
   opacity: 0.92;
   border-bottom: 1px solid black;
-  padding: 10px 18px 10px 18px;
-
+  padding: 15px 20px 12px 20px;
+  position: relative;
   @media (min-width: 1440px) {
     padding: 32px 100px 32px 100px;
   }
@@ -229,15 +256,17 @@ const Logo = styled("img")`
 `;
 
 const Name = styled(Typography)`
-  color: #333333;
-  text-shadow: 0px 0px 5px #fff;
-  font-weight: 400;
-  font-size: 16px;
-  margin-left: 10px;
-  cursor: pointer;
-  font-family: "Ysabeau Office", sans-serif;
+  display: none;
   @media (min-width: 1440px) {
+    display: block;
     font-size: 20px;
+    color: #333333;
+    text-shadow: 0px 0px 5px #fff;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-family: "Ysabeau Office", sans-serif;
   }
 `;
 
@@ -249,13 +278,14 @@ const Shop = styled(Box)`
 
 const SearchDiv = styled(Box)`
   display: flex;
-  padding: 6px 7px 7px 7px;
+  padding: 5px;
   align-items: center;
   gap: 6px;
   border-radius: 100%;
-  background: #f6f6f6;
-  border: 1px solid black;
+  background: white;
+  border: 1px solid #7c7a77;
   margin-right: 10px;
+  cursor: pointer;
   @media (min-width: 1440px) {
     width: 267px;
     padding: 12px 15px 12px 20px;
@@ -265,27 +295,57 @@ const SearchDiv = styled(Box)`
     border-radius: 8px;
   }
 `;
-
-const SearchInput = styled("input")`
+const SearchLabel = styled(Typography)`
   display: none;
   @media (min-width: 1440px) {
+    font-family: "Ysabeau Office", sans-serif;
+    font-size: 16px;
     display: block;
-    width: 150px;
-    outline: none;
-    margin-left: 5px;
-    border: none;
-    background: #f6f6f6;
+    margin-left: 10px;
   }
 `;
 
-const SearchIcon = styled("img")`
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  @media (min-width: 1440px) {
-    width: 20px;
-    height: 20px;
+const SearchAbsolute = styled(Box)`
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+`;
+
+const SearchDivAbsolute = styled(Box)`
+  display: flex;
+  padding: 12px 15px 12px 20px;
+  width: 100%;
+  background: white;
+  border: 1px solid #7c7a77;
+  position: relative;
+  border-radius: 8px;
+  border: none;
+`;
+const SearchSection = styled(Box)`
+  width: 100%;
+  background: #cac4c4;
+  padding: 20px 50px 20px 50px;
+  @media (min-width: 768px) {
+    padding: 20px 50px 20px 50px;
   }
+`;
+
+const SearchInput = styled("input")`
+  display: block;
+  width: 100%;
+  outline: none;
+  margin-left: 5px;
+  border: none;
+  background: white;
+`;
+const SearchIcon = styled("img")`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
 
 const HeaderIcon = styled("img")`
@@ -294,8 +354,10 @@ const HeaderIcon = styled("img")`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
+  width: 30px;
+  margin-left: 4px;
   @media (min-width: 1440px) {
+    width: 45px;
     padding: 12px;
     gap: 12px;
     border-radius: 8px;
@@ -316,14 +378,13 @@ const Menu = styled("img")`
 
 const DestkopMenu = styled(Box)`
   display: none;
-  @media (min-width: 1440px) {
+  @media (min-width: 900px) {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-left: 40px;
   }
 `;
-
 const Type = styled(Typography)`
   color: #3c4242;
   font-size: 18px;
@@ -401,13 +462,14 @@ const Logout = styled(Box)`
 const LiveSearch = styled(Box)`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(1, 1fr);
   width: 100%;
-  height: 100px;
   position: absolute;
   left: 0;
-  top: 40px;
+  top: 63px;
   border: 1px solid gray;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const LiveSearchItem = styled(Box)`
@@ -423,6 +485,7 @@ const SmallImageDiv = styled(Box)`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  height: 100%;
 `;
 const SmallImage = styled("img")`
   cursor: pointer;

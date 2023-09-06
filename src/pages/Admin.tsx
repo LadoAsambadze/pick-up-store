@@ -20,7 +20,6 @@ export default function Admin() {
           <ListButton>Products</ListButton>
           <ListButton>Sent Orders</ListButton>
         </List>
-        <Orders />
       </Main>
     </>
   );
