@@ -42,9 +42,7 @@ export default function FilterComponent() {
           </FilterDiv>
           <Xdiv
             onClick={() => {
-              setTimeout(() => {
-                dispatch(setFilter(false));
-              }, 4000);
+              dispatch(setFilter(false));
             }}
           >
             <CloseIcon src="/close.png" />
@@ -184,7 +182,7 @@ const FilterDiv = styled(Box)`
 `;
 const FilterHead = styled(Typography)`
   color: #807d7e;
-  font-size: 22px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;

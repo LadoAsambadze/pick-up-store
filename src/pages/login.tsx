@@ -70,7 +70,7 @@ export default function Login() {
     <>
       <Main>
         <LogIn>
-          <Header>Login</Header>
+          <Header>Welcome back!</Header>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <InputField
               placeholder="Email address"
@@ -86,6 +86,7 @@ export default function Login() {
             />
             {errors.password && <Warn>Please enter password</Warn>}
             {errorMessage && <Warn>{errorMessage}</Warn>}
+            <Forgot>Forgot Password?</Forgot>
             <LogDone type="submit">Login to your account</LogDone>
             <SingDiv>
               <Question>Don’t have an account?</Question>
@@ -116,12 +117,11 @@ const Main = styled(Box)`
   }
 `;
 const LogIn = styled(Box)`
-  background: var(--semi-dark-blue, #14181a);
+  background: white;
   width: 100%;
   padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
-  box-shadow: -8px 4px 5px 0px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(26.5px);
   @media (min-width: 768px) {
     padding: 32px;
@@ -131,7 +131,7 @@ const LogIn = styled(Box)`
   }
 `;
 const Header = styled(Typography)`
-  color: var(--pure-white, #fff);
+  color: #169c89;
   font-size: 32px;
   font-family: Outfit;
   font-weight: 300;
@@ -145,24 +145,23 @@ const Form = styled("form")`
   flex-direction: column;
 `;
 
-const InputField = styled(Input)`
-  font-size: 15px;
-  font-family: Outfit;
+const InputField = styled("input")`
+  font-size: 16px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   opacity: 0.5;
-  padding: 0px 0px 18px 16px;
-  color: var(--pure-white, #fff);
-  border: none;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  background: #f8f8f8;
   margin-top: 24px;
-  border-bottom: 1px solid #5a698f;
 `;
 
 const LogDone = styled(Button)`
-  border-radius: 6px;
-  background: var(--red, #fc4747);
-  color: var(--pure-white, #fff);
+  border-radius: 10px;
+  background: #169c89;
+  color: white;
   text-align: center;
   font-size: 13px;
   font-family: Outfit;
@@ -171,11 +170,13 @@ const LogDone = styled(Button)`
   line-height: normal;
   padding: 14px 30px 15px 30px;
   margin-top: 40px;
+  &:hover {
+    background: #546b67;
+  }
 `;
 
 const SingDiv = styled(Box)`
   width: 100%;
-
   margin-top: 24px;
   display: flex;
   flex-direction: row;
@@ -184,7 +185,7 @@ const SingDiv = styled(Box)`
 `;
 
 const Question = styled(Typography)`
-  color: var(--pure-white, #fff);
+  color: #169c89;
   font-size: 15px;
   font-family: Outfit;
   font-style: normal;
@@ -193,12 +194,14 @@ const Question = styled(Typography)`
 `;
 
 const SignUp = styled(Button)`
-  color: var(--red, #fc4747);
-  font-size: 12px;
+  color: #169c89;
+  background-color: #d7ecec;
+  font-size: 14px;
   font-family: Outfit;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
+  margin-left: 10px;
 `;
 
 const Warn = styled(Typography)`
@@ -210,4 +213,15 @@ const Warn = styled(Typography)`
   color: red;
   margin-top: 5px;
   margin-left: 3px;
+`;
+
+const Forgot = styled(Typography)`
+  color: #169c89;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 18px;
+  margin-left: 3px;
+  cursor: pointer;
 `;
