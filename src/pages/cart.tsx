@@ -138,93 +138,101 @@ export default function Cart() {
     }
   }, [isPaid]);
 
-  console.log(selectedProducts);
   return (
     <>
       <Main>
         <FirstDiv>
-          {selectedProducts.map((item, index) => (
-            <ProductDiv
-              style={{ background: item.quantity > 0 ? "null" : "red" }}
-              key={index}
-            >
-              <ImageDiv>
-                <img
-                  style={{ maxWidth: "100%" }}
-                  src={`http://localhost:3000${item.image}`}
-                />
-              </ImageDiv>
-              <DescriptionDiv>
-                <Name>{item.name}</Name>
-                <DescriptionSecondary>
-                  <Size>Size: {item.size}</Size>
-                  <Quantity>Avaliable: {item.quantity}</Quantity>
-                </DescriptionSecondary>
-
-                <DescriptionSecondary>
-                  <Price>${item.price * item.amount}</Price>
-                  <AddQuantity>
-                    <Minus
-                      onClick={async () => {
-                        const newAmount = item.amount - 1;
-
-                        if (newAmount >= 1) {
-                          await updateAmount(item.purchase_id, newAmount);
-                          setSelectedProducts(
-                            selectedProducts.map((product) =>
-                              product.purchase_id === item.purchase_id &&
-                              product.amount > 0
-                                ? {
-                                    ...product,
-                                    amount: newAmount,
-                                  }
-                                : product
-                            )
-                          );
-                        }
-                      }}
-                      src="/icon-minus.svg"
-                    />
-
-                    <Quantity>{item.amount}</Quantity>
-                    <Plus
-                      onClick={async () => {
-                        const newAmount = item.amount + 1;
-
-                        if (newAmount <= item.quantity) {
-                          await updateAmount(item.purchase_id, newAmount);
-                          setSelectedProducts(
-                            selectedProducts.map((product) =>
-                              product.purchase_id === item.purchase_id &&
-                              product.quantity
-                                ? {
-                                    ...product,
-                                    amount: newAmount,
-                                  }
-                                : product
-                            )
-                          );
-                        }
-                      }}
-                      src="/icon-plus.svg"
-                    />
-                  </AddQuantity>
-                </DescriptionSecondary>
-
-                <DescriptionSecondary>
-                  <ControlIcon src="/heart.svg" />
-                  <ControlIcon
-                    src="/delete.png"
-                    onClick={() => {
-                      deleteProduct(item.purchase_id);
-                      console.log(item.purchase_id);
-                    }}
+          {selectedProducts.length === 0 ? (
+            <EmptyBoxDiv>
+              <EmptyText>No items added in cart</EmptyText>
+              <BoxImage src="/empty-cart.png" />
+            </EmptyBoxDiv>
+          ) : (
+            selectedProducts.map((item, index) => (
+              <ProductDiv
+                style={{ background: item.quantity > 0 ? "none" : "red" }}
+                key={index}
+              >
+                <ImageDiv>
+                  <img
+                    style={{ maxWidth: "100%" }}
+                    src={`http://localhost:3000${item.image}`}
+                    alt={item.name}
                   />
-                </DescriptionSecondary>
-              </DescriptionDiv>
-            </ProductDiv>
-          ))}
+                </ImageDiv>
+                <DescriptionDiv>
+                  <Name>{item.name}</Name>
+                  <DescriptionSecondary>
+                    <Size>Size: {item.size}</Size>
+                    <Quantity>Available: {item.quantity}</Quantity>
+                  </DescriptionSecondary>
+
+                  <DescriptionSecondary>
+                    <Price>${item.price * item.amount}</Price>
+                    <AddQuantity>
+                      <Minus
+                        onClick={async () => {
+                          const newAmount = item.amount - 1;
+
+                          if (newAmount >= 1) {
+                            await updateAmount(item.purchase_id, newAmount);
+                            setSelectedProducts((selectedProducts) =>
+                              selectedProducts.map((product) =>
+                                product.purchase_id === item.purchase_id &&
+                                product.amount > 0
+                                  ? {
+                                      ...product,
+                                      amount: newAmount,
+                                    }
+                                  : product
+                              )
+                            );
+                          }
+                        }}
+                        src="/icon-minus.svg"
+                      />
+
+                      <Quantity>{item.amount}</Quantity>
+                      <Plus
+                        onClick={async () => {
+                          const newAmount = item.amount + 1;
+
+                          if (newAmount <= item.quantity) {
+                            await updateAmount(item.purchase_id, newAmount);
+                            setSelectedProducts((selectedProducts) =>
+                              selectedProducts.map((product) =>
+                                product.purchase_id === item.purchase_id &&
+                                product.quantity
+                                  ? {
+                                      ...product,
+                                      amount: newAmount,
+                                    }
+                                  : product
+                              )
+                            );
+                          }
+                        }}
+                        src="/icon-plus.svg"
+                      />
+                    </AddQuantity>
+                  </DescriptionSecondary>
+
+                  <DescriptionSecondary>
+                    <ControlIcon src="/heart.svg" />
+                    <ControlIcon
+                      src="/delete.png"
+                      onClick={() => {
+                        deleteProduct(item.purchase_id);
+                        console.log(item.purchase_id);
+                      }}
+                    />
+                  </DescriptionSecondary>
+                </DescriptionDiv>
+              </ProductDiv>
+            ))
+          )}
         </FirstDiv>
+
         <SecondDiv
           style={{
             display: selectedProducts.length > 0 ? "block" : "none",
@@ -493,5 +501,40 @@ const SecondDiv = styled(Box)`
 
   @media (min-width: 768px) {
     width: 35%;
+  }
+`;
+
+const EmptyBoxDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-right: 60px;
+  @media (min-width: 768px) {
+    padding-right: 200px;
+  }
+`;
+
+const BoxImage = styled("img")`
+  width: 50px;
+  height: 50px;
+
+  margin-left: 20px;
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+    margin-left: 40px;
+  }
+`;
+
+const EmptyText = styled(Typography)`
+  color: #9c1801;
+  font-size: 15px;
+  font-family: "Cousine", monospace;
+  @media (min-width: 768px) {
+    font-size: 30px;
   }
 `;

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
 import BlackHeart from "/public/black-heart.png";
 import WhiteHeart from "/public/heart.svg";
+
 export default function Shoes() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,8 +20,7 @@ export default function Shoes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
- 
-
+  console.log(redux.filter);
   return (
     <>
       <Main>
@@ -28,12 +28,13 @@ export default function Shoes() {
           <FilterDiv
             onClick={() => {
               dispatch(setFilter(true));
+              console.log("lado");
             }}
           >
             <Filter>Filter</Filter>
             <FilterIcon src="/filter.png" />
           </FilterDiv>
-          <FilterComponent />
+
           <Sort />
         </FindBy>
         <MainGrid>
@@ -122,6 +123,8 @@ export default function Shoes() {
             ))}
         </MainGrid>
       </Main>
+
+      <FilterComponent />
     </>
   );
 }

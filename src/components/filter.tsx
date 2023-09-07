@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Typography, keyframes, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import Slider from "@mui/material/Slider";
@@ -31,6 +31,7 @@ export default function FilterComponent() {
   };
   const location = useLocation();
   const isShoesPage = location.pathname === "/shoes";
+
   return (
     <>
       <Main style={{ display: redux.filter ? "flex" : "none" }}>
@@ -41,7 +42,9 @@ export default function FilterComponent() {
           </FilterDiv>
           <Xdiv
             onClick={() => {
-              dispatch(setFilter(false));
+              setTimeout(() => {
+                dispatch(setFilter(false));
+              }, 4000);
             }}
           >
             <CloseIcon src="/close.png" />
@@ -137,24 +140,33 @@ export default function FilterComponent() {
   );
 }
 
+const slideInFromLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+`;
 const Main = styled(Box)`
   display: flex;
-  position: absolute;
   height: 100%;
   flex-direction: column;
   background-color: white;
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   left: 0;
   top: 0;
   border: 1px solid black;
   overflow: scroll;
+  animation: ${slideInFromLeft} 0.4s ease-out;
+
   &::-webkit-scrollbar {
     width: 12px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #d1c5c5;
-    border-radius: 6px; 
+    border-radius: 6px;
   }
 `;
 

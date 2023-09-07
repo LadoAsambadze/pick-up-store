@@ -168,7 +168,7 @@ const View = styled(Typography)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid #f7cc11;
+  border: 3px solid #676659;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
@@ -180,7 +180,7 @@ const ImageDiv = styled(Box)`
   height: 200px;
   background-size: cover;
   background-repeat: no-repeat;
-  border-bottom: 1px solid #d8d8e1;
+  border-bottom: 1px solid #676659;
   background-position: center;
   @media (min-width: 1440px) {
     height: 300px;

@@ -17,6 +17,7 @@ export default function Favourites() {
     (state: RootState) => state.favourites.favourites
   );
   const filteredData = data.filter((item) => favourites.includes(item._id));
+  console.log(filteredData);
 
   return (
     <>
@@ -35,42 +36,49 @@ export default function Favourites() {
           </div>
         ) : (
           <MainGrid>
-            {filteredData.map((item, index) => (
-              <ArrivalDiv
-                onClick={() => {
-                  const id = item._id;
-                  navigate(`/shoes/${id}`);
-                }}
-                key={index}
-              >
-                <ImageDiv
-                  style={{
-                    backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
+            {filteredData.length === 0 ? (
+              <EmptyBoxDiv>
+                <EmptyText>No items added in favourites</EmptyText>
+                <BoxImage src="/box.png" />
+              </EmptyBoxDiv>
+            ) : (
+              filteredData.map((item, index) => (
+                <ArrivalDiv
+                  onClick={() => {
+                    const id = item._id;
+                    navigate(`/shoes/${id}`);
                   }}
-                ></ImageDiv>
-                <About>
-                  <Description>
-                    <Name>{item.name}</Name>
-                    <Brand>{item.brand}</Brand>
-                  </Description>
-                  <Price>{item.price}</Price>
-                  <Favourite
-                    src={
-                      favourites.includes(item._id) ? BlackHeart : WhiteHeart
-                    }
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      if (favourites.includes(item._id)) {
-                        dispatch(removeFavourite(item._id));
-                      } else {
-                        dispatch(setFavourites(item._id));
-                      }
+                  key={index}
+                >
+                  <ImageDiv
+                    style={{
+                      backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
                     }}
-                    alt="Favourite add icon, heart"
-                  />
-                </About>
-              </ArrivalDiv>
-            ))}
+                  ></ImageDiv>
+                  <About>
+                    <Description>
+                      <Name>{item.name}</Name>
+                      <Brand>{item.brand}</Brand>
+                    </Description>
+                    <Price>{item.price}</Price>
+                    <Favourite
+                      src={
+                        favourites.includes(item._id) ? BlackHeart : WhiteHeart
+                      }
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (favourites.includes(item._id)) {
+                          dispatch(removeFavourite(item._id));
+                        } else {
+                          dispatch(setFavourites(item._id));
+                        }
+                      }}
+                      alt="Favourite add icon, heart"
+                    />
+                  </About>
+                </ArrivalDiv>
+              ))
+            )}
           </MainGrid>
         )}
       </Main>
@@ -211,5 +219,40 @@ const Price = styled(Typography)`
   font-family: "Cousine", monospace;
   @media (min-width: 1440px) {
     font-size: 16px;
+  }
+`;
+
+const EmptyBoxDiv = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding-right: 60px;
+  @media (min-width: 768px) {
+    padding-right: 200px;
+  }
+`;
+
+const BoxImage = styled("img")`
+  width: 50px;
+  height: 50px;
+
+  margin-left: 20px;
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+    margin-left: 40px;
+  }
+`;
+
+const EmptyText = styled(Typography)`
+  color: #9c1801;
+  font-size: 15px;
+  font-family: "Cousine", monospace;
+  @media (min-width: 768px) {
+    font-size: 30px;
   }
 `;
