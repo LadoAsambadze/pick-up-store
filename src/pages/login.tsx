@@ -86,7 +86,7 @@ export default function Login() {
             <LogDone type="submit">Login to your account</LogDone>
             <SingDiv>
               <Question>Don’t have an account?</Question>
-              <SignUp onClick={() => navigate("/singup")}>Sing Up</SignUp>
+              <SignUp onClick={() => navigate("/signup")}>Sing Up</SignUp>
             </SingDiv>
           </Form>
         </LogIn>
@@ -101,10 +101,14 @@ const Main = styled(Box)`
   align-items: center;
   overflow-y: none;
   background: #d4c9c9;
+
   @media (min-width: 768px) {
     padding: 40px 150px 40px 150px;
   }
   @media (min-width: 900px) {
+    padding: 40px 350px 40px 350px;
+  }
+  @media (min-width: 1100px) {
     padding: 40px 350px 40px 350px;
   }
   @media (min-width: 1440px) {
@@ -190,7 +194,7 @@ const Question = styled(Typography)`
 const SignUp = styled(Button)`
   background: #169c89;
   color: white;
-  font-size: 14px;
+  font-size: 10px;
   font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
   font-weight: 400;

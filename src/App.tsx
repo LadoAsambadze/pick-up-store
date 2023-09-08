@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get("http://localhost:3000/api/users"); 
+        const getAll = await axios.get("http://localhost:3000/api/users");
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
@@ -46,7 +46,7 @@ function App() {
         <Route path="/clothes/:id" element={<Selected />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/Singup" element={<Singup />} />
+        <Route path="/Signup" element={<Singup />} />
         <Route path="/Favourites" element={<Favourites />} />
         <Route path="/Admin" element={<Admin />} />
       </Routes>
