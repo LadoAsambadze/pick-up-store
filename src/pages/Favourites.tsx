@@ -21,67 +21,69 @@ export default function Favourites() {
 
   return (
     <>
-      <Main>
-        {loading ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              minHeight: "100vh",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        ) : (
-          <MainGrid>
-            {filteredData.length === 0 ? (
-              <EmptyBoxDiv>
-                <EmptyText>No items added in favourites</EmptyText>
-                <BoxImage src="/box.png" />
-              </EmptyBoxDiv>
-            ) : (
-              filteredData.map((item, index) => (
-                <ArrivalDiv
-                  onClick={() => {
-                    const id = item._id;
-                    navigate(`/shoes/${id}`);
-                  }}
-                  key={index}
-                >
-                  <ImageDiv
-                    style={{
-                      backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            minHeight: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <>
+          {filteredData.length === 0 ? (
+            <EmptyBoxDiv>
+              <EmptyText>No items added in favourites</EmptyText>
+              <BoxImage src="/box.png" />
+            </EmptyBoxDiv>
+          ) : (
+            filteredData.map((item, index) => (
+              <Main>
+                <MainGrid>
+                  <ArrivalDiv
+                    key={index}
+                    onClick={() => {
+                      const id = item._id;
+                      navigate(`/shoes/${id}`);
                     }}
-                  ></ImageDiv>
-                  <About>
-                    <Description>
-                      <Name>{item.name}</Name>
-                      <Brand>{item.brand}</Brand>
-                    </Description>
-                    <Price>{item.price}</Price>
-                    <Favourite
-                      src={
-                        favourites.includes(item._id) ? RedHeart : WhiteHeart
-                      }
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        if (favourites.includes(item._id)) {
-                          dispatch(removeFavourite(item._id));
-                        } else {
-                          dispatch(setFavourites(item._id));
-                        }
+                  >
+                    <ImageDiv
+                      style={{
+                        backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
                       }}
-                      alt="Favourite add icon, heart"
-                    />
-                  </About>
-                </ArrivalDiv>
-              ))
-            )}
-          </MainGrid>
-        )}
-      </Main>
+                    ></ImageDiv>
+                    <About>
+                      <Description>
+                        <Name>{item.name}</Name>
+                        <Brand>{item.brand}</Brand>
+                      </Description>
+                      <Price>{item.price}</Price>
+                      <Favourite
+                        src={
+                          favourites.includes(item._id) ? RedHeart : WhiteHeart
+                        }
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          if (favourites.includes(item._id)) {
+                            dispatch(removeFavourite(item._id));
+                          } else {
+                            dispatch(setFavourites(item._id));
+                          }
+                        }}
+                        alt="Favourite add icon, heart"
+                      />
+                    </About>
+                  </ArrivalDiv>
+                </MainGrid>
+              </Main>
+            ))
+          )}
+        </>
+      )}
     </>
   );
 }
@@ -196,7 +198,8 @@ const Description = styled(Box)`
 const Name = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   overflow: hidden;
   white-space: nowrap;
   @media (min-width: 1440px) {
@@ -206,7 +209,8 @@ const Name = styled(Typography)`
 const Brand = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   text-transform: uppercase;
   @media (min-width: 1440px) {
     font-size: 16px;
@@ -216,7 +220,8 @@ const Brand = styled(Typography)`
 const Price = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
@@ -228,17 +233,12 @@ const EmptyBoxDiv = styled(Box)`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  position: absolute;
-  padding-right: 60px;
-  @media (min-width: 768px) {
-    padding-right: 200px;
-  }
+  min-height: 100vh;
 `;
 
 const BoxImage = styled("img")`
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
 
   margin-left: 20px;
   @media (min-width: 768px) {
@@ -250,8 +250,9 @@ const BoxImage = styled("img")`
 
 const EmptyText = styled(Typography)`
   color: #9c1801;
-  font-size: 15px;
-  font-family: "Cousine", monospace;
+  font-size: 20px;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   @media (min-width: 768px) {
     font-size: 30px;
   }
