@@ -1,6 +1,6 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
-import Sort from "../components/Sort";
+import Sort from "../components/MySort";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";

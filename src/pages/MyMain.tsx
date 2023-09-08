@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import BrandCarousel from "../components/BrandCarousel";
-import LightBanner from "../components/LightBanner";
-import NewArrivals from "../components/NewArrivals";
-import Gender from "../components/Gender";
+import BrandCarousel from "../components/MyBrandCarousel";
+import LightBanner from "../components/MyLightBanner";
+import NewArrivals from "../components/MyNewArrivals";
+import Gender from "../components/MyGender";
 import { useState } from "react";
-import Sales from "../components/Sales";
+import Sales from "../components/MySales";
 
 export default function Main() {
   const [showBrandCarousel, setShowBrandCarousel] = useState(false);

@@ -91,11 +91,15 @@ export default function Selected() {
 
       try {
         if (choosedAmount !== 0) {
-          await axios.post("https://pick-up-store-backend-production.up.railway.app/order/addCart", cartData, {
-            headers: {
-              authorization: `Bearer ${cookieToken}`,
-            },
-          });
+          await axios.post(
+            "https://pick-up-store-backend-production.up.railway.app/order/addCart",
+            cartData,
+            {
+              headers: {
+                authorization: `Bearer ${cookieToken}`,
+              },
+            }
+          );
 
           setAmountWarn(false);
         }

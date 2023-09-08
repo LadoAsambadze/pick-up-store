@@ -1,21 +1,21 @@
-import Main from "./pages/Main";
+import Main from "./pages/MyMain";
 import { Routes, Route } from "react-router-dom";
-import Clothes from "./pages/Clothes";
+import Clothes from "./pages/MyClothes";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Shoes from "./pages/Shoes";
-import Selected from "./pages/Selected";
+import Header from "./components/MyHeader";
+import Footer from "./components/MyFooter";
+import Shoes from "./pages/MyShoes";
+import Selected from "./pages/MySelected";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { setData } from "./store/data-slice";
 import { setLoading } from "./store/loading-slice";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import Singup from "./pages/Singup";
-import Favourites from "./pages/Favourites";
-import Admin from "./pages/Admin";
-import FilterComponent from "./components/Filter";
+import Cart from "./pages/MyCart";
+import Login from "./pages/MyLogin";
+import Signup from "./pages/MySignUp";
+import Favourites from "./pages/MyFavourites";
+import Admin from "./pages/MyAdmin";
+import FilterComponent from "./components/MyFilter";
 import { Box, styled } from "@mui/material";
 import { RootState } from "./store/redux";
 
@@ -64,7 +64,7 @@ function App() {
         <Route path="/clothes/:id" element={<Selected />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Singup />} />
+        <Route path="/Signup" element={<Signup />} />
         <Route path="/Favourites" element={<Favourites />} />
         <Route path="/Admin" element={<Admin />} />
       </Routes>

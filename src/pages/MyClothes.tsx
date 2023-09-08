@@ -1,7 +1,7 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
-import FilterComponent from "../components/Filter";
-import Sort from "../components/Sort";
+
+import Sort from "../components/MySort";
 import { RootState } from "../store/redux";
 import { setFilter } from "../store/filter-slice";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,6 @@ export default function Clothes() {
   return (
     <>
       <Main>
-        <FilterComponent />
         <FindBy>
           <FilterDiv
             onClick={() => {
