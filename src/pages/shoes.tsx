@@ -160,7 +160,7 @@ const FilterDiv = styled(Box)`
   justify-content: space-between;
   align-items: center;
   border: 1px solid gray;
-  width: 130px;
+  width: 100px;
   border-radius: 5px;
   padding: 12px 15px 12px 15px;
   cursor: pointer;
@@ -173,13 +173,12 @@ const Filter = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 400;
   color: black;
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 const FilterIcon = styled("img")`
-  width: 20px;
+  width: 20x;
   height: 20px;
-  margin-left: 5px;
 `;
 
 const MainGrid = styled(Box)`

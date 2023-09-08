@@ -11,12 +11,10 @@ body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  
 }
 
 .carousel-item {
   padding: 0px 25px 25px 25px;
-  
 }
 .carousel-item2 {
   padding: 0px 0px 0px 0px;
@@ -25,21 +23,22 @@ body {
   padding: 0px 0px 0px 0px;
 }
 .sort-box {
-  width: 200px;
+  width: 180px;
 }
 
 #demo-simple-select-label {
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   color: black;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 #demo-simple-select {
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   color: black;
-  font-size: 14px;
+  font-size: 12px;
+  padding: 10px 15px 10px 15px;
 }
 
 .carousel-item1 {
@@ -66,10 +65,10 @@ body {
   }
 
   #demo-simple-select {
-    font-family: "Kumbh Sans", sans-serif;
-    font-weight: 500;
+    font-family: "Ysabeau Office", sans-serif;
+    font-weight: 400;
     color: black;
-    font-size: 14px;
-    padding: 15px 10px 15px 10px;
+    font-size: 12px;
+    padding: 12px 15px 12px 15px;
   }
 }
