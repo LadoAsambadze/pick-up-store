@@ -1,12 +1,13 @@
 import { Box, styled } from "@mui/system";
-import Orders from "../components/Orders";
 import { useEffect } from "react";
 import axios from "axios";
 
 export default function Admin() {
   useEffect(() => {
     const getOrders = async () => {
-      const response = await axios.get("http://localhost:3000/getorders");
+      const response = await axios.get(
+        "https://pick-up-store-backend-production.up.railway.app/getorders"
+      );
       console.log(response);
     };
     getOrders();

@@ -118,7 +118,7 @@ export default function Cart() {
   const makeOrder = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/makeorder",
+        "https://pick-up-store-backend-production.up.railway.app/orderprocess/makeorder",
         orderData
       );
       console.log("Order successful!", response.data);
@@ -156,7 +156,7 @@ export default function Cart() {
                 <ImageDiv>
                   <img
                     style={{ maxWidth: "100%" }}
-                    src={`http://localhost:3000${item.image}`}
+                    src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
                     alt={item.name}
                   />
                 </ImageDiv>

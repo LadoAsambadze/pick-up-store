@@ -91,7 +91,7 @@ export default function Selected() {
 
       try {
         if (choosedAmount !== 0) {
-          await axios.post("http://localhost:3000/order/addCart", cartData, {
+          await axios.post("https://pick-up-store-backend-production.up.railway.app/order/addCart", cartData, {
             headers: {
               authorization: `Bearer ${cookieToken}`,
             },

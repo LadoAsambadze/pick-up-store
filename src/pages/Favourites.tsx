@@ -53,7 +53,7 @@ export default function Favourites() {
                   >
                     <ImageDiv
                       style={{
-                        backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
+                        backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.itemList[0].urls[0]})`,
                       }}
                     ></ImageDiv>
                     <About>

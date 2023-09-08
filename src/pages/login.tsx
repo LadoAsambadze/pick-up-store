@@ -46,7 +46,7 @@ export default function Login() {
     if (!errors.email) {
       try {
         const response = await axios.post(
-          "http://localhost:3000/user/login",
+          "https://pick-up-store-backend-production.up.railway.app/user/login",
           data
         );
         Cookies.set("token", response.data.token);

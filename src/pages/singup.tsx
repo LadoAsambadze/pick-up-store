@@ -35,7 +35,10 @@ export default function Signup() {
   const onSubmit = async (data: any) => {
     try {
       setErrorMessage(null);
-      await axios.post("http://localhost:3000/user/singup", data);
+      await axios.post(
+        "https://pick-up-store-backend-production.up.railway.app/user/singup",
+        data
+      );
       setSign(true);
     } catch (error) {
       console.error("Signup failed:", error);
