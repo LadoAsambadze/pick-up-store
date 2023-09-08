@@ -1,6 +1,5 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
-
 import FilterComponent from "../components/Filter";
 import Sort from "../components/Sort";
 import { RootState } from "../store/redux";
@@ -20,7 +19,6 @@ export default function Clothes() {
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
   const clothes = data.filter((item) => item.type === "clothes");
-
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
@@ -81,11 +79,16 @@ export default function Clothes() {
                     item.price > redux.priceAmount[0] &&
                     item.price < redux.priceAmount[1]
                 )
-                // .filter(
-                //   (item) =>
-                //     redux.sizeType.length === 0 ||
-                //     item.size.some((size) => redux.sizeType.includes(size))
-                // )
+                .filter(
+                  (item) =>
+                    redux.sizeType.length === 0 ||
+                    item.itemList.some((size) =>
+                      Object.entries(size.size).some(
+                        ([key, value]) =>
+                          redux.sizeType.includes(key) && value !== 0
+                      )
+                    )
+                )
                 .filter(
                   (item) =>
                     search === "" ||
@@ -101,7 +104,7 @@ export default function Clothes() {
                     !itemB.new &&
                     redux.sortType === "new"
                   ) {
-                    return -1; //
+                    return -1;
                   } else if (
                     !itemA.new &&
                     itemB.new &&

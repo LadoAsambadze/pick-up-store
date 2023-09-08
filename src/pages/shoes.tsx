@@ -20,7 +20,7 @@ export default function Shoes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
-  console.log(redux.filter);
+
   return (
     <>
       <Main>
@@ -40,11 +40,16 @@ export default function Shoes() {
         <MainGrid>
           {shoes
 
-            // .filter(
-            //   (item) =>
-            //     redux.sizeType.length === 0 ||
-            //     item.size.some((size) => redux.sizeType.includes(size))
-            // )
+            .filter(
+              (item) =>
+                redux.sizeType.length === 0 ||
+                item.itemList.some((size) =>
+                  Object.entries(size.size).some(
+                    ([key, value]) =>
+                      redux.sizeType.includes(key) && value !== 0
+                  )
+                )
+            )
 
             .filter(
               (item) =>
