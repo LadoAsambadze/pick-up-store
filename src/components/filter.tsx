@@ -98,9 +98,13 @@ export default function FilterComponent() {
                 key={item}
                 onClick={() => {
                   handleGender(item);
-                  console.log(item);
                 }}
-                control={<Checkbox value={item} />}
+                control={
+                  <Checkbox
+                    value={item}
+                    checked={redux.genderType.includes(item)}
+                  />
+                }
                 label={item}
               />
             ))}
@@ -116,7 +120,12 @@ export default function FilterComponent() {
                 onClick={() => {
                   handleCategory(item);
                 }}
-                control={<Checkbox value={item} />}
+                control={
+                  <Checkbox
+                    value={item}
+                    checked={redux.categoryType.includes(item)}
+                  />
+                }
                 label={item}
               />
             ))}

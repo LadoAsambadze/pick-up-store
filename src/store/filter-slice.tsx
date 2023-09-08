@@ -32,20 +32,19 @@ const filterSlice = createSlice({
     },
     setGenderType: (state, action: PayloadAction<string>) => {
       const selectedGender = action.payload;
-      if (state.genderType.includes(selectedGender)) {
-        state.genderType = state.genderType.filter(
-          (size) => size !== selectedGender
-        );
+      const index = state.genderType.indexOf(selectedGender);
+
+      if (index !== -1) {
+        state.genderType.splice(index, 1);
       } else {
         state.genderType.push(selectedGender);
       }
     },
     setCategoryType: (state, action: PayloadAction<string>) => {
       const selectedCategory = action.payload;
-      if (state.categoryType.includes(selectedCategory)) {
-        state.categoryType = state.genderType.filter(
-          (size) => size !== selectedCategory
-        );
+      const index = state.categoryType.indexOf(selectedCategory);
+      if (index !== -1) {
+        state.categoryType.splice(index, 1);
       } else {
         state.categoryType.push(selectedCategory);
       }

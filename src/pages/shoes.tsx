@@ -1,7 +1,7 @@
 import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Sort from "../components/Sort";
-import FilterComponent from "../components/Filter";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
@@ -20,6 +20,8 @@ export default function Shoes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
+
+  console.log(redux.filter);
 
   return (
     <>
