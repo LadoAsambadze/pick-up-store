@@ -53,7 +53,8 @@ export default function Shoes() {
 
             .filter(
               (item) =>
-                redux.brandType === null || item.brand === redux.brandType
+                redux.brandType.length === 0 ||
+                redux.brandType.includes(item.brand)
             )
             .filter(
               (item) =>

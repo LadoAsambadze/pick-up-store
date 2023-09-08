@@ -5,7 +5,7 @@ interface FilterState {
   priceAmount: number[];
   genderType: string[];
   categoryType: string[];
-  brandType: string | null;
+  brandType: string[];
   sizeType: string[];
   sortType: string | null;
 }
@@ -15,7 +15,7 @@ const initialState: FilterState = {
   priceAmount: [0, 100],
   genderType: [],
   categoryType: [],
-  brandType: null,
+  brandType: [],
   sizeType: [],
   sortType: null,
 };
@@ -50,7 +50,14 @@ const filterSlice = createSlice({
       }
     },
     setBrandType: (state, action: PayloadAction<string>) => {
-      state.brandType = action.payload;
+      const selectedBrand = action.payload;
+      const index = state.brandType.indexOf(selectedBrand);
+
+      if (index !== -1) {
+        state.brandType.splice(index, 1);
+      } else {
+        state.brandType.push(selectedBrand);
+      }
     },
     setSizeType: (state, action: PayloadAction<string>) => {
       const selectedSize = action.payload;

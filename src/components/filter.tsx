@@ -3,7 +3,6 @@ import {
   Checkbox,
   FormControlLabel,
   Typography,
-  keyframes,
   styled,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +50,7 @@ export default function FilterComponent() {
   ];
   const genderOptions = ["Boy", "Girl"];
   const categoryOptions = ["Women", "Men", "Kids"];
+  const brandOptions = ["Adidas", "Nike", "Puma", "Zara", "Rebook"];
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
@@ -60,11 +60,12 @@ export default function FilterComponent() {
   const handleCategory = (categoryContent: string) => {
     dispatch(setCategoryType(categoryContent));
   };
+  const handleBrand = (brandContent: string) => {
+    dispatch(setBrandType(brandContent));
+  };
 
   const location = useLocation();
   const isShoesPage = location.pathname === "/shoes";
-
-  console.log(redux.filter);
 
   return (
     <>
@@ -138,13 +139,23 @@ export default function FilterComponent() {
             <Type>Brand</Type>
             <Arrow src="/Icon.svg" />
           </HeaderDiv>
-          <div style={{ display: brand ? "block" : "none" }}>
-            <p onClick={() => dispatch(setBrandType("Nike"))}>Nike</p>
-            <p onClick={() => dispatch(setBrandType("Adidas"))}>Adidas</p>
-            <p onClick={() => dispatch(setBrandType("Puma"))}>Puma</p>
-            <p onClick={() => dispatch(setBrandType("Zara"))}>Zara</p>
-            <p onClick={() => dispatch(setBrandType("Reebok"))}>Reebok</p>
-          </div>
+          <BrandDiv style={{ display: brand ? "flex" : "none" }}>
+            {brandOptions.map((item) => (
+              <FormControlLabel
+                key={item}
+                onClick={() => {
+                  handleBrand(item);
+                }}
+                control={
+                  <Checkbox
+                    value={item}
+                    checked={redux.brandType.includes(item)}
+                  />
+                }
+                label={item}
+              />
+            ))}
+          </BrandDiv>
         </ListDiv>
         <Line></Line>
         <PriceDiv
@@ -195,6 +206,10 @@ export default function FilterComponent() {
   );
 }
 
+const BrandDiv = styled(Box)`
+  display: flex;
+  flex-direction: column;
+`;
 const Main = styled(Box)`
   display: flex;
   height: 100%;
