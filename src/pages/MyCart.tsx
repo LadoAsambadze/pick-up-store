@@ -146,9 +146,9 @@ export default function Cart() {
           <BoxImage src="/empty-cart.png" />
         </EmptyBoxDiv>
       ) : (
-        selectedProducts.map((item, index) => (
-          <Main>
-            <FirstDiv>
+        <Main>
+          <FirstDiv>
+            {selectedProducts.map((item, index) => (
               <ProductDiv
                 key={index}
                 style={{ background: item.quantity > 0 ? "none" : "red" }}
@@ -223,107 +223,107 @@ export default function Cart() {
                       src="/delete.png"
                       onClick={() => {
                         deleteProduct(item.purchase_id);
-                        console.log(item.purchase_id);
                       }}
                     />
                   </DescriptionSecondary>
                 </DescriptionDiv>
               </ProductDiv>
-            </FirstDiv>
-            <SecondDiv
-              style={{
-                display: selectedProducts.length > 0 ? "block" : "none",
+            ))}
+          </FirstDiv>
+
+          <SecondDiv
+            style={{
+              display: selectedProducts.length > 0 ? "block" : "none",
+            }}
+          >
+            <PaymentHeader>Payment details</PaymentHeader>
+            <TotaltDiv>
+              <ItemDiv>
+                <Items>Items ({selectedProducts.length})</Items>
+                <PriceX>${totalPrice}</PriceX>
+              </ItemDiv>
+              <ItemDiv>
+                <Items>Shipping</Items>
+                <PriceX>${shipping}</PriceX>
+              </ItemDiv>
+              <ItemDiv>
+                <Items>Total Price</Items>
+                <PriceX>${totalPrice + shipping}</PriceX>
+              </ItemDiv>
+            </TotaltDiv>
+            <div
+              style={{ background: "gray", width: "100%" }}
+              onClick={() => {
+                setCheck(!check);
               }}
             >
-              <PaymentHeader>Payment details</PaymentHeader>
-              <TotaltDiv>
-                <ItemDiv>
-                  <Items>Items ({selectedProducts.length})</Items>
-                  <PriceX>${totalPrice}</PriceX>
-                </ItemDiv>
-                <ItemDiv>
-                  <Items>Shipping</Items>
-                  <PriceX>${shipping}</PriceX>
-                </ItemDiv>
-                <ItemDiv>
-                  <Items>Total Price</Items>
-                  <PriceX>${totalPrice + shipping}</PriceX>
-                </ItemDiv>
-              </TotaltDiv>
-              <div
-                style={{ background: "gray", width: "100%" }}
+              Check out
+            </div>
+            <form
+              onSubmit={submit}
+              style={{
+                display: check ? "flex" : "none",
+                flexDirection: "column",
+              }}
+            >
+              <label>Full name</label>
+              <input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                type="text"
+                disabled={stepone}
+              />
+              <label>City</label>
+              <input
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                type="text"
+                disabled={stepone}
+              />
+              <label>Address</label>
+              <input
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                type="text"
+                disabled={stepone}
+              />
+              <label>Phone number</label>
+              <input
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                type="text"
+                disabled={stepone}
+              />
+              <button
+                style={{ background: stepone ? "Green" : "gray" }}
+                type="submit"
                 onClick={() => {
-                  setCheck(!check);
+                  if (
+                    fullName !== "" &&
+                    city !== "" &&
+                    address !== "" &&
+                    phoneNumber !== ""
+                  ) {
+                    setStepOne(!stepone);
+                  }
                 }}
               >
-                Check out
-              </div>
-              <form
-                onSubmit={submit}
-                style={{
-                  display: check ? "flex" : "none",
-                  flexDirection: "column",
-                }}
-              >
-                <label>Full name</label>
-                <input
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  type="text"
-                  disabled={stepone}
-                />
-                <label>City</label>
-                <input
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  type="text"
-                  disabled={stepone}
-                />
-                <label>Address</label>
-                <input
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  type="text"
-                  disabled={stepone}
-                />
-                <label>Phone number</label>
-                <input
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  type="text"
-                  disabled={stepone}
-                />
-                <button
-                  style={{ background: stepone ? "Green" : "gray" }}
-                  type="submit"
-                  onClick={() => {
-                    if (
-                      fullName !== "" &&
-                      city !== "" &&
-                      address !== "" &&
-                      phoneNumber !== ""
-                    ) {
-                      setStepOne(!stepone);
-                    }
-                  }}
-                >
-                  {stepone ? "Change" : "Submit"}
-                </button>
-              </form>
+                {stepone ? "Change" : "Submit"}
+              </button>
+            </form>
 
-              <div style={{ display: stepone ? "block" : "none" }}>
-                <h1>make payment</h1>
-                <button
-                  onClick={() => {
-                    setIsPaid(true);
-                  }}
-                >
-                  Yes
-                </button>
-              </div>
-            </SecondDiv>
-          </Main>
-        ))
+            <div style={{ display: stepone ? "block" : "none" }}>
+              <h1>make payment</h1>
+              <button
+                onClick={() => {
+                  setIsPaid(true);
+                }}
+              >
+                Yes
+              </button>
+            </div>
+          </SecondDiv>
+        </Main>
       )}
     </>
   );
@@ -490,6 +490,7 @@ const PriceX = styled(Typography)`
 
 const FirstDiv = styled(Box)`
   width: 100%;
+
   @media (min-width: 768px) {
     width: 60%;
   }
