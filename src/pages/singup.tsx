@@ -107,7 +107,7 @@ const Main = styled(Box)`
     padding: 40px 150px 40px 150px;
   }
   @media (min-width: 900px) {
-    padding: 40px 200px 40px 200px;
+    padding: 40px 350px 40px 350px;
   }
   @media (min-width: 1440px) {
     padding: 40px 500px 40px 500px;
@@ -172,7 +172,7 @@ const LogDone = styled(Button)`
   padding: 14px 30px 15px 30px;
   margin-top: 40px;
   &:hover {
-    background: #546b67;
+    background: #30a167;
   }
 `;
 
@@ -186,7 +186,7 @@ const SingDiv = styled(Box)`
 `;
 
 const Question = styled(Typography)`
-  color: var(--pure-white, #fff);
+  color: #169c89;
   font-size: 15px;
   font-family: Outfit;
   font-style: normal;
@@ -195,12 +195,17 @@ const Question = styled(Typography)`
 `;
 
 const SignUp = styled(Button)`
-  color: var(--red, #fc4747);
+  background: #169c89;
+  color: white;
   font-size: 12px;
   font-family: Outfit;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+  margin-left: 10px;
+  &:hover {
+    background: #30a167;
+  }
 `;
 
 const Warn = styled(Typography)`

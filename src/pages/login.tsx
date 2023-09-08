@@ -22,7 +22,6 @@ const schema = yup.object().shape({
 export default function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
-
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
@@ -35,7 +34,6 @@ export default function Login() {
       dispatch(setAuth(true));
     }
   };
-
   const dispatch = useDispatch();
   const {
     register,
@@ -44,7 +42,6 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
   const onSubmit = async (data: any) => {
     if (!errors.email) {
       try {
@@ -103,12 +100,12 @@ const Main = styled(Box)`
   flex-direction: column;
   align-items: center;
   overflow-y: none;
-  background: #b7b7b0;
+  background: #d4c9c9;
   @media (min-width: 768px) {
     padding: 40px 150px 40px 150px;
   }
   @media (min-width: 900px) {
-    padding: 40px 200px 40px 200px;
+    padding: 40px 350px 40px 350px;
   }
   @media (min-width: 1440px) {
     padding: 40px 500px 40px 500px;
@@ -120,20 +117,19 @@ const LogIn = styled(Box)`
   padding: 40px 30px 40px 30px;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(26.5px);
   @media (min-width: 768px) {
     padding: 32px;
     border-radius: 10px;
   }
-  @media (min-width: 1440x) {
-  }
 `;
 const Header = styled(Typography)`
+  font-family: "Ysabeau Office", sans-serif;
   color: #169c89;
   font-size: 32px;
-  font-family: Outfit;
-  font-weight: 300;
-  letter-spacing: -0.5px;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 
 const Form = styled("form")`
@@ -148,14 +144,12 @@ const InputField = styled("input")`
   border-radius: 10px;
   border: 2px solid #ddd;
   background: #f8f8f8;
+  font-family: "Ysabeau Office", sans-serif;
   color: black;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  color: #ddd;
-
   margin-top: 24px;
 `;
 const LogDone = styled(Button)`
@@ -164,9 +158,9 @@ const LogDone = styled(Button)`
   color: white;
   text-align: center;
   font-size: 13px;
-  font-family: Outfit;
+  font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   padding: 14px 30px 15px 30px;
   margin-top: 40px;
@@ -187,9 +181,9 @@ const SingDiv = styled(Box)`
 const Question = styled(Typography)`
   color: #169c89;
   font-size: 15px;
-  font-family: Outfit;
+  font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
 `;
 
@@ -197,7 +191,7 @@ const SignUp = styled(Button)`
   background: #169c89;
   color: white;
   font-size: 14px;
-  font-family: Outfit;
+  font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -208,9 +202,10 @@ const SignUp = styled(Button)`
 `;
 
 const Warn = styled(Typography)`
+  font-family: "Ysabeau Office", sans-serif;
   font-size: 12px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   color: red;
   margin-top: 5px;
@@ -218,6 +213,7 @@ const Warn = styled(Typography)`
 `;
 
 const Forgot = styled(Typography)`
+  font-family: "Ysabeau Office", sans-serif;
   color: #169c89;
   font-size: 14px;
   font-style: normal;
