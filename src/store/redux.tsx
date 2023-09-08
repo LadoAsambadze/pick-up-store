@@ -46,7 +46,6 @@ export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// Set an expiration date for the persisted state
 const EXPIRATION_TIME_IN_MINUTES = 1;
 const expirationDate = new Date(
   new Date().getTime() + EXPIRATION_TIME_IN_MINUTES * 60 * 1000
