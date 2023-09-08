@@ -107,7 +107,7 @@ export default function Shoes() {
                     <Name>{item.name}</Name>
                     <Brand>{item.brand}</Brand>
                   </Description>
-                  <Price>{item.price}</Price>
+                  <Price>$ {item.price}</Price>
                   <Favourite
                     src={favourites.includes(item._id) ? RedHeart : WhiteHeart}
                     alt="Favourite add icon, heart"
@@ -162,7 +162,7 @@ const FilterDiv = styled(Box)`
   border: 1px solid gray;
   width: 130px;
   border-radius: 5px;
-  padding: 10px 15px 10px 15px;
+  padding: 12px 15px 12px 15px;
   cursor: pointer;
   user-select: none;
   border-radius: 4px;
@@ -187,7 +187,7 @@ const MainGrid = styled(Box)`
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
   padding-top: 10px;
-  @media (min-width: 500px) {
+  @media (min-width: 600px) {
     grid-template-columns: repeat(3, 1fr);
   }
   @media (min-width: 768px) {
@@ -271,8 +271,9 @@ const Description = styled(Box)`
   width: 100%;
 `;
 const Name = styled(Typography)`
-  color: black;
+  color: #012720;
   font-size: 10px;
+  font-weight: 400;
   font-family: "Ysabeau Office", sans-serif;
   overflow: hidden;
   white-space: nowrap;
@@ -283,8 +284,8 @@ const Name = styled(Typography)`
 const Brand = styled(Typography)`
   color: black;
   font-size: 10px;
+  font-weight: 700;
   font-family: "Ysabeau Office", sans-serif;
-  text-transform: uppercase;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
@@ -293,6 +294,8 @@ const Price = styled(Typography)`
   color: black;
   font-size: 10px;
   font-family: "Ysabeau Office", sans-serif;
+  font-weight: 700;
+  margin-top: 3px;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
