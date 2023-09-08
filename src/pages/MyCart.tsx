@@ -116,10 +116,16 @@ export default function Cart() {
   };
 
   const makeOrder = async () => {
+    const cookieToken = getCookie("token");
     try {
       const response = await axios.post(
         "https://pick-up-store-backend-production.up.railway.app/orderprocess/makeorder",
-        orderData
+        orderData,
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
       );
       console.log("Order successful!", response.data);
       window.location.reload();
