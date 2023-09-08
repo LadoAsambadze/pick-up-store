@@ -64,10 +64,10 @@ export default function Shoes() {
                 search === "" ||
                 item.name.toLowerCase().includes(search.toLowerCase())
             )
-            .filter(
-              (item) =>
-                redux.genderType === null || redux.genderType === item.gender
-            )
+            // .filter(
+            //   (item) =>
+            //     redux.genderType === null || redux.genderType === item.gender
+            // )
             .filter(
               (item) =>
                 redux.categoryType === null ||

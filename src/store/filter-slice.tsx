@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface FilterState {
   filter: boolean;
   priceAmount: number[];
-  genderType: string | null;
+  genderType: string[];
   categoryType: string | null;
   brandType: string | null;
   sizeType: string[];
@@ -13,7 +13,7 @@ interface FilterState {
 const initialState: FilterState = {
   filter: false,
   priceAmount: [0, 100],
-  genderType: null,
+  genderType: [],
   categoryType: null,
   brandType: null,
   sizeType: [],
@@ -31,7 +31,14 @@ const filterSlice = createSlice({
       state.priceAmount = action.payload;
     },
     setGenderType: (state, action: PayloadAction<string>) => {
-      state.genderType = action.payload;
+      const selectedGender = action.payload;
+      if (state.genderType.includes(selectedGender)) {
+        state.genderType = state.genderType.filter(
+          (size) => size !== selectedGender
+        );
+      } else {
+        state.genderType.push(selectedGender);
+      }
     },
     setCategoryType: (state, action: PayloadAction<string>) => {
       state.categoryType = action.payload;

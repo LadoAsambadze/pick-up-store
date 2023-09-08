@@ -54,10 +54,10 @@ export default function Clothes() {
         ) : (
           <MainGrid>
             {clothes
-              .filter(
-                (item) =>
-                  redux.genderType === null || item.gender === redux.genderType
-              )
+              // .filter(
+              //   (item) =>
+              //     redux.genderType === null || item.gender === redux.genderType
+              // )
               .filter(
                 (item) =>
                   redux.categoryType === null ||

@@ -1,4 +1,11 @@
-import { Box, Typography, keyframes, styled } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+  keyframes,
+  styled,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import Slider from "@mui/material/Slider";
@@ -21,6 +28,8 @@ export default function FilterComponent() {
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
   const redux = useSelector((state: RootState) => state.filter);
+  const filters = useSelector((state: RootState) => state.filter);
+  console.log(filters);
   const handleChange = (_event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
   };
@@ -40,9 +49,15 @@ export default function FilterComponent() {
     "45",
     "46",
   ];
+  const genderOptions = ["Boy", "Girl"];
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
+
+  const handleGender = (genderContent: string) => {
+    dispatch(setGenderType(genderContent));
+  };
+
   const location = useLocation();
   const isShoesPage = location.pathname === "/shoes";
 
@@ -72,11 +87,18 @@ export default function FilterComponent() {
             <Type>Gender</Type>
             <Arrow src="/Icon.svg" />
           </HeaderDiv>
-          <div
-            style={{ display: gender ? "block" : "none", marginTop: "20px" }}
-          >
-            <p onClick={() => dispatch(setGenderType("Girl"))}>Girl</p>
-            <p onClick={() => dispatch(setGenderType("Boy"))}>Boy</p>
+          <div style={{ display: gender ? "flex" : "none", marginTop: "20px" }}>
+            {genderOptions.map((item) => (
+              <FormControlLabel
+                key={item}
+                onClick={() => {
+                  handleGender(item);
+                  console.log(item);
+                }}
+                control={<Checkbox value={item} />}
+                label={item}
+              />
+            ))}
           </div>
           <HeaderDiv onClick={() => setCategory(!category)}>
             <Type>Category</Type>

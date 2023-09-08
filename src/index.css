@@ -38,7 +38,7 @@ body {
   font-weight: 400;
   color: black;
   font-size: 12px;
-  padding: 10px 15px 10px 15px;
+  padding: 8px 15px 15px 15px;
 }
 
 .carousel-item1 {
@@ -69,6 +69,6 @@ body {
     font-weight: 400;
     color: black;
     font-size: 12px;
-    padding: 12px 15px 12px 15px;
+    padding: 8px 15px 15px 15px;
   }
 }
