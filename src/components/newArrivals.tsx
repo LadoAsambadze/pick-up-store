@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import BlackHeart from "/public/black-heart.png";
+import RedHeart from "/public/red-heart.png";
 import WhiteHeart from "/public/heart.svg";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
@@ -94,7 +94,7 @@ export default function NewArrivals(props: any) {
                     <Price>{item.price}</Price>
                     <Favourite
                       src={
-                        favourites.includes(item._id) ? BlackHeart : WhiteHeart
+                        favourites.includes(item._id) ? RedHeart : WhiteHeart
                       }
                       onClick={(event) => {
                         event.stopPropagation();

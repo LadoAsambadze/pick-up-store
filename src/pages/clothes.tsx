@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
-import BlackHeart from "/public/black-heart.png";
+import RedHeart from "/public/red-heart.png";
 import WhiteHeart from "/public/heart.svg";
 
 export default function Clothes() {
@@ -27,136 +27,127 @@ export default function Clothes() {
     <>
       <Main>
         <FilterComponent />
-        <div
-          style={{
-            filter: redux.filter ? "blur(5px)" : "none",
-            pointerEvents: redux.filter ? "none" : "auto",
-          }}
-        >
-          <FindBy>
-            <FilterDiv
-              onClick={() => {
-                dispatch(setFilter(true));
-              }}
-            >
-              <Filter>Filter</Filter>
-              <FilterIcon src="/filter.png" />
-            </FilterDiv>
 
-            <Sort />
-          </FindBy>
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                minHeight: "100vh",
-              }}
-            >
-              <CircularProgress />
-            </div>
-          ) : (
-            <MainGrid>
-              {clothes
-                .filter(
-                  (item) =>
-                    redux.genderType === null ||
-                    item.gender === redux.genderType
-                )
-                .filter(
-                  (item) =>
-                    redux.categoryType === null ||
-                    item.category === redux.categoryType
-                )
-                .filter(
-                  (item) =>
-                    redux.brandType === null || item.brand === redux.brandType
-                )
-                .filter(
-                  (item) =>
-                    item.price > redux.priceAmount[0] &&
-                    item.price < redux.priceAmount[1]
-                )
-                .filter(
-                  (item) =>
-                    redux.sizeType.length === 0 ||
-                    item.itemList.some((size) =>
-                      Object.entries(size.size).some(
-                        ([key, value]) =>
-                          redux.sizeType.includes(key) && value !== 0
-                      )
+        <FindBy>
+          <FilterDiv
+            onClick={() => {
+              dispatch(setFilter(true));
+            }}
+          >
+            <Filter>Filter</Filter>
+            <FilterIcon src="/filter.png" />
+          </FilterDiv>
+
+          <Sort />
+        </FindBy>
+        {loading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              minHeight: "100vh",
+            }}
+          >
+            <CircularProgress />
+          </div>
+        ) : (
+          <MainGrid>
+            {clothes
+              .filter(
+                (item) =>
+                  redux.genderType === null || item.gender === redux.genderType
+              )
+              .filter(
+                (item) =>
+                  redux.categoryType === null ||
+                  item.category === redux.categoryType
+              )
+              .filter(
+                (item) =>
+                  redux.brandType === null || item.brand === redux.brandType
+              )
+              .filter(
+                (item) =>
+                  item.price > redux.priceAmount[0] &&
+                  item.price < redux.priceAmount[1]
+              )
+              .filter(
+                (item) =>
+                  redux.sizeType.length === 0 ||
+                  item.itemList.some((size) =>
+                    Object.entries(size.size).some(
+                      ([key, value]) =>
+                        redux.sizeType.includes(key) && value !== 0
                     )
-                )
-                .filter(
-                  (item) =>
-                    search === "" ||
-                    item.name.toLowerCase().includes(search.toLowerCase())
-                )
-                .sort((itemA, itemB) => {
-                  if (redux.sortType === "low") {
-                    return itemA.price - itemB.price;
-                  } else if (redux.sortType === "high") {
-                    return itemB.price - itemA.price;
-                  } else if (
-                    itemA.new &&
-                    !itemB.new &&
-                    redux.sortType === "new"
-                  ) {
-                    return -1;
-                  } else if (
-                    !itemA.new &&
-                    itemB.new &&
-                    redux.sortType === "old"
-                  ) {
-                    return 1;
-                  } else {
-                    return 0;
-                  }
-                })
-                .map((item, index) => (
-                  <ArrivalDiv
-                    onClick={() => {
-                      const id = item._id;
-                      navigate(`/shoes/${id}`);
+                  )
+              )
+              .filter(
+                (item) =>
+                  search === "" ||
+                  item.name.toLowerCase().includes(search.toLowerCase())
+              )
+              .sort((itemA, itemB) => {
+                if (redux.sortType === "low") {
+                  return itemA.price - itemB.price;
+                } else if (redux.sortType === "high") {
+                  return itemB.price - itemA.price;
+                } else if (
+                  itemA.new &&
+                  !itemB.new &&
+                  redux.sortType === "new"
+                ) {
+                  return -1;
+                } else if (
+                  !itemA.new &&
+                  itemB.new &&
+                  redux.sortType === "old"
+                ) {
+                  return 1;
+                } else {
+                  return 0;
+                }
+              })
+              .map((item, index) => (
+                <ArrivalDiv
+                  onClick={() => {
+                    const id = item._id;
+                    navigate(`/shoes/${id}`);
+                  }}
+                  key={index}
+                >
+                  <ImageDiv
+                    style={{
+                      backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
                     }}
-                    key={index}
-                  >
-                    <ImageDiv
-                      style={{
-                        backgroundImage: `url(http://localhost:3000${item.itemList[0].urls[0]})`,
-                      }}
-                    ></ImageDiv>
+                  ></ImageDiv>
 
-                    <About>
-                      <Description>
-                        <Name>{item.name}</Name>
-                        <Brand>{item.brand}</Brand>
-                      </Description>
-                      <Price>{item.price}</Price>
-                      <Favourite
-                        src={
-                          favourites.includes(item._id)
-                            ? BlackHeart
-                            : WhiteHeart
+                  <About>
+                    <Description>
+                      <Name>{item.name}</Name>
+                      <Brand>{item.brand}</Brand>
+                    </Description>
+                    <Price>{item.price}</Price>
+                    <Favourite
+                      src={
+                        favourites.includes(item._id) ? RedHeart : WhiteHeart
+                      }
+                      alt="Favourite add icon, heart"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (favourites.includes(item._id)) {
+                          dispatch(removeFavourite(item._id));
+                        } else {
+                          dispatch(setFavourites(item._id));
                         }
-                        alt="Favourite add icon, heart"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          if (favourites.includes(item._id)) {
-                            dispatch(removeFavourite(item._id));
-                          } else {
-                            dispatch(setFavourites(item._id));
-                          }
-                        }}
-                      />
-                    </About>
-                  </ArrivalDiv>
-                ))}
-            </MainGrid>
-          )}
-        </div>
+                      }}
+                    />
+                  </About>
+                </ArrivalDiv>
+              ))}
+          </MainGrid>
+        )}
       </Main>
     </>
   );
@@ -166,7 +157,6 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 100%;
-
   min-height: 100vh;
   padding: 10px 20px 10px 20px;
   @media (min-width: 500px) {

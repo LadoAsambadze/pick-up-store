@@ -7,7 +7,7 @@ import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
-import BlackHeart from "/public/black-heart.png";
+import RedHeart from "/public/red-heart.png";
 import WhiteHeart from "/public/heart.svg";
 
 export default function Shoes() {
@@ -39,7 +39,6 @@ export default function Shoes() {
         </FindBy>
         <MainGrid>
           {shoes
-
             .filter(
               (item) =>
                 redux.sizeType.length === 0 ||
@@ -110,9 +109,7 @@ export default function Shoes() {
                   </Description>
                   <Price>{item.price}</Price>
                   <Favourite
-                    src={
-                      favourites.includes(item._id) ? BlackHeart : WhiteHeart
-                    }
+                    src={favourites.includes(item._id) ? RedHeart : WhiteHeart}
                     alt="Favourite add icon, heart"
                     onClick={(event) => {
                       event.stopPropagation();
@@ -128,7 +125,6 @@ export default function Shoes() {
             ))}
         </MainGrid>
       </Main>
-
       <FilterComponent />
     </>
   );
@@ -174,8 +170,8 @@ const FilterDiv = styled(Box)`
   border-color: #b8b2b2;
 `;
 const Filter = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 400;
   color: black;
   font-size: 18px;
 `;
@@ -277,10 +273,9 @@ const Description = styled(Box)`
 const Name = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
   overflow: hidden;
   white-space: nowrap;
-
   @media (min-width: 1440px) {
     font-size: 16px;
   }
@@ -288,17 +283,16 @@ const Name = styled(Typography)`
 const Brand = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
   text-transform: uppercase;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
 `;
-
 const Price = styled(Typography)`
   color: black;
   font-size: 10px;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
