@@ -54,24 +54,6 @@ export default function Clothes() {
         ) : (
           <MainGrid>
             {clothes
-              // .filter(
-              //   (item) =>
-              //     redux.genderType === null || item.gender === redux.genderType
-              // )
-              .filter(
-                (item) =>
-                  redux.categoryType === null ||
-                  item.category === redux.categoryType
-              )
-              .filter(
-                (item) =>
-                  redux.brandType === null || item.brand === redux.brandType
-              )
-              .filter(
-                (item) =>
-                  item.price > redux.priceAmount[0] &&
-                  item.price < redux.priceAmount[1]
-              )
               .filter(
                 (item) =>
                   redux.sizeType.length === 0 ||
@@ -82,10 +64,31 @@ export default function Clothes() {
                     )
                   )
               )
+
+              .filter(
+                (item) =>
+                  redux.brandType.length === 0 ||
+                  redux.brandType.includes(item.brand)
+              )
+              .filter(
+                (item) =>
+                  item.price > redux.priceAmount[0] &&
+                  item.price < redux.priceAmount[1]
+              )
               .filter(
                 (item) =>
                   search === "" ||
                   item.name.toLowerCase().includes(search.toLowerCase())
+              )
+              .filter(
+                (item) =>
+                  redux.genderType.length === 0 ||
+                  redux.genderType.includes(item.gender)
+              )
+              .filter(
+                (item) =>
+                  redux.categoryType.length === 0 ||
+                  redux.categoryType.includes(item.category)
               )
               .sort((itemA, itemB) => {
                 if (redux.sortType === "low") {

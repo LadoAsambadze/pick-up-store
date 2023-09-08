@@ -21,8 +21,6 @@ export default function Shoes() {
     (state: RootState) => state.favourites.favourites
   );
 
-  console.log(redux.filter);
-
   return (
     <>
       <Main>
@@ -131,13 +129,6 @@ export default function Shoes() {
     </>
   );
 }
-
-const Example = styled(Box)`
-  transition: transform 0.9s ease-in;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-`;
 
 const Main = styled(Box)`
   display: flex;
