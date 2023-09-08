@@ -91,7 +91,7 @@ export default function NewArrivals(props: any) {
                       <Name>{item.name}</Name>
                       <Brand>{item.brand}</Brand>
                     </Description>
-                    <Price>{item.price}</Price>
+                    <Price>$ {item.price}</Price>
                     <Favourite
                       src={
                         favourites.includes(item._id) ? RedHeart : WhiteHeart
@@ -168,21 +168,28 @@ const View = styled(Typography)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 3px solid #676659;
+  border: 1px solid #d8d8e1;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
+  position: relative;
+  @media (min-width: 1440px) {
+    border: 2px solid #d8d8e1;
+  }
 `;
 
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-  height: 200px;
+  height: 150px;
   background-size: cover;
   background-repeat: no-repeat;
-  border-bottom: 1px solid #676659;
+  border-bottom: 1px solid #d8d8e1;
   background-position: center;
-  @media (min-width: 1440px) {
+  @media (min-width: 500px) {
+    height: 200px;
+  }
+  @media (min-width: 1200px) {
     height: 300px;
   }
 `;
@@ -194,47 +201,68 @@ const About = styled(Box)`
   align-items: flex-start;
   justify-content: center;
   background-color: white;
-  padding: 10px 20px 20px 20px;
+  padding: 10px 10px 10px 10px;
+  @media (min-width: 1440px) {
+    padding: 10px 20px 20px 20px;
+  }
 `;
 
 const Favourite = styled("img")`
   display: flex;
-  padding: 6px;
+  padding: 3px;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   cursor: pointer;
   position: absolute;
-  bottom: 45px;
-  right: 40px;
-  width: 30px;
-  height: 30px;
+  top: 12px;
+  right: 12px;
+  z-index: 500;
+  width: 20px;
+  height: 20px;
   @media (min-width: 1440px) {
+    top: 12px;
+    right: 12px;
+    padding: 6px;
     width: 40px;
     height: 40px;
   }
 `;
 
-const Description = styled(Typography)`
-  color: black;
-  font-size: 16px;
-  font-family: "Cousine", monospace;
+const Description = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
-
-const Price = styled(Typography)`
-  color: black;
-  font-size: 16px;
-  font-family: "Cousine", monospace;
-`;
-
 const Name = styled(Typography)`
-  color: black;
-  font-size: 16px;
-  font-family: "Cousine", monospace;
+  color: #012720;
+  font-size: 10px;
+  font-weight: 400;
+  font-family: "Ysabeau Office", sans-serif;
+  overflow: hidden;
+  white-space: nowrap;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 const Brand = styled(Typography)`
   color: black;
-  font-size: 16px;
-  font-family: "Cousine", monospace;
-  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 400;
+  font-family: "Ysabeau Office", sans-serif;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
+`;
+const Price = styled(Typography)`
+  color: black;
+  font-size: 10px;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 700;
+  margin-top: 3px;
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;

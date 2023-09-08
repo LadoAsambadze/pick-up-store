@@ -307,7 +307,7 @@ const Brand = styled(Typography)`
   color: black;
   font-size: 10px;
   font-family: "Ysabeau Office", sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
