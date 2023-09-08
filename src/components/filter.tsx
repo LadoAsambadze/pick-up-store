@@ -50,20 +50,25 @@ export default function FilterComponent() {
     "46",
   ];
   const genderOptions = ["Boy", "Girl"];
+  const categoryOptions = ["Women", "Men", "Kids"];
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
   };
-
   const handleGender = (genderContent: string) => {
     dispatch(setGenderType(genderContent));
+  };
+  const handleCategory = (categoryContent: string) => {
+    dispatch(setCategoryType(categoryContent));
   };
 
   const location = useLocation();
   const isShoesPage = location.pathname === "/shoes";
 
+  console.log(redux.filter);
+
   return (
     <>
-      <Main style={{ display: redux.filter ? "flex" : "none" }}>
+      <Main>
         <Header>
           <FilterDiv>
             <FilterHead>Filter</FilterHead>
@@ -105,9 +110,16 @@ export default function FilterComponent() {
             <Arrow src="/Icon.svg" />
           </HeaderDiv>
           <div style={{ display: category ? "block" : "none" }}>
-            <p onClick={() => dispatch(setCategoryType("Men"))}>Men</p>
-            <p onClick={() => dispatch(setCategoryType("Women"))}>Women</p>
-            <p onClick={() => dispatch(setCategoryType("Kid"))}>Kid</p>
+            {categoryOptions.map((item) => (
+              <FormControlLabel
+                key={item}
+                onClick={() => {
+                  handleCategory(item);
+                }}
+                control={<Checkbox value={item} />}
+                label={item}
+              />
+            ))}
           </div>
           <HeaderDiv
             onClick={() => {
@@ -174,14 +186,6 @@ export default function FilterComponent() {
   );
 }
 
-const slideInFromLeft = keyframes`
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-`;
 const Main = styled(Box)`
   display: flex;
   height: 100%;
@@ -193,7 +197,6 @@ const Main = styled(Box)`
   top: 0;
   border: 1px solid black;
   overflow: scroll;
-  animation: ${slideInFromLeft} 0.4s ease-out;
 
   &::-webkit-scrollbar {
     width: 12px;

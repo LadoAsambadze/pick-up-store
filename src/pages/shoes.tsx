@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
 import RedHeart from "/public/red-heart.png";
 import WhiteHeart from "/public/heart.svg";
+import { useEffect, useState } from "react";
 
 export default function Shoes() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function Shoes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
+ 
 
   return (
     <>
@@ -68,11 +70,11 @@ export default function Shoes() {
             //   (item) =>
             //     redux.genderType === null || redux.genderType === item.gender
             // )
-            .filter(
-              (item) =>
-                redux.categoryType === null ||
-                redux.categoryType === item.category
-            )
+            // .filter(
+            //   (item) =>
+            //     redux.categoryType === null ||
+            //     redux.categoryType === item.category
+            // )
             .sort((itemA, itemB) => {
               if (redux.sortType === "low") {
                 return itemA.price - itemB.price;
@@ -124,11 +126,18 @@ export default function Shoes() {
               </ArrivalDiv>
             ))}
         </MainGrid>
+        
       </Main>
-      <FilterComponent />
     </>
   );
 }
+
+const Example = styled(Box)`
+  transition: transform 0.9s ease-in;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+`;
 
 const Main = styled(Box)`
   display: flex;

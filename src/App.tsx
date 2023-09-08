@@ -1,12 +1,12 @@
 import Main from "./pages/Main";
 import { Routes, Route } from "react-router-dom";
 import Clothes from "./pages/Clothes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Shoes from "./pages/Shoes";
 import Selected from "./pages/Selected";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { setData } from "./store/data-slice";
 import { setLoading } from "./store/loading-slice";
@@ -15,6 +15,9 @@ import Login from "./pages/Login";
 import Singup from "./pages/Singup";
 import Favourites from "./pages/Favourites";
 import Admin from "./pages/Admin";
+import FilterComponent from "./components/Filter";
+import { Box, styled } from "@mui/material";
+import { RootState } from "./store/redux";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +37,21 @@ function App() {
     fetchData();
   }, []);
 
+  const reduxFilter = useSelector((state: RootState) => state.filter.filter);
+  const [slide, setSlide] = useState(reduxFilter);
+
+  useEffect(() => {
+    setSlide(reduxFilter);
+  }, [reduxFilter]);
   return (
     <>
+      <Wrapper
+        style={{
+          transform: slide ? "translateX(0%)" : "translateX(-100%)",
+        }}
+      >
+        <FilterComponent />
+      </Wrapper>
       <Header />
 
       <Routes>
@@ -54,5 +70,13 @@ function App() {
     </>
   );
 }
+
+const Wrapper = styled(Box)`
+  transition: transform 1s ease-in-out;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2000;
+`;
 
 export default App;

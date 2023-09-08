@@ -4,7 +4,7 @@ interface FilterState {
   filter: boolean;
   priceAmount: number[];
   genderType: string[];
-  categoryType: string | null;
+  categoryType: string[];
   brandType: string | null;
   sizeType: string[];
   sortType: string | null;
@@ -14,7 +14,7 @@ const initialState: FilterState = {
   filter: false,
   priceAmount: [0, 100],
   genderType: [],
-  categoryType: null,
+  categoryType: [],
   brandType: null,
   sizeType: [],
   sortType: null,
@@ -41,7 +41,7 @@ const filterSlice = createSlice({
       }
     },
     setCategoryType: (state, action: PayloadAction<string>) => {
-      state.categoryType = action.payload;
+      const selectedCategory = action.payload;
     },
     setBrandType: (state, action: PayloadAction<string>) => {
       state.brandType = action.payload;
