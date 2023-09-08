@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
-import { Input } from "@mui/material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -100,12 +99,11 @@ export default function Login() {
 }
 
 const Main = styled(Box)`
-  padding: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: none;
-  background: #d4c9c9;
+  background: #b7b7b0;
   @media (min-width: 768px) {
     padding: 40px 150px 40px 150px;
   }
@@ -146,18 +144,20 @@ const Form = styled("form")`
 `;
 
 const InputField = styled("input")`
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  opacity: 0.5;
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #ddd;
   background: #f8f8f8;
+  color: black;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  color: #ddd;
+
   margin-top: 24px;
 `;
-
 const LogDone = styled(Button)`
   border-radius: 10px;
   background: #169c89;
@@ -171,7 +171,7 @@ const LogDone = styled(Button)`
   padding: 14px 30px 15px 30px;
   margin-top: 40px;
   &:hover {
-    background: #546b67;
+    background: #30a167;
   }
 `;
 
@@ -194,19 +194,21 @@ const Question = styled(Typography)`
 `;
 
 const SignUp = styled(Button)`
-  color: #169c89;
-  background-color: #d7ecec;
+  background: #169c89;
+  color: white;
   font-size: 14px;
   font-family: Outfit;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   margin-left: 10px;
+  &:hover {
+    background: #30a167;
+  }
 `;
 
 const Warn = styled(Typography)`
   font-size: 12px;
-  font-family: Outfit;
   font-style: normal;
   font-weight: 300;
   line-height: normal;

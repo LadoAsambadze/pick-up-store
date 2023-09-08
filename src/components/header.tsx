@@ -230,7 +230,7 @@ const Main = styled(Box)`
   justify-content: space-between;
   align-items: center;
   opacity: 0.92;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #169c89;
   padding: 15px 20px 12px 20px;
   position: relative;
   @media (min-width: 1440px) {

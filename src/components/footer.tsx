@@ -30,10 +30,12 @@ export default function Footer() {
 
 const MainDiv = styled("div")`
   width: 100%;
-  background: #322f2f;
+  background: #d4d4c9;
   display: flex;
   flex-direction: column;
   padding: 25px 50px 65px 50px;
+
+  border-top: 1px solid #169c89;
   @media (min-width: 1440px) {
     padding: 44px 165px 44px 165px;
     flex-direction: row;
@@ -51,7 +53,7 @@ const Description = styled(Box)`
 `;
 
 const Name = styled(Typography)`
-  color: #ffffff;
+  color: #3c4242;
   font-size: 18px;
   @media (min-width: 1440px) {
     font-size: 28px;
@@ -72,7 +74,7 @@ const SectionStore = styled(Box)`
 `;
 
 const Kind = styled(Typography)`
-  color: #ffffff;
+  color: #3c4242;
   font-size: 12px;
   cursor: pointer;
   margin-top: 10px;
