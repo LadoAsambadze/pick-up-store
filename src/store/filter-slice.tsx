@@ -42,6 +42,13 @@ const filterSlice = createSlice({
     },
     setCategoryType: (state, action: PayloadAction<string>) => {
       const selectedCategory = action.payload;
+      if (state.categoryType.includes(selectedCategory)) {
+        state.categoryType = state.genderType.filter(
+          (size) => size !== selectedCategory
+        );
+      } else {
+        state.categoryType.push(selectedCategory);
+      }
     },
     setBrandType: (state, action: PayloadAction<string>) => {
       state.brandType = action.payload;
