@@ -40,7 +40,7 @@ export default function Cart() {
     if (user) {
       const getCart = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/order/getCart?userId=${user.id}`,
+          `https://pick-up-store-backend-production.up.railway.app/order/getCart?userId=${user.id}`,
           {
             headers: {
               authorization: `Bearer ${cookieToken}`,
@@ -58,7 +58,7 @@ export default function Cart() {
     const cookieToken = getCookie("token");
     try {
       await axios.put(
-        `http://localhost:3000/order/updateCart/${purchase_id}`,
+        `https://pick-up-store-backend-production.up.railway.app/order/updateCart/${purchase_id}`,
         {
           new_amount,
           user_id,
@@ -79,7 +79,7 @@ export default function Cart() {
 
     try {
       await axios.delete(
-        `http://localhost:3000/order/deleteProduct/${purchase_id}`,
+        `https://pick-up-store-backend-production.up.railway.app/order/deleteProduct/${purchase_id}`,
         {
           data: { user_id },
           headers: {

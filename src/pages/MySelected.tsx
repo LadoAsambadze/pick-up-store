@@ -93,6 +93,7 @@ export default function Selected() {
         if (choosedAmount !== 0) {
           await axios.post(
             "https://pick-up-store-backend-production.up.railway.app/order/addCart",
+      
             cartData,
             {
               headers: {
