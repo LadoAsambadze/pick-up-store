@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-
 import { getCookie } from "cookies-next";
 
 interface Type {
@@ -131,6 +130,7 @@ export default function Cart() {
       window.location.reload();
     } catch (error) {
       console.error("Error making the order:", error);
+      alert("Please remove no avaliable products to make order");
     }
   };
 
@@ -143,6 +143,7 @@ export default function Cart() {
       makeOrder();
     }
   }, [isPaid]);
+  console.log(isPaid);
 
   return (
     <>
@@ -155,10 +156,7 @@ export default function Cart() {
         <Main>
           <FirstDiv>
             {selectedProducts.map((item, index) => (
-              <ProductDiv
-                key={index}
-                style={{ background: item.quantity > 0 ? "none" : "red" }}
-              >
+              <ProductDiv key={index}>
                 <ImageDiv>
                   <img
                     style={{ maxWidth: "100%" }}
@@ -167,14 +165,43 @@ export default function Cart() {
                   />
                 </ImageDiv>
                 <DescriptionDiv>
-                  <Name>{item.name}</Name>
+                  <Name
+                    style={{
+                      textDecoration: item.quantity > 0 ? "none" : "line-through",
+                    }}
+                  >
+                    {item.name}
+                  </Name>
                   <DescriptionSecondary>
-                    <Size>Size: {item.size}</Size>
-                    <Quantity>Available: {item.quantity}</Quantity>
+                    <Size
+                      style={{
+                        textDecoration: item.quantity > 0 ? "none" : "line-through",
+                      }}
+                    >
+                      Size: {item.size}
+                    </Size>
+                    <Quantity
+                      style={{
+                        textDecoration: item.quantity > 0 ? "none" : "line-through",
+                      }}
+                    >
+                      Available: {item.quantity}
+                    </Quantity>
+                    <Warn
+                      style={{ display: item.quantity > 0 ? "none" : "block" }}
+                    >
+                      OUT OF STOCK !!!
+                    </Warn>
                   </DescriptionSecondary>
 
                   <DescriptionSecondary>
-                    <Price>${item.price * item.amount}</Price>
+                    <Price
+                      style={{
+                        textDecoration: item.quantity > 0 ? "none" : "line-through",
+                      }}
+                    >
+                      ${item.price * item.amount}
+                    </Price>
                     <AddQuantity>
                       <Minus
                         onClick={async () => {
@@ -452,6 +479,14 @@ const Quantity = styled(Box)`
   margin-right: 20px;
 `;
 
+const Warn = styled(Box)`
+  font-family: "Kumbh Sans", sans-serif;
+  font-weight: 700;
+  color: #ff0404;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-right: 20px;
+`;
 const PaymentHeader = styled(Typography)`
   font-size: 25px;
   font-family: "Kumbh Sans", sans-serif;
