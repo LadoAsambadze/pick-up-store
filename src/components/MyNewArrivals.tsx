@@ -30,11 +30,11 @@ export default function NewArrivals(props: any) {
       items: 3,
     },
     tabletOne: {
-      breakpoint: { max: 1000, min: 450 },
+      breakpoint: { max: 1000, min: 430 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 450, min: 0 },
+      breakpoint: { max: 430, min: 0 },
       items: 1,
     },
   };
@@ -181,7 +181,7 @@ const ArrivalDiv = styled(Box)`
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-  height: 150px;
+  height: 170px;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid #d8d8e1;
