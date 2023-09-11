@@ -6,7 +6,7 @@ export default function Admin() {
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get(
-        "https://pick-up-store-backend-production.up.railway.app/getorders"
+        "http://localhost:3000/getorders"
       );
       console.log(response);
     };

@@ -165,7 +165,7 @@ export default function Header() {
                     >
                       <SmallImageDiv>
                         <SmallImage
-                          src={`https://pick-up-store-backend-production.up.railway.app${item.itemList[0].urls[0]}`}
+                          src={`http://localhost:3000${item.itemList[0].urls[0]}`}
                         />
                       </SmallImageDiv>
                       <DescriptionDiv>

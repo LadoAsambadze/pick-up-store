@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Rating } from "@mui/material";
@@ -14,6 +14,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Selected() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data.data);
   let shoesItem: any;
@@ -47,8 +48,9 @@ export default function Selected() {
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
+
   const [selectedOwnId, setSelectedOwnId] = useState(
-    shoesItem?.itemList[0]._id
+    shoesItem?.itemList[0].own_id
   );
 
   function handleSelect(key: string | null, value: any) {
@@ -78,7 +80,8 @@ export default function Selected() {
       setSelectedColor(shoesItem.itemList[0].color);
       setSelectedImage(shoesItem.itemList[0].urls[0]);
       setSelectedSort(shoesItem.itemList[0].urls);
-      setSelectedOwnId(shoesItem?.itemList[0]._id);
+      setSelectedOwnId(shoesItem?.itemList[0].own_id);
+
       result = shoesItem.itemList.find(
         (item: any) => item.color === selectedColor
       );
@@ -92,8 +95,8 @@ export default function Selected() {
       try {
         if (choosedAmount !== 0) {
           await axios.post(
-            "https://pick-up-store-backend-production.up.railway.app/order/addCart",
-      
+            "http://localhost:3000/order/addCart",
+
             cartData,
             {
               headers: {
@@ -110,6 +113,7 @@ export default function Selected() {
     } else {
       console.log("Please select all options before adding to cart.");
       alert("Please log in");
+      navigate("/login");
     }
     if (choosedAmount === 0) {
       setAmountWarn(true);
@@ -149,13 +153,12 @@ export default function Selected() {
       </>
     );
   }
+  console.log(cartData);
   return (
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv
-            src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`}
-          />
+          <ImageDiv src={`http://localhost:3000${selectedImage}`} />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
@@ -170,7 +173,7 @@ export default function Selected() {
                 <SmallImageDivSort
                   key={index}
                   style={{
-                    backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item})`,
+                    backgroundImage: `url(http://localhost:3000${item})`,
                     border:
                       selectedImage === item ? "1px solid #cf9f58" : "none",
                   }}
@@ -224,7 +227,7 @@ export default function Selected() {
                   <SmallImageDiv
                     key={index}
                     style={{
-                      backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.urls[0]})`,
+                      backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
                       border:
                         selectedImage === item.urls[0]
                           ? "2px solid #cf9f58"
@@ -234,7 +237,7 @@ export default function Selected() {
                       setSelectedImage(item.urls[0]);
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
-                      setSelectedOwnId(item._id);
+                      setSelectedOwnId(item.own_id);
                       setChoosedAmount(0);
 
                       if (selectedColor !== item.color) {

@@ -2,9 +2,11 @@ import { Box, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import { getCookie } from "cookies-next";
+import { setData } from "../store/data-slice";
+import { setLoading } from "../store/loading-slice";
 
 interface Type {
   product_id: string;
@@ -16,13 +18,46 @@ interface Type {
   amount: number;
   price: number;
   purchase_id: string;
+  own_id: string;
 }
 interface User {
   id: string;
 }
 
 export default function Cart() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getAll = await axios.get("http://localhost:3000/api/users");
+        dispatch(setData(getAll.data.products));
+        dispatch(setLoading(false));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        dispatch(setLoading(true));
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const allData = useSelector((state: RootState) => state.data.data);
+  const arrays = allData.map((item) => item.itemList);
+  type Item = {
+    own_id: string;
+    color: string;
+    urls: string[];
+    size: {
+      size: string;
+      quantityt: number;
+      [key: string]: string | number;
+    };
+  };
+
+  const obj: Item[] = arrays.flat();
+
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
+
   const [fullName, setFullName] = useState("");
   const [city, setCity] = useState("");
   const [address, setAddress] = useState("");
@@ -39,7 +74,7 @@ export default function Cart() {
     if (user) {
       const getCart = async () => {
         const { data } = await axios.get(
-          `https://pick-up-store-backend-production.up.railway.app/order/getCart?userId=${user.id}`,
+          `http://localhost:3000/order/getCart?userId=${user.id}`,
           {
             headers: {
               authorization: `Bearer ${cookieToken}`,
@@ -57,7 +92,7 @@ export default function Cart() {
     const cookieToken = getCookie("token");
     try {
       await axios.put(
-        `https://pick-up-store-backend-production.up.railway.app/order/updateCart/${purchase_id}`,
+        `http://localhost:3000/order/updateCart/${purchase_id}`,
         {
           new_amount,
           user_id,
@@ -78,7 +113,7 @@ export default function Cart() {
 
     try {
       await axios.delete(
-        `https://pick-up-store-backend-production.up.railway.app/order/deleteProduct/${purchase_id}`,
+        `http://localhost:3000/order/deleteProduct/${purchase_id}`,
         {
           data: { user_id },
           headers: {
@@ -118,7 +153,7 @@ export default function Cart() {
     const cookieToken = getCookie("token");
     try {
       const response = await axios.post(
-        "https://pick-up-store-backend-production.up.railway.app/orderprocess/makeorder",
+        "http://localhost:3000/orderprocess/makeorder",
         orderData,
         {
           headers: {
@@ -131,6 +166,7 @@ export default function Cart() {
     } catch (error) {
       console.error("Error making the order:", error);
       alert("Please remove no avaliable products to make order");
+      window.location.reload();
     }
   };
 
@@ -143,7 +179,6 @@ export default function Cart() {
       makeOrder();
     }
   }, [isPaid]);
-  console.log(isPaid);
 
   return (
     <>
@@ -160,44 +195,58 @@ export default function Cart() {
                 <ImageDiv>
                   <img
                     style={{ maxWidth: "100%" }}
-                    src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
+                    src={`http://localhost:3000${item.image}`}
                     alt={item.name}
                   />
                 </ImageDiv>
                 <DescriptionDiv>
-                  <Name
-                    style={{
-                      textDecoration: item.quantity > 0 ? "none" : "line-through",
-                    }}
-                  >
-                    {item.name}
-                  </Name>
+                  {obj
+                    .filter((example) => example.own_id === item.own_id)
+                    .map((filteredItem) => (
+                      <Name
+                        key={filteredItem.own_id}
+                        style={{
+                          textDecoration:
+                            filteredItem.size[item.size] === 0
+                              ? "line-through"
+                              : "none",
+                        }}
+                      >
+                        {item.name}
+                      </Name>
+                    ))}
                   <DescriptionSecondary>
                     <Size
                       style={{
-                        textDecoration: item.quantity > 0 ? "none" : "line-through",
+                        textDecoration:
+                          item.quantity > 0 ? "none" : "line-through",
                       }}
                     >
                       Size: {item.size}
                     </Size>
-                    <Quantity
-                      style={{
-                        textDecoration: item.quantity > 0 ? "none" : "line-through",
-                      }}
-                    >
-                      Available: {item.quantity}
-                    </Quantity>
-                    <Warn
-                      style={{ display: item.quantity > 0 ? "none" : "block" }}
-                    >
-                      OUT OF STOCK !!!
-                    </Warn>
-                  </DescriptionSecondary>
 
+                    {obj
+                      .filter((example) => example.own_id === item.own_id)
+                      .map((filteredItem) => (
+                        <Quantity key={filteredItem.own_id}>
+                          Avaliable: {filteredItem.size[item.size]}
+                        </Quantity>
+                      ))}
+
+                    {obj
+                      .filter((example) => example.own_id === item.own_id)
+                      .map((filteredItem) => (
+                        <Warn key={filteredItem.own_id}>
+                          {filteredItem.size[item.size] === 0
+                            ? "OUT OF STOCK !!!"
+                            : null}
+                        </Warn>
+                      ))}
+                  </DescriptionSecondary>
                   <DescriptionSecondary>
                     <Price
                       style={{
-                        textDecoration: item.quantity > 0 ? "none" : "line-through",
+                        textDecoration: item.quantity > 0 ? "" : "line-through",
                       }}
                     >
                       ${item.price * item.amount}
@@ -206,7 +255,6 @@ export default function Cart() {
                       <Minus
                         onClick={async () => {
                           const newAmount = item.amount - 1;
-
                           if (newAmount >= 1) {
                             await updateAmount(item.purchase_id, newAmount);
                             setSelectedProducts((selectedProducts) =>
@@ -224,12 +272,10 @@ export default function Cart() {
                         }}
                         src="/icon-minus.svg"
                       />
-
                       <Quantity>{item.amount}</Quantity>
                       <Plus
                         onClick={async () => {
                           const newAmount = item.amount + 1;
-
                           if (newAmount <= item.quantity) {
                             await updateAmount(item.purchase_id, newAmount);
                             setSelectedProducts((selectedProducts) =>

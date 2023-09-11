@@ -30,6 +30,7 @@ interface Item {
   brand: string;
   name: string;
   itemList: {
+    own_id: string;
     color: string;
     urls: string[];
     size: {
