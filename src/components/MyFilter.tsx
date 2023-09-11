@@ -27,8 +27,6 @@ export default function FilterComponent() {
   const [price, setPrice] = useState(false);
   const [size, setSize] = useState(false);
   const redux = useSelector((state: RootState) => state.filter);
-  const filters = useSelector((state: RootState) => state.filter);
-  console.log(filters);
   const handleChange = (_event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
   };
