@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 
 export default function Admin() {
   const [orders, setOrders] = useState([]);
+  const [section, setSection] = useState("Dashboard");
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get("http://localhost:3000/getorders");
@@ -13,14 +14,32 @@ export default function Admin() {
     getOrders();
   }, []);
 
+  const defineSection = (event: any) => {
+    setSection(event.target.value);
+  };
+
+  console.log(section);
+
   return (
     <>
       <Main>
         <List>
-          <ListButton>Dashboard</ListButton>
-          <ListButton>Orders</ListButton>
-          <ListButton>Products</ListButton>
-          <ListButton>Sent Orders</ListButton>
+          <ListButton onClick={defineSection} value="Dashboard">
+            Dashboard
+          </ListButton>
+
+          <ListButton onClick={defineSection} value="Add Product">
+            Products
+          </ListButton>
+          <ListButton onClick={defineSection} value="Remove Product">
+            Products
+          </ListButton>
+          <ListButton onClick={defineSection} value="Active Orders">
+            Active Orders
+          </ListButton>
+          <ListButton onClick={defineSection} value="Sent Orders">
+            Sent Orders
+          </ListButton>
         </List>
         {/* <div>
           {orders &&
