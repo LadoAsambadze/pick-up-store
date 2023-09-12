@@ -12,7 +12,7 @@ export default function Admin() {
     };
     getOrders();
   }, []);
-  console.log(orders);
+
   return (
     <>
       <Main>
@@ -22,21 +22,20 @@ export default function Admin() {
           <ListButton>Products</ListButton>
           <ListButton>Sent Orders</ListButton>
         </List>
-        <div>
+        {/* <div>
           {orders &&
             [...new Set(orders.map((item) => item.user))].map((user) => (
               <div key={user}>
                 <div>
-                  {user}:
+                  User: {user}
                   {orders &&
                     orders
                       .filter((item) => item.user === user)
-                      .map((order, index) =>
+                      .map((order) =>
                         order.orderItems.map((item, index) => (
                           <ProductDiv key={index}>
                             <ImageDiv>
-                              <img
-                                style={{ maxWidth: "100%" }}
+                              <Image
                                 src={`http://localhost:3000${item.image}`}
                               />
                             </ImageDiv>
@@ -52,6 +51,7 @@ export default function Admin() {
                                 <Quantity>
                                   {order.shippingDetails.address}
                                 </Quantity>
+                                <Quantity>{order.createdAt}</Quantity>
                               </DescriptionSecondary>
                             </DescriptionDiv>
                           </ProductDiv>
@@ -60,7 +60,7 @@ export default function Admin() {
                 </div>
               </div>
             ))}
-        </div>
+        </div> */}
       </Main>
     </>
   );
@@ -68,24 +68,40 @@ export default function Admin() {
 
 const Main = styled(Box)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  background: white;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const List = styled(Box)`
-  width: 20%;
-  height: 100vh;
   background: gray;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px 50px 20px 50px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 20px 20px 20px;
+  @media (min-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const ListButton = styled("button")`
   cursor: pointer;
-  margin-bottom: 20px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Ysabeau Office", sans-serif;
+  font-size: 12px;
+  background: white;
+  margin-right: 10px;
+  @media (min-width: 768px) {
+    margin-bottom: 20px;
+    width: 130px;
+  }
 `;
 
 const ProductDiv = styled(Box)`
@@ -101,7 +117,7 @@ const ProductDiv = styled(Box)`
 
 const ImageDiv = styled(Box)`
   width: 50%;
-  height: 100%;
+  height: 200px;
   border-radius: 15px;
   background: var(--secondary, #eef1f4);
   background-position: center;
@@ -146,37 +162,6 @@ const DescriptionSecondary = styled(Box)`
   margin-top: 25px;
 `;
 
-const ControlIcon = styled("img")`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  margin-right: 10px;
-`;
-
-const AddQuantity = styled("div")`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--light-grayish-blue, #f4f5fd);
-  padding: 5px 10px 5px 10px;
-  border: none;
-  color: black;
-  border-radius: 10px;
-
-  margin-left: 25px;
-`;
-
-const Minus = styled("img")`
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-`;
-const Plus = styled("img")`
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-`;
 const Quantity = styled(Box)`
   font-family: "Kumbh Sans", sans-serif;
   font-weight: 500;
@@ -186,38 +171,7 @@ const Quantity = styled(Box)`
   margin-right: 20px;
 `;
 
-const Warn = styled(Box)`
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 700;
-  color: #ff0404;
-  font-size: 14px;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-const PaymentHeader = styled(Typography)`
-  font-size: 25px;
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 500;
-  text-align: left;
-  width: 100%;
-  margin-left: 20px;
-`;
-const TotaltDiv = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  background: var(--white, #fff);
-  box-shadow: 0px 20px 35px 0px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  width: 100%;
-  margin-bottom: 15px;
-`;
-
-const ItemDiv = styled(Box)`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+const Image = styled("img")`
+  width: 200px;
+  height: 200px;
 `;
