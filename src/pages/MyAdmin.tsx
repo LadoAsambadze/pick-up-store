@@ -18,8 +18,6 @@ export default function Admin() {
     setSection(event.target.value);
   };
 
-  console.log(section);
-
   return (
     <>
       <Main>
@@ -27,7 +25,6 @@ export default function Admin() {
           <ListButton onClick={defineSection} value="Dashboard">
             Dashboard
           </ListButton>
-
           <ListButton onClick={defineSection} value="Add Product">
             Products
           </ListButton>
@@ -41,45 +38,51 @@ export default function Admin() {
             Sent Orders
           </ListButton>
         </List>
-        {/* <div>
-          {orders &&
-            [...new Set(orders.map((item) => item.user))].map((user) => (
-              <div key={user}>
-                <div>
-                  User: {user}
-                  {orders &&
-                    orders
-                      .filter((item) => item.user === user)
-                      .map((order) =>
-                        order.orderItems.map((item, index) => (
-                          <ProductDiv key={index}>
-                            <ImageDiv>
-                              <Image
-                                src={`http://localhost:3000${item.image}`}
-                              />
-                            </ImageDiv>
-                            <DescriptionDiv>
-                              <Name>{item.name}</Name>
-                              <DescriptionSecondary>
-                                <Size>{item.size}</Size>
-                                <Quantity>{item.amount}</Quantity>
-                                <Price>{item.price}</Price>
-                              </DescriptionSecondary>
-                              <DescriptionSecondary>
-                                <Size>{order.shippingDetails.fullName}</Size>
-                                <Quantity>
-                                  {order.shippingDetails.address}
-                                </Quantity>
-                                <Quantity>{order.createdAt}</Quantity>
-                              </DescriptionSecondary>
-                            </DescriptionDiv>
-                          </ProductDiv>
-                        ))
-                      )}
+        {section === "Dashboard" && <Dashboard></Dashboard>}
+        {section === "Add Product" && <AddProduct></AddProduct>}
+        {section === "Remove Product" && <RemoveProduct></RemoveProduct>}
+        {section === "Active Orders" && (
+          <ActiveOrders>
+            {orders &&
+              [...new Set(orders.map((item) => item.user))].map((user) => (
+                <div key={user}>
+                  <div>
+                    User: {user}
+                    {orders &&
+                      orders
+                        .filter((item) => item.user === user)
+                        .map((order) =>
+                          order.orderItems.map((item, index) => (
+                            <ProductDiv key={index}>
+                              <ImageDiv>
+                                <Image
+                                  src={`http://localhost:3000${item.image}`}
+                                />
+                              </ImageDiv>
+                              <DescriptionDiv>
+                                <Name>{item.name}</Name>
+                                <DescriptionSecondary>
+                                  <Size>{item.size}</Size>
+                                  <Quantity>{item.amount}</Quantity>
+                                  <Price>{item.price}</Price>
+                                </DescriptionSecondary>
+                                <DescriptionSecondary>
+                                  <Size>{order.shippingDetails.fullName}</Size>
+                                  <Quantity>
+                                    {order.shippingDetails.address}
+                                  </Quantity>
+                                  <Quantity>{order.createdAt}</Quantity>
+                                </DescriptionSecondary>
+                              </DescriptionDiv>
+                            </ProductDiv>
+                          ))
+                        )}
+                  </div>
                 </div>
-              </div>
-            ))}
-        </div> */}
+              ))}
+          </ActiveOrders>
+        )}
+        <SentOrders></SentOrders>
       </Main>
     </>
   );
@@ -121,6 +124,35 @@ const ListButton = styled("button")`
     margin-bottom: 20px;
     width: 130px;
   }
+`;
+
+const Dashboard = styled(Box)`
+  width: 100%;
+  height: 100%;
+  background: blue;
+`;
+
+const AddProduct = styled(Box)`
+  width: 100%;
+  height: 100%;
+  background: green;
+`;
+
+const RemoveProduct = styled(Box)`
+  width: 100%;
+  height: 100%;
+  background: red;
+`;
+
+const ActiveOrders = styled(Box)`
+  width: 100%;
+  height: 100%;
+`;
+
+const SentOrders = styled(Box)`
+  width: 100%;
+  height: 100%;
+  background: orange;
 `;
 
 const ProductDiv = styled(Box)`
