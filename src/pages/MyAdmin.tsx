@@ -2,9 +2,26 @@ import { Box, styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
-
+interface Type {
+  user: string;
+  orderItems: {
+    name: string;
+    size: string;
+    amount: string | number;
+    price: number;
+    image: string;
+    purchase_id: string;
+  }[];
+  shippingDetails: {
+    fullName: string;
+    city: string;
+    address: string;
+    phoneNumber: number;
+  };
+  createdAt: string;
+}
 export default function Admin() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Type[]>([]);
   const [section, setSection] = useState("Dashboard");
   useEffect(() => {
     const getOrders = async () => {
@@ -54,6 +71,7 @@ export default function Admin() {
                         .map((order) =>
                           order.orderItems.map((item, index) => (
                             <ProductDiv key={index}>
+                              <MoveToSent>Move To Sent</MoveToSent>
                               <ImageDiv>
                                 <Image
                                   src={`http://localhost:3000${item.image}`}
@@ -88,6 +106,9 @@ export default function Admin() {
                                   <ShippingItem>
                                     Time: {order.createdAt}
                                   </ShippingItem>
+                                  <ShippingItem>
+                                    Purchase: {item.purchase_id}
+                                  </ShippingItem>
                                 </ShippingDetails>
                               </DescriptionDiv>
                             </ProductDiv>
@@ -98,6 +119,7 @@ export default function Admin() {
               ))}
           </ActiveOrders>
         )}
+        {section === "Sent Orders" && <SentOrders></SentOrders>}
       </Main>
     </>
   );
@@ -198,6 +220,7 @@ const ProductDiv = styled(Box)`
   width: 100%;
   margin-bottom: 10px;
   margin-top: 10px;
+  position: relative;
 `;
 
 const ImageDiv = styled(Box)`
@@ -252,4 +275,13 @@ const ShippingItem = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 400;
   line-height: 15px;
+`;
+
+const MoveToSent = styled("button")`
+  background: red;
+  padding: 5px;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
 `;
