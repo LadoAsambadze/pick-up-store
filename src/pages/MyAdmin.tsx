@@ -2,6 +2,7 @@ import { Box, styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import { getCookie } from "cookies-next";
 interface Type {
   user: string;
   orderItems: {
@@ -23,6 +24,8 @@ interface Type {
 export default function Admin() {
   const [orders, setOrders] = useState<Type[]>([]);
   const [section, setSection] = useState("Dashboard");
+  const [userId, setUserId] = useState(null);
+  const [choosedItems, setChoosedItems] = useState([]);
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get("http://localhost:3000/getorders");
@@ -33,6 +36,40 @@ export default function Admin() {
 
   const defineSection = (event: any) => {
     setSection(event.target.value);
+  };
+  const sentItem = {
+    user: userId,
+    orderItems: [
+      {
+        image: "imageURL",
+        size: "Medium",
+        color: "Blue",
+        name: "Item1",
+        price: "20",
+        amount: 2,
+        purchase_id: "12345",
+        own_id: "67890",
+        fullName: "ladoDoe",
+        city: "New York",
+        address: "123 Main St",
+        phoneNumber: "123-456-7890",
+      },
+    ],
+  };
+  const sentOrder = async () => {
+    const cookieToken = getCookie("token");
+    if (sentItem.user && sentItem.orderItems) {
+      const response = await axios.post(
+        "http://localhost:3000/sentorders",
+        sentItem,
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
+      console.log(response);
+    }
   };
 
   return (
@@ -71,7 +108,15 @@ export default function Admin() {
                         .map((order) =>
                           order.orderItems.map((item, index) => (
                             <ProductDiv key={index}>
-                              <MoveToSent>Move To Sent</MoveToSent>
+                              <MoveToSent
+                                onClick={() => {
+                                  sentOrder();
+                                  setUserId(user);
+                                  setChoosedItems();
+                                }}
+                              >
+                                Move To Sent
+                              </MoveToSent>
                               <ImageDiv>
                                 <Image
                                   src={`http://localhost:3000${item.image}`}
@@ -104,7 +149,7 @@ export default function Admin() {
                                     Phone: {order.shippingDetails.phoneNumber}
                                   </ShippingItem>
                                   <ShippingItem>
-                                    Time: {order.createdAt}
+                                    Order Time: {order.createdAt}
                                   </ShippingItem>
                                   <ShippingItem>
                                     Purchase: {item.purchase_id}
@@ -199,6 +244,7 @@ const UserDiv = styled(Box)`
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
   @media (min-width: 900px) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -207,8 +253,6 @@ const User = styled(Box)`
   width: 100%;
   height: 100%;
   background: green;
-  margin-bottom: 20px;
-  margin-top: 20px;
 `;
 const ProductDiv = styled(Box)`
   display: flex;
