@@ -112,7 +112,7 @@ export default function Admin() {
                                 onClick={() => {
                                   sentOrder();
                                   setUserId(user);
-                                  setChoosedItems();
+                                  
                                 }}
                               >
                                 Move To Sent
