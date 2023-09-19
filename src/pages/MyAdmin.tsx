@@ -24,7 +24,7 @@ interface Type {
 }
 export default function Admin() {
   const [orders, setOrders] = useState<Type[]>([]);
-  const [sentOrders, setSentOrders] = useState<Type[]>([]);
+  const [sentOrders, setSentOrders] = useState([]);
 
   const [section, setSection] = useState("Sent Orders");
 
@@ -103,6 +103,7 @@ export default function Admin() {
                                 onClick={() => {
                                   let itemTwo = order.shippingDetails;
                                   let FullObject = { ...item, ...itemTwo };
+
                                   sentOrder(user, FullObject);
                                   setOrders((prevOrders) =>
                                     prevOrders.map((order) => ({
@@ -231,12 +232,6 @@ const RemoveProduct = styled(Box)`
 const ActiveOrders = styled(Box)`
   width: 100%;
   height: 100%;
-`;
-
-const SentOrders = styled(Box)`
-  width: 100%;
-  height: 100%;
-  background: orange;
 `;
 
 const UserDiv = styled(Box)`
