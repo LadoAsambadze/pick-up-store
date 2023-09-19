@@ -184,7 +184,7 @@ const FilterDiv = styled(Box)`
   justify-content: space-between;
   align-items: center;
   border: 1px solid gray;
-  width: 120px;
+  width: 100px;
   border-radius: 5px;
   padding: 12px 15px 12px 15px;
   cursor: pointer;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { getCookie } from "cookies-next";
+import MySentOrders from "../components/MySentOrders";
 interface Type {
   user: string;
   orderItems: {
@@ -23,9 +24,10 @@ interface Type {
 }
 export default function Admin() {
   const [orders, setOrders] = useState<Type[]>([]);
-  const [section, setSection] = useState("Dashboard");
-  const [userId, setUserId] = useState(null);
-  const [choosedItems, setChoosedItems] = useState([]);
+  const [sentOrders, setSentOrders] = useState<Type[]>([]);
+
+  const [section, setSection] = useState("Sent Orders");
+
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get("http://localhost:3000/getorders");
@@ -34,41 +36,30 @@ export default function Admin() {
     getOrders();
   }, []);
 
+  useEffect(() => {
+    const getSentOrders = async () => {
+      const response = await axios.get("http://localhost:3000/getsentorders");
+      setSentOrders(response.data.orders);
+    };
+    getSentOrders();
+  }, []);
+
   const defineSection = (event: any) => {
     setSection(event.target.value);
   };
-  const sentItem = {
-    user: userId,
-    orderItems: [
-      {
-        image: "imageURL",
-        size: "Medium",
-        color: "Blue",
-        name: "Item1",
-        price: "20",
-        amount: 2,
-        purchase_id: "12345",
-        own_id: "67890",
-        fullName: "ladoDoe",
-        city: "New York",
-        address: "123 Main St",
-        phoneNumber: "123-456-7890",
-      },
-    ],
-  };
-  const sentOrder = async () => {
+
+  const sentOrder = async (user: string, orderItem: object) => {
     const cookieToken = getCookie("token");
+    const sentItem = {
+      user: user,
+      orderItems: [orderItem],
+    };
     if (sentItem.user && sentItem.orderItems) {
-      const response = await axios.post(
-        "http://localhost:3000/sentorders",
-        sentItem,
-        {
-          headers: {
-            authorization: `Bearer ${cookieToken}`,
-          },
-        }
-      );
-      console.log(response);
+      await axios.post("http://localhost:3000/sentorders", sentItem, {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
     }
   };
 
@@ -110,9 +101,18 @@ export default function Admin() {
                             <ProductDiv key={index}>
                               <MoveToSent
                                 onClick={() => {
-                                  sentOrder();
-                                  setUserId(user);
-                                  
+                                  let itemTwo = order.shippingDetails;
+                                  let FullObject = { ...item, ...itemTwo };
+                                  sentOrder(user, FullObject);
+                                  setOrders((prevOrders) =>
+                                    prevOrders.map((order) => ({
+                                      ...order,
+                                      orderItems: order.orderItems.filter(
+                                        (itm) =>
+                                          item.purchase_id !== itm.purchase_id
+                                      ),
+                                    }))
+                                  );
                                 }}
                               >
                                 Move To Sent
@@ -164,7 +164,9 @@ export default function Admin() {
               ))}
           </ActiveOrders>
         )}
-        {section === "Sent Orders" && <SentOrders></SentOrders>}
+        {section === "Sent Orders" && (
+          <MySentOrders sentOrdersProps={sentOrders} />
+        )}
       </Main>
     </>
   );
