@@ -3,29 +3,6 @@ import { styled } from "@mui/system";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 
-// interface OrderItem {
-//   name: string;
-//   size: string;
-//   amount: string | number;
-//   price: number;
-//   image: string;
-//   purchase_id: string;
-//   fullName: string;
-//   city: string;
-//   address: string;
-//   phoneNumber: number;
-// }
-
-// interface SentOrder {
-//   user: string;
-//   orderItems: OrderItem[];
-//   createdAt: string;
-// }
-
-// interface sentOrderType {
-//   sentOrdersProps: SentOrder[];
-// }
-
 export default function MySentOrders() {
   const sentOrders = useSelector((state: RootState) => state.orders.sentOrders);
   return (
