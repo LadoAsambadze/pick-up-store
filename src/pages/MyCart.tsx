@@ -55,13 +55,7 @@ export default function Cart() {
   };
 
   const obj: Item[] = arrays.flat();
-
   const [selectedProducts, setSelectedProducts] = useState<Type[]>([]);
-
-  const [fullName, setFullName] = useState("");
-  const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [stepone, setStepOne] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
   const [check, setCheck] = useState(false);
@@ -136,21 +130,15 @@ export default function Cart() {
     totalPrice += product.price * product.amount;
   });
   let shipping = 0;
-  const data = {
-    fullName,
-    city,
-    address,
-    phoneNumber,
-  };
 
   const orderData = {
     user: user_id,
     items: selectedProducts,
-    shippingDetails: data,
   };
 
   const makeOrder = async () => {
     const cookieToken = getCookie("token");
+
     try {
       const response = await axios.post(
         "http://localhost:3000/orderprocess/makeorder",
@@ -162,6 +150,7 @@ export default function Cart() {
         }
       );
       console.log("Order successful!", response.data);
+
       window.location.reload();
     } catch (error) {
       console.error("Error making the order:", error);
@@ -263,6 +252,7 @@ export default function Cart() {
                                 product.amount > 0
                                   ? {
                                       ...product,
+
                                       amount: newAmount,
                                     }
                                   : product
@@ -347,44 +337,66 @@ export default function Cart() {
             >
               <label>Full name</label>
               <input
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                onChange={(e) => {
+                  const newFullName = e.target.value;
+                  setSelectedProducts(
+                    selectedProducts.map((product) => ({
+                      ...product,
+                      fullName: newFullName,
+                    }))
+                  );
+                }}
                 type="text"
                 disabled={stepone}
               />
               <label>City</label>
               <input
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  const newCity = e.target.value;
+                  setSelectedProducts(
+                    selectedProducts.map((product) => ({
+                      ...product,
+                      city: newCity,
+                    }))
+                  );
+                }}
                 type="text"
                 disabled={stepone}
               />
               <label>Address</label>
               <input
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => {
+                  const newAddress = e.target.value;
+                  setSelectedProducts(
+                    selectedProducts.map((product) => ({
+                      ...product,
+                      address: newAddress,
+                    }))
+                  );
+                }}
                 type="text"
                 disabled={stepone}
               />
               <label>Phone number</label>
               <input
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                  const newPhoneNumber = e.target.value;
+                  setSelectedProducts(
+                    selectedProducts.map((product) => ({
+                      ...product,
+                      phoneNumber: newPhoneNumber,
+                    }))
+                  );
+                }}
                 type="text"
                 disabled={stepone}
               />
+
               <button
                 style={{ background: stepone ? "Green" : "gray" }}
                 type="submit"
                 onClick={() => {
-                  if (
-                    fullName !== "" &&
-                    city !== "" &&
-                    address !== "" &&
-                    phoneNumber !== ""
-                  ) {
-                    setStepOne(!stepone);
-                  }
+                  setStepOne(!stepone);
                 }}
               >
                 {stepone ? "Change" : "Submit"}

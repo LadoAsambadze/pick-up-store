@@ -45,6 +45,7 @@ export default function MyActiveOrders() {
                               let itemTwo = order.shippingDetails;
                               let FullObject = { ...item, ...itemTwo };
                               sentOrder(user, FullObject);
+                              console.log(order.orderItems);
                             }}
                           >
                             Move To Sent
