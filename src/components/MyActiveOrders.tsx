@@ -24,6 +24,22 @@ export default function MyActiveOrders() {
           authorization: `Bearer ${cookieToken}`,
         },
       });
+      const updatedOrders = activeOrders.map((order) => {
+        if (order.user === user) {
+          // Filter out the sent order item
+          const updatedOrderItems = order.orderItems.filter(
+            (item) => item !== orderItem
+          );
+          return {
+            ...order,
+            orderItems: updatedOrderItems,
+          };
+        }
+        return order;
+      });
+
+      // Dispatch the updated activeOrders to the Redux store
+      dispatch(setActiveOrders(updatedOrders));
     }
   };
   return (
