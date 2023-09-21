@@ -26,7 +26,6 @@ export default function MyActiveOrders() {
       });
       const updatedOrders = activeOrders.map((order) => {
         if (order.user === user) {
-          // Filter out the sent order item
           const updatedOrderItems = order.orderItems.filter(
             (item) => item !== orderItem
           );
@@ -37,8 +36,6 @@ export default function MyActiveOrders() {
         }
         return order;
       });
-
-      // Dispatch the updated activeOrders to the Redux store
       dispatch(setActiveOrders(updatedOrders));
     }
   };

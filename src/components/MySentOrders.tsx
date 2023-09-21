@@ -1,10 +1,37 @@
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
+import axios from "axios";
+import { setSentOrders } from "../store/active-order-slice";
 
 export default function MySentOrders() {
+  const dispatch = useDispatch();
   const sentOrders = useSelector((state: RootState) => state.orders.sentOrders);
+
+  const removeOrder = async (user: any, item: any) => {
+    try {
+      await axios.delete("http://localhost:3000/removesentorders", {
+        data: { user, item },
+      });
+      const updatedSentOrders = sentOrders.map((order) => {
+        if (order.user === user) {
+          const updatedSentOrderItems = order.orderItems.filter(
+            (itm) => itm !== item
+          );
+          return {
+            ...order,
+            orderItems: updatedSentOrderItems,
+          };
+        }
+        return order;
+      });
+      dispatch(setSentOrders(updatedSentOrders));
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
   return (
     <>
       <SentOrders>
@@ -19,7 +46,13 @@ export default function MySentOrders() {
                     .map((order) =>
                       order.orderItems.map((item: any, index: any) => (
                         <ProductDiv key={index}>
-                          <MoveToSent>Move To Sent</MoveToSent>
+                          <Remove
+                            onClick={() => {
+                              removeOrder(user, item);
+                            }}
+                          >
+                            Remove
+                          </Remove>
                           <ImageDiv>
                             <Image src={`http://localhost:3000${item.image}`} />
                           </ImageDiv>
@@ -155,7 +188,7 @@ const ShippingItem = styled(Typography)`
   line-height: 15px;
 `;
 
-const MoveToSent = styled("button")`
+const Remove = styled("button")`
   background: red;
   padding: 5px;
   color: white;
