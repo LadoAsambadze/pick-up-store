@@ -13,6 +13,7 @@ import userSlice from "./user-slice";
 import extraSlice from "./extra-slice";
 import favouritesSlice from "./favourites-slice";
 import { deleteCookie } from "cookies-next";
+import activeOrderSlice from "./active-order-slice";
 
 const rootReducer = combineReducers({
   filter: filterSlice,
@@ -22,12 +23,13 @@ const rootReducer = combineReducers({
   user: userSlice,
   extra: extraSlice,
   favourites: favouritesSlice,
+  orders: activeOrderSlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["search", "loading", "data"],
+  blacklist: ["search", "loading", "data", "orders"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

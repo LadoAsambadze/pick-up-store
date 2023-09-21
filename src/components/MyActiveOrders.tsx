@@ -1,48 +1,87 @@
-import { Box, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, Typography, styled } from "@mui/material";
+import axios from "axios";
+import { getCookie } from "cookies-next";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-
 // interface OrderItem {
-//   name: string;
-//   size: string;
-//   amount: string | number;
-//   price: number;
-//   image: string;
-//   purchase_id: string;
+//   orderItems: {
+//     name: string;
+//     size: string;
+//     amount: string | number;
+//     price: number;
+//     image: string;
+//     purchase_id: string;
+//   }[];
+// }
+// interface ShipingItem {
 //   fullName: string;
 //   city: string;
 //   address: string;
 //   phoneNumber: number;
 // }
 
-// interface SentOrder {
+// interface ActiveOrder {
 //   user: string;
 //   orderItems: OrderItem[];
+//   shippingDetails: ShipingItem[];
 //   createdAt: string;
 // }
-
-// interface sentOrderType {
-//   sentOrdersProps: SentOrder[];
+// interface ActiveOrdersType {
+//   activeOrders: ActiveOrder[];
 // }
 
-export default function MySentOrders() {
-  const sentOrders = useSelector((state: RootState) => state.orders.sentOrders);
+export default function MyActiveOrders() {
+  const activeOrders = useSelector(
+    (state: RootState) => state.orders.activeOrders
+  );
+
+
+  const sentOrder = async (user: string, orderItem: object) => {
+    const cookieToken = getCookie("token");
+    const sentItem = {
+      user: user,
+      orderItems: [orderItem],
+    };
+    if (sentItem.user && sentItem.orderItems) {
+      await axios.post("http://localhost:3000/sentorders", sentItem, {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
+    }
+  };
   return (
     <>
-      <SentOrders>
-        {sentOrders &&
-          [...new Set(sentOrders.map((item) => item.user))].map((user) => (
+      <ActiveOrders>
+        {activeOrders &&
+          [...new Set(activeOrders.map((item) => item.user))].map((user) => (
             <User key={user}>
               user: {user}
               <UserDiv>
-                {sentOrders &&
-                  sentOrders
+                {activeOrders &&
+                  activeOrders
                     .filter((item) => item.user === user)
                     .map((order) =>
-                      order.orderItems.map((item: any, index: any) => (
+                      order.orderItems.map((item, index) => (
                         <ProductDiv key={index}>
-                          <MoveToSent>Move To Sent</MoveToSent>
+                          <MoveToSent
+                            onClick={() => {
+                              let itemTwo = order.shippingDetails;
+                              let FullObject = { ...item, ...itemTwo };
+                              sentOrder(user, FullObject);
+                              SetActiveOrders((prevOrders) =>
+                                prevOrders.map((order) => ({
+                                  ...order,
+                                  orderItems: order.orderItems.filter(
+                                    (itm) =>
+                                      item.purchase_id !== itm.purchase_id
+                                  ),
+                                }))
+                              );
+                            }}
+                          >
+                            Move To Sent
+                          </MoveToSent>
                           <ImageDiv>
                             <Image src={`http://localhost:3000${item.image}`} />
                           </ImageDiv>
@@ -61,14 +100,16 @@ export default function MySentOrders() {
                             </ProductDetails>
                             <ShippingDetails>
                               <ShippingItem>
-                                Full Name: {item.fullName}
-                              </ShippingItem>
-                              <ShippingItem>City: {item.city}</ShippingItem>
-                              <ShippingItem>
-                                Adress: {item.address}
+                                Full Name: {order.shippingDetails.fullName}
                               </ShippingItem>
                               <ShippingItem>
-                                Phone: {item.phoneNumber}
+                                City: {order.shippingDetails.city}
+                              </ShippingItem>
+                              <ShippingItem>
+                                Adress: {order.shippingDetails.address}
+                              </ShippingItem>
+                              <ShippingItem>
+                                Phone: {order.shippingDetails.phoneNumber}
                               </ShippingItem>
                               <ShippingItem>
                                 Order Time: {order.createdAt}
@@ -84,12 +125,12 @@ export default function MySentOrders() {
               </UserDiv>
             </User>
           ))}
-      </SentOrders>
+      </ActiveOrders>
     </>
   );
 }
 
-const SentOrders = styled(Box)`
+const ActiveOrders = styled(Box)`
   width: 100%;
   height: 100%;
 `;
