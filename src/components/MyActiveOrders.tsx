@@ -42,10 +42,7 @@ export default function MyActiveOrders() {
                         <ProductDiv key={index}>
                           <MoveToSent
                             onClick={() => {
-                              let itemTwo = order.shippingDetails;
-                              let FullObject = { ...item, ...itemTwo };
-                              sentOrder(user, FullObject);
-                              console.log(order.orderItems);
+                              sentOrder(user, item);
                             }}
                           >
                             Move To Sent
@@ -68,16 +65,14 @@ export default function MyActiveOrders() {
                             </ProductDetails>
                             <ShippingDetails>
                               <ShippingItem>
-                                Full Name: {order.shippingDetails.fullName}
+                                Full Name: {item.fullName}
+                              </ShippingItem>
+                              <ShippingItem>City: {item.city}</ShippingItem>
+                              <ShippingItem>
+                                Adress: {item.address}
                               </ShippingItem>
                               <ShippingItem>
-                                City: {order.shippingDetails.city}
-                              </ShippingItem>
-                              <ShippingItem>
-                                Adress: {order.shippingDetails.address}
-                              </ShippingItem>
-                              <ShippingItem>
-                                Phone: {order.shippingDetails.phoneNumber}
+                                Phone: {item.phoneNumber}
                               </ShippingItem>
                               <ShippingItem>
                                 Order Time: {order.createdAt}

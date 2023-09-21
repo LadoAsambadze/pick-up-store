@@ -30,7 +30,6 @@ export default orders.reducer;
 interface activeOrdersType {
   user: string;
   orderItems: OrderItem[];
-  shippingDetails: ShippingItem;
   createdAt: string;
 }
 interface OrderItem {
@@ -40,9 +39,6 @@ interface OrderItem {
   price: number;
   image: string;
   purchase_id: string;
-}
-
-interface ShippingItem {
   fullName: string;
   city: string;
   address: string;
