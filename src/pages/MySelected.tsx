@@ -28,6 +28,7 @@ export default function Selected() {
 
   interface User {
     id: string;
+    user: string;
   }
   const [selectedColor, setSelectedColor] = useState(
     shoesItem?.itemList[0] && shoesItem?.itemList[0].color
@@ -57,7 +58,7 @@ export default function Selected() {
     setQuantity(value);
     setSelectedSize(key);
   }
-  const user_id = user ? user.id : null;
+  const user_id = user ? user.user : null;
   const cartData = {
     user: user_id,
     orderItems: [

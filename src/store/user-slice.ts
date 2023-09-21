@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface UserInfo {
   isAdmin: boolean;
+  user: string;
 }
 
 interface Type {

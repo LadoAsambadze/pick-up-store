@@ -10,7 +10,7 @@ export default function MyActiveOrders() {
   const activeOrders = useSelector(
     (state: RootState) => state.orders.activeOrders
   );
-  console.log(activeOrders);
+
 
   const sentOrder = async (user: string, orderItem: object) => {
     const cookieToken = getCookie("token");

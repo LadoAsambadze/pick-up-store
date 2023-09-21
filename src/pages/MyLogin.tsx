@@ -25,16 +25,14 @@ export default function Login() {
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get(
-        "http://localhost:3000/user/profile",
-        {
-          headers: {
-            authorization: `Bearer ${cookieToken}`,
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:3000/user/profile", {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
       dispatch(setUser(response.data.useData));
       dispatch(setAuth(true));
+      console.log(response.data.useData);
     }
   };
   const dispatch = useDispatch();

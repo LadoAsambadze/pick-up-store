@@ -22,6 +22,7 @@ interface Type {
 }
 interface User {
   id: string;
+  user: string;
 }
 
 export default function Cart() {
@@ -62,13 +63,13 @@ export default function Cart() {
   const user = useSelector(
     (state: RootState) => state.user.userinfo
   ) as User | null;
-  const user_id = user ? user.id : null;
+  const user_id = user ? user.user : null;
   useEffect(() => {
     const cookieToken = getCookie("token");
     if (user) {
       const getCart = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/order/getCart?userId=${user.id}`,
+          `http://localhost:3000/order/getCart?userId=${user.user}`,
           {
             headers: {
               authorization: `Bearer ${cookieToken}`,

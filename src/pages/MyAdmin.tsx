@@ -6,6 +6,8 @@ import MySentOrders from "../components/MySentOrders";
 import MyActiveOrders from "../components/MyActiveOrders";
 import { useDispatch } from "react-redux";
 import { setActiveOrders, setSentOrders } from "../store/active-order-slice";
+import MyProducts from "../components/MyProducts";
+import MyAddProducts from "../components/MyAddProducts";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -43,11 +45,11 @@ export default function Admin() {
           <ListButton onClick={defineSection} value="Dashboard">
             Dashboard
           </ListButton>
-          <ListButton onClick={defineSection} value="Add Product">
-            Add Products
+          <ListButton onClick={defineSection} value="All Products">
+            All Products
           </ListButton>
-          <ListButton onClick={defineSection} value="Remove Product">
-            Products
+          <ListButton onClick={defineSection} value="Add Products">
+            Add Products
           </ListButton>
           <ListButton onClick={defineSection} value="Active Orders">
             Active Orders
@@ -57,8 +59,8 @@ export default function Admin() {
           </ListButton>
         </List>
         {section === "Dashboard" && <Dashboard></Dashboard>}
-        {section === "Add Product" && <AddProduct></AddProduct>}
-        {section === "Remove Product" && <RemoveProduct></RemoveProduct>}
+        {section === "All Products" && <MyProducts />}
+        {section === "Add Products" && <MyAddProducts />}
         {section === "Active Orders" && <MyActiveOrders />}
         {section === "Sent Orders" && <MySentOrders />}
       </Main>
