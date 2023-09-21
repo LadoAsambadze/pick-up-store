@@ -1,40 +1,16 @@
 import { Box, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-// interface OrderItem {
-//   orderItems: {
-//     name: string;
-//     size: string;
-//     amount: string | number;
-//     price: number;
-//     image: string;
-//     purchase_id: string;
-//   }[];
-// }
-// interface ShipingItem {
-//   fullName: string;
-//   city: string;
-//   address: string;
-//   phoneNumber: number;
-// }
-
-// interface ActiveOrder {
-//   user: string;
-//   orderItems: OrderItem[];
-//   shippingDetails: ShipingItem[];
-//   createdAt: string;
-// }
-// interface ActiveOrdersType {
-//   activeOrders: ActiveOrder[];
-// }
+import { setActiveOrders } from "../store/active-order-slice";
 
 export default function MyActiveOrders() {
+  const dispatch = useDispatch();
   const activeOrders = useSelector(
     (state: RootState) => state.orders.activeOrders
   );
-
+  console.log(activeOrders);
 
   const sentOrder = async (user: string, orderItem: object) => {
     const cookieToken = getCookie("token");
@@ -69,15 +45,6 @@ export default function MyActiveOrders() {
                               let itemTwo = order.shippingDetails;
                               let FullObject = { ...item, ...itemTwo };
                               sentOrder(user, FullObject);
-                              SetActiveOrders((prevOrders) =>
-                                prevOrders.map((order) => ({
-                                  ...order,
-                                  orderItems: order.orderItems.filter(
-                                    (itm) =>
-                                      item.purchase_id !== itm.purchase_id
-                                  ),
-                                }))
-                              );
                             }}
                           >
                             Move To Sent

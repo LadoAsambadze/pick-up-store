@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Type {
-  activeOrders: string[];
+  activeOrders: activeOrdersType[];
   sentOrders: string[];
 }
 
@@ -15,7 +15,7 @@ const orders = createSlice({
   initialState,
 
   reducers: {
-    setActiveOrders: (state, action: PayloadAction<string[]>) => {
+    setActiveOrders: (state, action: PayloadAction<activeOrdersType[]>) => {
       state.activeOrders = action.payload;
     },
     setSentOrders: (state, action: PayloadAction<string[]>) => {
@@ -26,3 +26,25 @@ const orders = createSlice({
 
 export const { setActiveOrders, setSentOrders } = orders.actions;
 export default orders.reducer;
+
+interface activeOrdersType {
+  user: string;
+  orderItems: OrderItem[];
+  shippingDetails: ShippingItem;
+  createdAt: string;
+}
+interface OrderItem {
+  name: string;
+  size: string;
+  amount: string | number;
+  price: number;
+  image: string;
+  purchase_id: string;
+}
+
+interface ShippingItem {
+  fullName: string;
+  city: string;
+  address: string;
+  phoneNumber: number;
+}
