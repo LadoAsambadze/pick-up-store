@@ -18,10 +18,11 @@ export default function Clothes() {
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
   const loading = useSelector((state: RootState) => state.loading.loading);
-  const clothes = data.filter((item) => item.type === "clothes");
+  const clothes = data.filter((item) => item.type.toLowerCase() === "clothes");
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
+  console.log(redux);
 
   return (
     <>

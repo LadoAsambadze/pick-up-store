@@ -137,6 +137,7 @@ export default function Cart() {
     items: selectedProducts,
   };
 
+
   const makeOrder = async () => {
     const cookieToken = getCookie("token");
 

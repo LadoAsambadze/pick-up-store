@@ -16,7 +16,7 @@ export default function Shoes() {
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
-  const shoes = data.filter((item) => item.type === "shoes");
+  const shoes = data.filter((item) => item.type === "Shoes");
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
