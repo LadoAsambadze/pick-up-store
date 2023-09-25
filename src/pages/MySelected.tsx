@@ -2,9 +2,9 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Rating } from "@mui/material";
@@ -13,10 +13,11 @@ import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function Selected() {
   const { id } = useParams();
-
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data.data);
   let shoesItem: any;
@@ -51,6 +52,9 @@ export default function Selected() {
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
+  const favourites = useSelector(
+    (state: RootState) => state.favourites.favourites
+  );
 
   const [selectedOwnId, setSelectedOwnId] = useState(
     shoesItem?.itemList[0].own_id
@@ -256,7 +260,7 @@ export default function Selected() {
             <AddQuantity>
               <Minus
                 onClick={() => {
-                  if (choosedAmount > 0) {
+                  if (choosedAmount > 1) {
                     setChoosedAmount(choosedAmount - 1);
                   }
                 }}
@@ -286,10 +290,20 @@ export default function Selected() {
             </AddToCart>
             <AddToFav>
               <HeartIcon src="/heart-white.png" alt="Favorite/heart icon" />
-              <ButtonText>Add To Favourite</ButtonText>
+              <ButtonText
+                onClick={() => {
+                  if (favourites.includes(shoesItem._id)) {
+                    dispatch(removeFavourite(shoesItem._id));
+                  } else {
+                    dispatch(setFavourites(shoesItem._id));
+                  }
+                }}
+              >
+                Add To Favourite
+              </ButtonText>
             </AddToFav>
-            <Reviews>Reviews</Reviews>
-            <Rating name="read-only" value={4.3} readOnly />
+            {/* <Reviews>Reviews</Reviews> */}
+            {/* <Rating name="read-only" value={4.3} readOnly /> */}
           </FromSizeDiv>
         </DivideDivSecond>
         <ToastContainer />
@@ -324,14 +338,14 @@ const Description = styled(Box)`
 `;
 
 const Name = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
-  color: black;
+  color: #169c89;
   font-size: 20px;
   text-align: left;
 `;
 const Brand = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 500;
   color: black;
   font-size: 14px;
@@ -339,7 +353,7 @@ const Brand = styled(Typography)`
   margin-top: 5px;
 `;
 const Price = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 500;
   color: black;
   font-size: 16px;
@@ -390,7 +404,7 @@ const HeaderDiv = styled(Box)`
 `;
 
 const Warning = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 500;
   color: red;
   font-size: 14px;
@@ -406,14 +420,14 @@ const ItemSizeSection = styled(Box)`
   flex-wrap: wrap;
 `;
 const Header = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
-  color: black;
+  color: #169c89;
   font-size: 16px;
 `;
 const SizeChoose = styled(Box)`
   border-radius: 8px;
-  border: 1px solid #5e5a5c;
+  border: 1px solid #30a167;
   width: 55px;
   height: 40px;
   display: flex;
@@ -421,7 +435,7 @@ const SizeChoose = styled(Box)`
   justify-content: center;
   margin: 5px;
   cursor: pointer;
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 400;
   color: #7a7070;
   font-size: 14px;
@@ -446,7 +460,7 @@ const AddQuantity = styled("div")`
   }
 `;
 const PriceSum = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
   color: #08213d;
   font-size: 22px;
@@ -465,7 +479,7 @@ const Plus = styled("img")`
 `;
 
 const Quantity = styled(Box)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
   color: #08213d;
   font-size: 17px;
@@ -481,7 +495,7 @@ const AddToCart = styled("div")`
   border: none;
   color: white;
   border-radius: 10px;
-  background: var(--orange, #ff7d1a);
+  background: #30a167;
   box-shadow: 0px 8px 10px 0px #ffede0;
   margin-top: 10px;
   cursor: pointer;
@@ -504,7 +518,7 @@ const HeartIcon = styled("img")`
   height: 16px;
 `;
 const ButtonText = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Ysabeau Office", sans-serif;
   font-weight: 400px;
   font-size: 13px;
   color: white;
@@ -520,7 +534,7 @@ const AddToFav = styled("div")`
   border: none;
   color: white;
   border-radius: 10px;
-  background: var(--orange, #ff7d1a);
+  background: #30a167;
   box-shadow: 0px 8px 10px 0px #ffede0;
   margin-top: 15px;
   cursor: pointer;
@@ -547,13 +561,13 @@ const DivideDivSecond = styled(Box)`
   }
 `;
 
-const Reviews = styled(Typography)`
-  font-family: "Kumbh Sans", sans-serif;
-  font-weight: 700;
-  color: #062950;
-  font-size: 17px;
-  margin-top: 10px;
-`;
+// const Reviews = styled(Typography)`
+//   font-family: "Ysabeau Office", sans-serif;
+//   font-weight: 700;
+//   color: #062950;
+//   font-size: 17px;
+//   margin-top: 10px;
+// `;
 
 const responsiveColor = {
   desktop: {
