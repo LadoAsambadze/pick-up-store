@@ -112,8 +112,7 @@ export default function Selected() {
         } else if (response.status === 403) {
           toast.error(response.data);
         }
-        console.log(response);
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.response.data);
       }
     } else {
