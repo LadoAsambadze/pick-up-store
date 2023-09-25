@@ -32,7 +32,7 @@ export default function Login() {
       });
       dispatch(setUser(response.data.useData));
       dispatch(setAuth(true));
-      console.log(response.data.useData);
+
     }
   };
   const dispatch = useDispatch();

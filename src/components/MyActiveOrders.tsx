@@ -11,7 +11,6 @@ export default function MyActiveOrders() {
     (state: RootState) => state.orders.activeOrders
   );
 
-
   const sentOrder = async (user: string, orderItem: object) => {
     const cookieToken = getCookie("token");
     const sentItem = {
@@ -126,7 +125,7 @@ const UserDiv = styled(Box)`
 const User = styled(Box)`
   width: 100%;
   height: 100%;
-  background: green;
+  background: #cdc3c3;
 `;
 const ProductDiv = styled(Box)`
   display: flex;

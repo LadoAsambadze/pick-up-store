@@ -11,10 +11,12 @@ import { Rating } from "@mui/material";
 import { getCookie } from "cookies-next";
 import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Selected() {
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data.data);
   let shoesItem: any;
@@ -90,39 +92,35 @@ export default function Selected() {
   }, [data, shoesItem]);
 
   const addToCart = async () => {
-    if (Object.values(cartData).every((value) => value)) {
-      const cookieToken = getCookie("token");
-
+    const cookieToken = getCookie("token");
+    if (selectedSize) {
       try {
-        if (choosedAmount !== 0) {
-          await axios.post(
-            "http://localhost:3000/order/addCart",
+        const response = await axios.post(
+          "http://localhost:3000/order/addCart",
+          cartData,
+          {
+            headers: {
+              authorization: `Bearer ${cookieToken}`,
+            },
+          }
+        );
 
-            cartData,
-            {
-              headers: {
-                authorization: `Bearer ${cookieToken}`,
-              },
-            }
-          );
-
-          setAmountWarn(false);
+        if (response.status === 200) {
+          toast.success(response.data.message);
+        } else if (response.status === 201) {
+          toast.error(response.data.message);
+        } else if (response.status === 403) {
+          toast.error(response.data);
         }
+        console.log(response);
       } catch (error) {
-        console.error("Error adding item to cart:", error);
+        toast.error(error.response.data);
       }
     } else {
-      console.log("Please select all options before adding to cart.");
-      alert("Please log in");
-      navigate("/login");
-    }
-    if (choosedAmount === 0) {
-      setAmountWarn(true);
-    }
-    if (!selectedSize) {
       setCheck(true);
     }
   };
+
   useEffect(() => {
     if (
       data &&
@@ -154,7 +152,7 @@ export default function Selected() {
       </>
     );
   }
-  console.log(cartData);
+
   return (
     <>
       <Main>
@@ -295,6 +293,7 @@ export default function Selected() {
             <Rating name="read-only" value={4.3} readOnly />
           </FromSizeDiv>
         </DivideDivSecond>
+        <ToastContainer />
       </Main>
     </>
   );

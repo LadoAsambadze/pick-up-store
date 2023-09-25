@@ -119,7 +119,7 @@ const UserDiv = styled(Box)`
 const User = styled(Box)`
   width: 100%;
   height: 100%;
-  background: green;
+  background: #b3afaf;
 `;
 const ProductDiv = styled(Box)`
   display: flex;

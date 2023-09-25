@@ -9,7 +9,6 @@ import { setData } from "../store/data-slice";
 import { setLoading } from "../store/loading-slice";
 
 interface Type {
-  product_id: string;
   name: string;
   size: string;
   color: string;
@@ -136,7 +135,6 @@ export default function Cart() {
     user: user_id,
     items: selectedProducts,
   };
-
 
   const makeOrder = async () => {
     const cookieToken = getCookie("token");

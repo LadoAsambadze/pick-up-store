@@ -22,7 +22,6 @@ export default function Clothes() {
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
-  console.log(redux);
 
   return (
     <>

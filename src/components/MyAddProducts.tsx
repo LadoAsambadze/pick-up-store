@@ -61,6 +61,8 @@ export default function MyAddProducts() {
       });
     }
 
+    let photoName = photo ? photo.name : "default.png";
+
     const productData = {
       type: formData.get("Type"),
       gender: formData.get("gender"),
@@ -73,7 +75,7 @@ export default function MyAddProducts() {
         {
           color,
           size: productSizesObject,
-          urls: ["/puma-red.PNG"],
+          urls: ["/image/" + photoName],
         },
       ],
     };
