@@ -302,8 +302,8 @@ export default function Selected() {
                 Add To Favourite
               </ButtonText>
             </AddToFav>
-            {/* <Reviews>Reviews</Reviews> */}
-            {/* <Rating name="read-only" value={4.3} readOnly /> */}
+            <Reviews>Reviews</Reviews>
+            <Rating name="read-only" value={4.3} readOnly />
           </FromSizeDiv>
         </DivideDivSecond>
         <ToastContainer />
@@ -561,13 +561,13 @@ const DivideDivSecond = styled(Box)`
   }
 `;
 
-// const Reviews = styled(Typography)`
-//   font-family: "Ysabeau Office", sans-serif;
-//   font-weight: 700;
-//   color: #062950;
-//   font-size: 17px;
-//   margin-top: 10px;
-// `;
+const Reviews = styled(Typography)`
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 700;
+  color: #062950;
+  font-size: 17px;
+  margin-top: 10px;
+`;
 
 const responsiveColor = {
   desktop: {
