@@ -1,4 +1,4 @@
-import { Typography, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { Box } from "@mui/material";
 import { keyframes } from "@mui/material";
 
@@ -87,31 +87,5 @@ const ChooseDiv = styled(Box)`
   padding: 10px 15px 10px 15px;
   @media (min-width: 1440px) {
     padding: 20px 40px 20px 40px;
-  }
-`;
-const Choose = styled(Typography)`
-  color: #fff;
-  font-family: "Ysabeau Office", sans-serif;
-  font-size: 15px;
-  font-style: normal;
-  line-height: 30.132px;
-  font-weight: 800;
-  text-decoration: underline;
-  text-underline-offset: 7px;
-  cursor: pointer;
-  &:hover {
-    color: gray;
-  }
-  @media (min-width: 1440px) {
-    font-size: 20px;
-  }
-`;
-const ArrowNext = styled("img")`
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  @media (min-width: 1440px) {
-    width: 40px;
-    height: 40px;
   }
 `;

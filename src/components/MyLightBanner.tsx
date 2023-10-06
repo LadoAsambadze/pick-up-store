@@ -36,13 +36,13 @@ const TextContainer = styled("div")`
   height: 48px;
   font-size: 24px;
   font-weight: 300;
-  background: #322f2f;
+  background: #d4d4c9;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 300;
   @media (min-width: 768px) {
     height: 56px;
     font-size: 32px;
@@ -51,7 +51,7 @@ const TextContainer = styled("div")`
 
 const TextContent = styled("span")`
   animation: ${marqueeAnimation} 4s linear infinite;
-  color: #b5c1b5;
-  text-shadow: 0px 0px 5px #94a195;
+  color: #101410;
+  text-shadow: 0px 0px 5px #011903;
   font-family: "Ysabeau Office", sans-serif;
 `;

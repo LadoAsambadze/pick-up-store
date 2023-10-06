@@ -7,21 +7,18 @@ export default function Footer() {
     <>
       <MainDiv>
         <Description>
-          <Name>Pick up store</Name>
           <SectionStore>
             <Kind>About Us</Kind>
-
             <Kind>Legacy</Kind>
-
             <Kind>Follow</Kind>
             <Kind>Test</Kind>
             <Kind>Test</Kind>
           </SectionStore>
         </Description>
         <IconDiv>
-          <Icon src="icon-facebook.svg" alt="Facebook icon" />
-          <Icon src="icon-instagram.svg" alt="Instagram icon" />
-          <Icon src="icon-twitter.svg" alt="Twitter icon" />
+          <Icon src="facebook.png" alt="Facebook icon" />
+          <Icon src="instagram.png" alt="Instagram icon" />
+          <Icon src="twitter.png" alt="Twitter icon" />
         </IconDiv>
       </MainDiv>
     </>
@@ -33,11 +30,9 @@ const MainDiv = styled("div")`
   background: #d4d4c9;
   display: flex;
   flex-direction: column;
-  padding: 25px 50px 65px 50px;
-
-  border-top: 1px solid #169c89;
+  padding: 0px 50px 65px 50px;
   @media (min-width: 1440px) {
-    padding: 44px 165px 44px 165px;
+    padding: 0px 165px 44px 165px;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -49,14 +44,6 @@ const Description = styled(Box)`
   width: 100%;
   @media (min-width: 1440px) {
     align-items: flex-start;
-  }
-`;
-
-const Name = styled(Typography)`
-  color: #3c4242;
-  font-size: 18px;
-  @media (min-width: 1440px) {
-    font-size: 28px;
   }
 `;
 
@@ -75,13 +62,14 @@ const SectionStore = styled(Box)`
 
 const Kind = styled(Typography)`
   color: #3c4242;
-  font-size: 12px;
   cursor: pointer;
   margin-top: 10px;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 300;
   @media (min-width: 1440px) {
     margin-top: 0;
     margin-right: 15px;
-    font-size: 16px;
+    font-size: 20px;
   }
 `;
 
