@@ -5,7 +5,7 @@ export default function LightBanner() {
   return (
     <>
       <TextContainer>
-        <TextContent>PICK UP YOUR STYLE!</TextContent>
+        <TextContent>PICK UP YOUR STYLE!!!</TextContent>
       </TextContainer>
     </>
   );

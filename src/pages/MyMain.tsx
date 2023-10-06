@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import BrandCarousel from "../components/MyBrandCarousel";
-import LightBanner from "../components/MyLightBanner";
+
 import NewArrivals from "../components/MyNewArrivals";
 import Gender from "../components/MyGender";
 import { useState } from "react";
@@ -33,8 +33,6 @@ export default function Main() {
       <Sales />
       <MyAdverties />
       <div ref={brandCarouselRef}>{showBrandCarousel && <BrandCarousel />}</div>
-
-      <LightBanner />
     </>
   );
 }

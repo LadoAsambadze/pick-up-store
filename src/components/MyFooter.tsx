@@ -1,10 +1,12 @@
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
+import LightBanner from "./MyLightBanner";
 
 export default function Footer() {
   return (
     <>
+      <LightBanner />
       <MainDiv>
         <Description>
           <SectionStore>
