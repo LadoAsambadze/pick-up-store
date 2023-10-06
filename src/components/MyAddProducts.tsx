@@ -1,4 +1,4 @@
-import { Box, FormLabel, Input, Typography, styled } from "@mui/material";
+import { Box, FormLabel, Typography, styled } from "@mui/material";
 import axios from "axios";
 
 import { useState } from "react";
@@ -42,9 +42,9 @@ export default function MyAddProducts() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const photo = formData.get("photo");
+    const photo = formData.getAll("photo");
     const color = formData.get("color");
-
+    console.log(photo);
     let productSizesObject = {};
 
     if (sizeType === "Shoes") {
@@ -61,7 +61,9 @@ export default function MyAddProducts() {
       });
     }
 
-    let photoName = photo ? photo.name : "default.png";
+    let photoNames = photo
+      ? photo.map((photos) => "/image/" + photos.name)
+      : ["/image/default.png"];
 
     const productData = {
       type: formData.get("Type"),
@@ -75,7 +77,7 @@ export default function MyAddProducts() {
         {
           color,
           size: productSizesObject,
-          urls: ["/image/" + photoName],
+          urls: photoNames,
         },
       ],
     };
@@ -88,7 +90,6 @@ export default function MyAddProducts() {
       };
 
       uploadProduct();
-      console.log(productData);
     }
   };
 
@@ -193,7 +194,13 @@ export default function MyAddProducts() {
             </SecondDiv>
             <ThirthDiv>
               <Label htmlFor="photo">Upload Photo:</Label>
-              <input type="file" name="photo" id="photo" accept="image/*" />
+              <input
+                type="file"
+                name="photo"
+                id="photo"
+                accept="image/*"
+                multiple
+              />
             </ThirthDiv>
           </FormDiv>
         </form>
