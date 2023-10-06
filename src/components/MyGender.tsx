@@ -7,22 +7,10 @@ export default function Gender() {
     <>
       <MainGrid>
         <LeftDiv>
-          <ChooseDiv>
-            <Choose>Men</Choose>
-            <ArrowNext
-              src="/arrow-next.png"
-              alt="Arrow button next/right side"
-            />
-          </ChooseDiv>
+          <ChooseDiv></ChooseDiv>
         </LeftDiv>
         <RightDiv>
-          <ChooseDiv>
-            <Choose>Women</Choose>
-            <ArrowNext
-              src="/arrow-next.png"
-              alt="Arrow button next/right side"
-            />
-          </ChooseDiv>
+          <ChooseDiv></ChooseDiv>
         </RightDiv>
       </MainGrid>
     </>

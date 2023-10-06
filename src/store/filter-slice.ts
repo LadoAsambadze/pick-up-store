@@ -12,7 +12,7 @@ interface FilterState {
 
 const initialState: FilterState = {
   filter: false,
-  priceAmount: [0, 100],
+  priceAmount: [0, 500],
   genderType: [],
   categoryType: [],
   brandType: [],

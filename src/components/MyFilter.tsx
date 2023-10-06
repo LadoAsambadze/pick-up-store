@@ -30,23 +30,13 @@ export default function FilterComponent() {
   const handleChange = (_event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
   };
-  const clotheOptions = ["XXS", "XL", "XS", "S", "M", "L", "XXL", "3XS", "4XS"];
-  const shoesOptions = [
-    "34",
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44",
-    "45",
-    "46",
-  ];
-  const genderOptions = ["Boy", "Girl"];
+  const clotheOptions = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
+  let shoesOptions = [];
+  for (let i = 12; i <= 46; i++) {
+    shoesOptions.push(i.toString());
+  }
+
+  const genderOptions = ["Male", "Female", "Unisex"];
   const categoryOptions = ["Women", "Men", "Kids"];
   const brandOptions = ["Adidas", "Nike", "Puma", "Zara", "Rebook"];
   const handleSize = (sizeContent: string) => {

@@ -111,16 +111,16 @@ export default function MyAddProducts() {
               </Select>
               <Label htmlFor="gender">Gender:</Label>
               <Select name="gender" id="gender" required>
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
-                <Option value="unisex">Unisex</Option>
+                <Option value="Male">Male</Option>
+                <Option value="Female">Female</Option>
+                <Option value="Unisex">Unisex</Option>
               </Select>
 
               <Label htmlFor="category">Category:</Label>
               <Select name="category" id="category" required>
-                <Option value="woman">Woman</Option>
-                <Option value="man">Man</Option>
-                <Option value="kids">Kids</Option>
+                <Option value="Woman">Woman</Option>
+                <Option value="Man">Man</Option>
+                <Option value="Kids">Kids</Option>
               </Select>
 
               <Label htmlFor="price">Price:</Label>

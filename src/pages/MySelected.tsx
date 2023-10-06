@@ -2,7 +2,7 @@ import { Typography, styled } from "@mui/material";
 import { Box } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -13,11 +13,9 @@ import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
 export default function Selected() {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const data = useSelector((state: RootState) => state.data.data);
   let shoesItem: any;
@@ -52,9 +50,6 @@ export default function Selected() {
   const [choosedAmount, setChoosedAmount] = useState<number>(1);
   const [amountWarn, setAmountWarn] = useState(false);
   const [check, setCheck] = useState(false);
-  const favourites = useSelector(
-    (state: RootState) => state.favourites.favourites
-  );
 
   const [selectedOwnId, setSelectedOwnId] = useState(
     shoesItem?.itemList[0].own_id
@@ -165,8 +160,13 @@ export default function Selected() {
         <DivideDivSecond>
           <Description>
             <Name>Nike Pegasus Turbo Next Nature</Name>
-            <Brand>Brand: {shoesItem?.brand}</Brand>
-            <Price>Price: $ {shoesItem?.price}</Price>
+            <Brand>
+              <strong>Brand: </strong>
+              {shoesItem?.brand}
+            </Brand>
+            <Price>
+              <strong>Price: </strong>$ {shoesItem?.price}
+            </Price>
           </Description>
 
           <Carousel responsive={responsiveSort} infinite={true}>
@@ -240,7 +240,7 @@ export default function Selected() {
                       setSelectedSort(item.urls);
                       setSelectedColor(item.color);
                       setSelectedOwnId(item.own_id);
-                      setChoosedAmount(0);
+                      setChoosedAmount(1);
 
                       if (selectedColor !== item.color) {
                         setSelectedSize(null);
@@ -288,20 +288,7 @@ export default function Selected() {
               <CartIcon src="/cart-icon.svg" alt="Cart Icon" />
               <ButtonText>Add To Cart</ButtonText>
             </AddToCart>
-            <AddToFav>
-              <HeartIcon src="/heart-white.png" alt="Favorite/heart icon" />
-              <ButtonText
-                onClick={() => {
-                  if (favourites.includes(shoesItem._id)) {
-                    dispatch(removeFavourite(shoesItem._id));
-                  } else {
-                    dispatch(setFavourites(shoesItem._id));
-                  }
-                }}
-              >
-                Add To Favourite
-              </ButtonText>
-            </AddToFav>
+
             <Reviews>Reviews</Reviews>
             <Rating name="read-only" value={4.3} readOnly />
           </FromSizeDiv>
@@ -348,7 +335,7 @@ const Brand = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 500;
   color: black;
-  font-size: 14px;
+  font-size: 16px;
   text-align: left;
   margin-top: 5px;
 `;
@@ -422,8 +409,9 @@ const ItemSizeSection = styled(Box)`
 const Header = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
-  color: #169c89;
+  color: black;
   font-size: 16px;
+  margin-top: 5px;
 `;
 const SizeChoose = styled(Box)`
   border-radius: 8px;
@@ -513,39 +501,13 @@ const CartIcon = styled("img")`
   width: 17px;
   height: 15px;
 `;
-const HeartIcon = styled("img")`
-  width: 16px;
-  height: 16px;
-`;
+
 const ButtonText = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 400px;
   font-size: 13px;
   color: white;
   margin-left: 7px;
-`;
-const AddToFav = styled("div")`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 77px 16px 77px;
-  width: 100%;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  background: #30a167;
-  box-shadow: 0px 8px 10px 0px #ffede0;
-  margin-top: 15px;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: 0px 8px 10px 0px #896666, 0px 2px 6px rgba(255, 255, 255, 0.4); /* Add white shadow on hover */
-  }
-  @media (min-width: 900px) {
-    width: 70%;
-    margin-top: 20px;
-  }
 `;
 
 const DivideDivFirst = styled(Box)`

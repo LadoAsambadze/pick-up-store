@@ -8,13 +8,14 @@ import { useDispatch } from "react-redux";
 import { setActiveOrders, setSentOrders } from "../store/active-order-slice";
 import MyProducts from "../components/MyProducts";
 import MyAddProducts from "../components/MyAddProducts";
+import MyDashboard from "../components/MyDashboard";
 
 export default function Admin() {
   const dispatch = useDispatch();
   const [section, setSection] = useState("Dashboard");
 
   useEffect(() => {
-    if (section === "Active Orders") {
+    if (section === "Active Orders" || "Dashboard") {
       const getOrders = async () => {
         try {
           const response = await axios.get("http://localhost:3000/getorders");
@@ -25,7 +26,7 @@ export default function Admin() {
       };
       getOrders();
     }
-    if (section === "Sent Orders") {
+    if (section === "Sent Orders" || "Dashboard") {
       const getSentOrders = async () => {
         const response = await axios.get("http://localhost:3000/getsentorders");
         dispatch(setSentOrders(response.data.orders));
@@ -58,7 +59,7 @@ export default function Admin() {
             Sent Orders
           </ListButton>
         </List>
-        {section === "Dashboard" && <Dashboard></Dashboard>}
+        {section === "Dashboard" && <MyDashboard />}
         {section === "All Products" && <MyProducts />}
         {section === "Add Products" && <MyAddProducts />}
         {section === "Active Orders" && <MyActiveOrders />}
