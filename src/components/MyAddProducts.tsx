@@ -1,6 +1,5 @@
 import { Box, FormLabel, Typography, styled } from "@mui/material";
 import axios from "axios";
-
 import { useState } from "react";
 
 const SizeInput = ({ size, quantity, handleQuantityChange }) => (
@@ -39,12 +38,15 @@ export default function MyAddProducts() {
     clothingSizes.map((size) => ({ size, quantity: 0 }))
   );
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const photo = formData.getAll("photo");
     const color = formData.get("color");
-    console.log(photo);
+    const files = formData.getAll("photo");
+    files.forEach((file) => {
+      formData.append("photo", file);
+    });
+
     let productSizesObject = {};
 
     if (sizeType === "Shoes") {
@@ -61,9 +63,7 @@ export default function MyAddProducts() {
       });
     }
 
-    let photoNames = photo
-      ? photo.map((photos) => "/image/" + photos.name)
-      : ["/image/default.png"];
+    let photoNames = Array.from(files).map((file) => "/image/" + file.name);
 
     const productData = {
       type: formData.get("Type"),
@@ -81,15 +81,12 @@ export default function MyAddProducts() {
         },
       ],
     };
+    formData.append('productData', JSON.stringify(productData));
 
-    if (productData) {
-      const uploadProduct = async () => {
-        await axios.post("http://localhost:3000/uploadproduct", {
-          product: productData,
-        });
-      };
-
-      uploadProduct();
+    try {
+      await axios.post("http://localhost:3000/uploadproduct", formData,);
+    } catch (error) {
+      console.error(error);
     }
   };
 

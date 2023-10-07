@@ -135,7 +135,7 @@ export default function Selected() {
   if (loading) {
     return (
       <>
-        {" "}
+    
         <div
           style={{
             display: "flex",
@@ -159,7 +159,7 @@ export default function Selected() {
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
-            <Name>Nike Pegasus Turbo Next Nature</Name>
+            <Name>{shoesItem?.name}</Name>
             <Brand>
               <strong>Brand: </strong>
               {shoesItem?.brand}
