@@ -97,11 +97,15 @@ export default function MyAddProducts() {
     const cookieToken = getCookie("token");
 
     try {
-      await axios.post("https://pick-up-store-backend-production.up.railway.app/admin/uploadproduct", formData, {
-        headers: {
-          authorization: `Bearer ${cookieToken}`,
-        },
-      });
+      await axios.post(
+        "https://pick-up-store-backend-production.up.railway.app/uploadproduct",
+        formData,
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
     } catch (error) {
       console.error(error);
     }
