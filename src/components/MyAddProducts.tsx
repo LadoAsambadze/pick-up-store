@@ -2,7 +2,15 @@ import { Box, FormLabel, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 
-const SizeInput = ({ size, quantity, handleQuantityChange }) => (
+const SizeInput = ({
+  size,
+  quantity,
+  handleQuantityChange,
+}: {
+  size: string;
+  quantity: number;
+  handleQuantityChange: Function;
+}) => (
   <div key={size}>
     <label htmlFor={`size-${size}`}>Size {size}:</label>
     <input
@@ -16,18 +24,21 @@ const SizeInput = ({ size, quantity, handleQuantityChange }) => (
     <br />
   </div>
 );
-const createSizeArray = (start, end) => {
+
+const createSizeArray = (start: any, end: any) => {
   return Array(end - start + 1)
     .fill(0)
     .map((_, i) => ({ size: i + start, quantity: 0 }));
 };
 
-const handleQuantityChange = (sizeArray, setSizeArray) => (size, event) => {
-  const newSizes = sizeArray.map((s) =>
-    s.size === size ? { ...s, quantity: event.target.value } : s
-  );
-  setSizeArray(newSizes);
-};
+const handleQuantityChange =
+  (sizeArray: Array<{ size: any; quantity: number }>, setSizeArray: Function) =>
+  (size: number, event: any) => {
+    const newSizes = sizeArray.map((s) =>
+      s.size === size ? { ...s, quantity: event.target.value } : s
+    );
+    setSizeArray(newSizes);
+  };
 
 export default function MyAddProducts() {
   const [sizeType, setSizeType] = useState("Shoes");
@@ -38,16 +49,14 @@ export default function MyAddProducts() {
     clothingSizes.map((size) => ({ size, quantity: 0 }))
   );
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formData = new FormData(event.currentTarget);
     const color = formData.get("color");
     const files = formData.getAll("photo");
-    files.forEach((file) => {
-      formData.append("photo", file);
-    });
+    files;
 
-    let productSizesObject = {};
+    let productSizesObject: { [key: string]: number } = {};
 
     if (sizeType === "Shoes") {
       sizes.forEach((s) => {
@@ -63,7 +72,9 @@ export default function MyAddProducts() {
       });
     }
 
-    let photoNames = Array.from(files).map((file) => "/image/" + file.name);
+    let photoNames = Array.from(files).map(
+      (file) => "/image/" + (file as File).name
+    );
 
     const productData = {
       type: formData.get("Type"),
@@ -81,10 +92,10 @@ export default function MyAddProducts() {
         },
       ],
     };
-    formData.append('productData', JSON.stringify(productData));
+    formData.append("productData", JSON.stringify(productData));
 
     try {
-      await axios.post("http://localhost:3000/uploadproduct", formData,);
+      await axios.post("http://localhost:3000/uploadproduct", formData);
     } catch (error) {
       console.error(error);
     }
