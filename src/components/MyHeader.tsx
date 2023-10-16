@@ -56,7 +56,13 @@ export default function Header() {
               Shoes
             </Type>
             <Type>Sale</Type>
-            <Type>New Arrivals</Type>
+            <Type
+              onClick={() => {
+                navigate("/NewArrivals");
+              }}
+            >
+              New Arrivals
+            </Type>
           </DestkopMenu>
         </Description>
 

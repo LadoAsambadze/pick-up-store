@@ -43,7 +43,13 @@ export default function NewArrivals(props: any) {
       <Section>
         <HeaderDiv>
           <Kind>New Arrivals</Kind>
-          <View>View All</View>
+          <View
+            onClick={() => {
+              navigate("/NewArrivals");
+            }}
+          >
+            View All
+          </View>
         </HeaderDiv>
         {loading ? (
           <div
@@ -73,7 +79,7 @@ export default function NewArrivals(props: any) {
                     console.log(newData);
                     console.log(id);
                     if (newData) {
-                      if (newData.type === "shoes") {
+                      if (newData.type === "Shoes") {
                         navigate(`/shoes/${id}`);
                       } else if (newData.type === "Clothes") {
                         navigate(`/clothes/${id}`);

@@ -53,7 +53,8 @@ export default function FilterComponent() {
   };
 
   const location = useLocation();
-  const isShoesPage = location.pathname === "/shoes";
+  const isPage = location.pathname;
+  console.log(isPage);
 
   return (
     <>
@@ -178,15 +179,23 @@ export default function FilterComponent() {
         <Line></Line>
         <ShowMain style={{ display: size ? "flex" : "none" }}>
           <SizeListDiv>
-            {(isShoesPage ? shoesOptions : clotheOptions).map((size) => (
-              <SizeChoose
-                key={size}
-                onClick={() => handleSize(size)}
-                className={redux.sizeType.includes(size) ? "selected" : ""}
-              >
-                {size}
-              </SizeChoose>
-            ))}
+            {isPage &&
+              (isPage === "/shoes"
+                ? shoesOptions
+                : isPage === "/clothes"
+                ? clotheOptions
+                : isPage === "/NewArrivals" || isPage === "/Admin"
+                ? [...shoesOptions, ...clotheOptions]
+                : []
+              ).map((size) => (
+                <SizeChoose
+                  key={size}
+                  onClick={() => handleSize(size)}
+                  className={redux.sizeType.includes(size) ? "selected" : ""}
+                >
+                  {size}
+                </SizeChoose>
+              ))}
           </SizeListDiv>
         </ShowMain>
       </Main>

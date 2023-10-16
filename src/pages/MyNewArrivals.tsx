@@ -10,13 +10,12 @@ import { removeFavourite, setFavourites } from "../store/favourites-slice";
 import RedHeart from "/public/red-heart.png";
 import WhiteHeart from "/public/heart.svg";
 
-export default function Shoes() {
+export default function MyNewArrivals() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const redux = useSelector((state: RootState) => state.filter);
   const search = useSelector((state: RootState) => state.search.search);
   const data = useSelector((state: RootState) => state.data.data);
-  const shoes = data.filter((item) => item.type === "Shoes");
   const favourites = useSelector(
     (state: RootState) => state.favourites.favourites
   );
@@ -37,7 +36,7 @@ export default function Shoes() {
           <Sort />
         </FindBy>
         <MainGrid>
-          {shoes
+          {data
             .filter(
               (item) =>
                 redux.sizeType.length === 0 ||
@@ -87,13 +86,16 @@ export default function Shoes() {
                 return 0;
               }
             })
-
             .map((item, index) => (
               <ArrivalDiv
                 onClick={() => {
                   const id = item._id;
-
-                  navigate(`/shoes/${id}`);
+                  if (item.type === "Shoes") {
+                    navigate(`/shoes/${id}`);
+                  }
+                  if (item.type === "Clothes") {
+                    navigate(`/clothes/${id}`);
+                  }
                 }}
                 key={index}
               >

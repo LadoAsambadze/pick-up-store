@@ -1,5 +1,5 @@
 import Main from "./pages/MyMain";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Clothes from "./pages/MyClothes";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/MyHeader";
@@ -18,16 +18,18 @@ import Admin from "./pages/MyAdmin";
 import FilterComponent from "./components/MyFilter";
 import { Box, styled } from "@mui/material";
 import { RootState } from "./store/redux";
+import MyNewArrivals from "./pages/MyNewArrivals";
+import { elements } from "chart.js";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+  console.log(user.userinfo?.isAdmin);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get(
-          "http://localhost:3000/api/users"
-        );
+        const getAll = await axios.get("http://localhost:3000/api/users");
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
@@ -66,7 +68,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/Favourites" element={<Favourites />} />
-        <Route path="/Admin" element={<Admin />} />
+        <Route
+          path="/Admin"
+          element={user.userinfo?.isAdmin ? <Admin /> : <Navigate to="/" />}
+        />
+
+        <Route path="/NewArrivals" element={<MyNewArrivals />} />
       </Routes>
       <Footer />
     </>

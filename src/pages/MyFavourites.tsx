@@ -17,7 +17,7 @@ export default function Favourites() {
     (state: RootState) => state.favourites.favourites
   );
   const filteredData = data.filter((item) => favourites.includes(item._id));
-  console.log(filteredData);
+
 
   return (
     <>
