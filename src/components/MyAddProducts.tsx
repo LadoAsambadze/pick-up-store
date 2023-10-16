@@ -1,5 +1,6 @@
 import { Box, FormLabel, Typography, styled } from "@mui/material";
 import axios from "axios";
+import { getCookie } from "cookies-next";
 import { useState } from "react";
 
 const SizeInput = ({
@@ -93,9 +94,14 @@ export default function MyAddProducts() {
       ],
     };
     formData.append("productData", JSON.stringify(productData));
+    const cookieToken = getCookie("token");
 
     try {
-      await axios.post("http://localhost:3000/uploadproduct", formData);
+      await axios.post("http://localhost:3000/admin/uploadproduct", formData, {
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
+      });
     } catch (error) {
       console.error(error);
     }

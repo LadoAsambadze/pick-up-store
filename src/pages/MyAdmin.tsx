@@ -1,7 +1,6 @@
 import { Box, styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import MySentOrders from "../components/MySentOrders";
 import MyActiveOrders from "../components/MyActiveOrders";
 import { useDispatch } from "react-redux";
@@ -9,16 +8,25 @@ import { setActiveOrders, setSentOrders } from "../store/active-order-slice";
 import MyProducts from "../components/MyProducts";
 import MyAddProducts from "../components/MyAddProducts";
 import MyDashboard from "../components/MyDashboard";
+import { getCookie } from "cookies-next";
 
 export default function Admin() {
   const dispatch = useDispatch();
   const [section, setSection] = useState("Dashboard");
 
   useEffect(() => {
+    const cookieToken = getCookie("token");
     if (section === "Active Orders" || "Dashboard") {
       const getOrders = async () => {
         try {
-          const response = await axios.get("http://localhost:3000/getorders");
+          const response = await axios.get(
+            "http://localhost:3000/admin/getorders",
+            {
+              headers: {
+                authorization: `Bearer ${cookieToken}`,
+              },
+            }
+          );
           dispatch(setActiveOrders(response.data.orders));
         } catch (error) {
           console.error(error);
@@ -28,7 +36,14 @@ export default function Admin() {
     }
     if (section === "Sent Orders" || "Dashboard") {
       const getSentOrders = async () => {
-        const response = await axios.get("http://localhost:3000/getsentorders");
+        const response = await axios.get(
+          "http://localhost:3000/admin/getsentorders",
+          {
+            headers: {
+              authorization: `Bearer ${cookieToken}`,
+            },
+          }
+        );
         dispatch(setSentOrders(response.data.orders));
       };
       getSentOrders();

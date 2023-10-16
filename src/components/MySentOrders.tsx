@@ -4,15 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import axios from "axios";
 import { setSentOrders } from "../store/active-order-slice";
+import { getCookie } from "cookies-next";
 
 export default function MySentOrders() {
   const dispatch = useDispatch();
   const sentOrders = useSelector((state: RootState) => state.orders.sentOrders);
 
   const removeOrder = async (user: any, item: any) => {
+    const cookieToken = getCookie("token");
     try {
-      await axios.delete("http://localhost:3000/removesentorders", {
+      await axios.delete("http://localhost:3000/admin/removesentorders", {
         data: { user, item },
+        headers: {
+          authorization: `Bearer ${cookieToken}`,
+        },
       });
       const updatedSentOrders = sentOrders.map((order) => {
         if (order.user === user) {

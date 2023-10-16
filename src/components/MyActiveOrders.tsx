@@ -18,7 +18,7 @@ export default function MyActiveOrders() {
       orderItems: [orderItem],
     };
     if (sentItem.user && sentItem.orderItems) {
-      await axios.post("http://localhost:3000/sentorders", sentItem, {
+      await axios.post("http://localhost:3000/admin/sentorders", sentItem, {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },
