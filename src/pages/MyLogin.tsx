@@ -25,7 +25,7 @@ export default function Login() {
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get("http://localhost:3000/user/profile", {
+      const response = await axios.get("https://pick-up-store-backend-production.up.railway.app/user/profile", {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },
@@ -47,7 +47,7 @@ export default function Login() {
     if (!errors.email) {
       try {
         const response = await axios.post(
-          "http://localhost:3000/user/login",
+          "https://pick-up-store-backend-production.up.railway.app/user/login",
           data
         );
         Cookies.set("token", response.data.token);

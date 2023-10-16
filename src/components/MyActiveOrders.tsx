@@ -18,7 +18,7 @@ export default function MyActiveOrders() {
       orderItems: [orderItem],
     };
     if (sentItem.user && sentItem.orderItems) {
-      await axios.post("http://localhost:3000/admin/sentorders", sentItem, {
+      await axios.post("https://pick-up-store-backend-production.up.railway.app/admin/sentorders", sentItem, {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },
@@ -60,7 +60,7 @@ export default function MyActiveOrders() {
                             Move To Sent
                           </MoveToSent>
                           <ImageDiv>
-                            <Image src={`http://localhost:3000${item.image}`} />
+                            <Image src={`https://pick-up-store-backend-production.up.railway.app${item.image}`} />
                           </ImageDiv>
                           <DescriptionDiv>
                             <Name>{item.name}</Name>

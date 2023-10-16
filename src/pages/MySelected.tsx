@@ -95,7 +95,7 @@ export default function Selected() {
     if (selectedSize) {
       try {
         const response = await axios.post(
-          "http://localhost:3000/order/addCart",
+          "https://pick-up-store-backend-production.up.railway.app/order/addCart",
           cartData,
           {
             headers: {
@@ -155,7 +155,7 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv src={`http://localhost:3000${selectedImage}`} />
+          <ImageDiv src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`} />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
@@ -175,7 +175,7 @@ export default function Selected() {
                 <SmallImageDivSort
                   key={index}
                   style={{
-                    backgroundImage: `url(http://localhost:3000${item})`,
+                    backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item})`,
                     border:
                       selectedImage === item ? "1px solid #cf9f58" : "none",
                   }}
@@ -229,7 +229,7 @@ export default function Selected() {
                   <SmallImageDiv
                     key={index}
                     style={{
-                      backgroundImage: `url(http://localhost:3000${item.urls[0]})`,
+                      backgroundImage: `url(https://pick-up-store-backend-production.up.railway.app${item.urls[0]})`,
                       border:
                         selectedImage === item.urls[0]
                           ? "2px solid #cf9f58"

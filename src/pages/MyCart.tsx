@@ -29,7 +29,9 @@ export default function Cart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get("http://localhost:3000/api/users");
+        const getAll = await axios.get(
+          "https://pick-up-store-backend-production.up.railway.app/api/users"
+        );
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
@@ -68,7 +70,7 @@ export default function Cart() {
     if (user) {
       const getCart = async () => {
         const { data } = await axios.get(
-          `http://localhost:3000/order/getCart?userId=${user.user}`,
+          `https://pick-up-store-backend-production.up.railway.app/order/getCart?userId=${user.user}`,
           {
             headers: {
               authorization: `Bearer ${cookieToken}`,
@@ -86,7 +88,7 @@ export default function Cart() {
     const cookieToken = getCookie("token");
     try {
       await axios.put(
-        `http://localhost:3000/order/updateCart/${purchase_id}`,
+        `https://pick-up-store-backend-production.up.railway.app/order/updateCart/${purchase_id}`,
         {
           new_amount,
           user_id,
@@ -107,7 +109,7 @@ export default function Cart() {
 
     try {
       await axios.delete(
-        `http://localhost:3000/order/deleteProduct/${purchase_id}`,
+        `https://pick-up-store-backend-production.up.railway.app/order/deleteProduct/${purchase_id}`,
         {
           data: { user_id },
           headers: {
@@ -141,7 +143,7 @@ export default function Cart() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/orderprocess/makeorder",
+        "https://pick-up-store-backend-production.up.railway.app/orderprocess/makeorder",
         orderData,
         {
           headers: {
@@ -184,7 +186,7 @@ export default function Cart() {
                 <ImageDiv>
                   <img
                     style={{ maxWidth: "100%" }}
-                    src={`http://localhost:3000${item.image}`}
+                    src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
                     alt={item.name}
                   />
                 </ImageDiv>

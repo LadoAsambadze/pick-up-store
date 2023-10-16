@@ -36,7 +36,7 @@ export default function Signup() {
     try {
       setErrorMessage(null);
       await axios.post(
-        "http://localhost:3000/user/singup",
+        "https://pick-up-store-backend-production.up.railway.app/user/singup",
         data
       );
       setSign(true);

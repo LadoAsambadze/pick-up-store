@@ -97,7 +97,7 @@ export default function MyAddProducts() {
     const cookieToken = getCookie("token");
 
     try {
-      await axios.post("http://localhost:3000/admin/uploadproduct", formData, {
+      await axios.post("https://pick-up-store-backend-production.up.railway.app/admin/uploadproduct", formData, {
         headers: {
           authorization: `Bearer ${cookieToken}`,
         },

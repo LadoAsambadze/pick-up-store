@@ -13,7 +13,7 @@ export default function MySentOrders() {
   const removeOrder = async (user: any, item: any) => {
     const cookieToken = getCookie("token");
     try {
-      await axios.delete("http://localhost:3000/admin/removesentorders", {
+      await axios.delete("https://pick-up-store-backend-production.up.railway.app/admin/removesentorders", {
         data: { user, item },
         headers: {
           authorization: `Bearer ${cookieToken}`,
@@ -59,7 +59,7 @@ export default function MySentOrders() {
                             Remove
                           </Remove>
                           <ImageDiv>
-                            <Image src={`http://localhost:3000${item.image}`} />
+                            <Image src={`https://pick-up-store-backend-production.up.railway.app${item.image}`} />
                           </ImageDiv>
                           <DescriptionDiv>
                             <Name>{item.name}</Name>

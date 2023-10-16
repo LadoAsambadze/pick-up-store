@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { setActiveOrders, setSentOrders } from "../store/active-order-slice";
 import MyProducts from "../components/MyProducts";
 import MyAddProducts from "../components/MyAddProducts";
-import MyDashboard from "../components/MyDashboard";
+// import MyDashboard from "../components/MyDashboard";
 import { getCookie } from "cookies-next";
 
 export default function Admin() {
@@ -20,7 +20,7 @@ export default function Admin() {
       const getOrders = async () => {
         try {
           const response = await axios.get(
-            "http://localhost:3000/admin/getorders",
+            "https://pick-up-store-backend-production.up.railway.app/admin/getorders",
             {
               headers: {
                 authorization: `Bearer ${cookieToken}`,
@@ -37,7 +37,7 @@ export default function Admin() {
     if (section === "Sent Orders" || "Dashboard") {
       const getSentOrders = async () => {
         const response = await axios.get(
-          "http://localhost:3000/admin/getsentorders",
+          "https://pick-up-store-backend-production.up.railway.app/admin/getsentorders",
           {
             headers: {
               authorization: `Bearer ${cookieToken}`,
@@ -74,7 +74,7 @@ export default function Admin() {
             Sent Orders
           </ListButton>
         </List>
-        {section === "Dashboard" && <MyDashboard />}
+        {/* {section === "Dashboard" && <MyDashboard />} */}
         {section === "All Products" && <MyProducts />}
         {section === "Add Products" && <MyAddProducts />}
         {section === "Active Orders" && <MyActiveOrders />}
@@ -123,19 +123,19 @@ const ListButton = styled("button")`
   }
 `;
 
-const Dashboard = styled(Box)`
-  width: 100%;
-  height: 100%;
-  background: blue;
-`;
+// const Dashboard = styled(Box)`
+//   width: 100%;
+//   height: 100%;
+//   background: blue;
+// `;
 
-const AddProduct = styled(Box)`
-  width: 100%;
-  height: 100%;
-`;
+// const AddProduct = styled(Box)`
+//   width: 100%;
+//   height: 100%;
+// `;
 
-const RemoveProduct = styled(Box)`
-  width: 100%;
-  height: 100%;
-  background: red;
-`;
+// const RemoveProduct = styled(Box)`
+//   width: 100%;
+//   height: 100%;
+//   background: red;
+// `;
