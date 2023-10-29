@@ -37,14 +37,14 @@ export default function BrandCarousel(props: any) {
           itemClass="carousel-item"
         >
           <PhotoDiv
-            style={{ backgroundImage: "url('/adidas.jpg')" }}
+            style={{ backgroundImage: "url('/adidas.avif')" }}
           ></PhotoDiv>
-          <PhotoDiv style={{ backgroundImage: "url('/nike.jpg')" }}></PhotoDiv>
-          <PhotoDiv style={{ backgroundImage: "url('/puma.jpg')" }}></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/nike.avif')" }}></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/puma.avif')" }}></PhotoDiv>
           <PhotoDiv
             style={{ backgroundImage: "url('/reebok.png')" }}
           ></PhotoDiv>
-          <PhotoDiv style={{ backgroundImage: "url('/zara.jpg')" }}></PhotoDiv>
+          <PhotoDiv style={{ backgroundImage: "url('/zara.avif')" }}></PhotoDiv>
         </Carousel>
       </Section>
     </>

@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, CircularProgress, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -45,6 +45,8 @@ export default function Cart() {
 
   const allData = useSelector((state: RootState) => state.data.data);
   const arrays = allData.map((item) => item.itemList);
+  const [load, setLoad] = useState(true);
+
   type Item = {
     own_id: string;
     color: string;
@@ -171,9 +173,25 @@ export default function Cart() {
     }
   }, [isPaid]);
 
+  useEffect(() => {
+    if (selectedProducts.length > 0) setLoad(false);
+  }, [selectedProducts]);
+
   return (
     <>
-      {selectedProducts.length === 0 ? (
+      {load ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            minHeight: "100vh",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : selectedProducts.length === 0 ? (
         <EmptyBoxDiv>
           <EmptyText>No items added in cart</EmptyText>
           <BoxImage src="/empty-cart.png" />
