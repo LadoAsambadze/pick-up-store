@@ -42,7 +42,7 @@ export default function BrandCarousel(props: any) {
           <PhotoDiv style={{ backgroundImage: "url('/nike.avif')" }}></PhotoDiv>
           <PhotoDiv style={{ backgroundImage: "url('/puma.avif')" }}></PhotoDiv>
           <PhotoDiv
-            style={{ backgroundImage: "url('/reebok.png')" }}
+            style={{ backgroundImage: "url('/reebok.avif')" }}
           ></PhotoDiv>
           <PhotoDiv style={{ backgroundImage: "url('/zara.avif')" }}></PhotoDiv>
         </Carousel>

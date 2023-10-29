@@ -216,7 +216,7 @@ export default function MyAddProducts() {
                 type="file"
                 name="photo"
                 id="photo"
-                accept="image/*"
+                accept=".avif,.webp"
                 multiple
               />
             </ThirthDiv>
