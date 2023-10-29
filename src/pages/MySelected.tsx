@@ -135,7 +135,6 @@ export default function Selected() {
   if (loading) {
     return (
       <>
-    
         <div
           style={{
             display: "flex",
@@ -155,7 +154,9 @@ export default function Selected() {
     <>
       <Main>
         <DivideDivFirst>
-          <ImageDiv src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`} />
+          <ImageDiv
+            src={`https://pick-up-store-backend-production.up.railway.app${selectedImage}`}
+          />
         </DivideDivFirst>
         <DivideDivSecond>
           <Description>
@@ -266,7 +267,25 @@ export default function Selected() {
                 }}
                 src="/icon-minus.svg"
               />
-              <Quantity>{choosedAmount}</Quantity>
+              <Quantity
+                onInput={(event) => {
+                  if (selectedSize) {
+                    const target = event.target as HTMLInputElement;
+
+                    let inputValue = target.value ? Number(target.value) : 0;
+                    if (inputValue > quantity) {
+                      inputValue = quantity;
+                    }
+
+                    setChoosedAmount(inputValue);
+                  } else {
+                    setCheck(true);
+                  }
+                }}
+                value={choosedAmount}
+                type="number"
+                max={quantity}
+              />
 
               <Plus
                 onClick={() => {
@@ -466,11 +485,24 @@ const Plus = styled("img")`
   cursor: pointer;
 `;
 
-const Quantity = styled(Box)`
+const Quantity = styled("input")`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 700;
   color: #08213d;
+  background: var(--light-grayish-blue, #f4f5fd);
   font-size: 17px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 50px;
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  appearance: textfield;
 `;
 
 const AddToCart = styled("div")`
