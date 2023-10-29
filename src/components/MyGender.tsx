@@ -45,7 +45,7 @@ const MainGrid = styled(Box)`
 `;
 
 const LeftDiv = styled(Box)`
-  background-image: url("/men.jpg");
+  background-image: url("/men.avif");
   width: 100%;
   height: 250px;
   background-repeat: no-repeat;
@@ -62,7 +62,7 @@ const LeftDiv = styled(Box)`
 `;
 
 const RightDiv = styled(Box)`
-  background-image: url("/women.jpg");
+  background-image: url("/women.avif");
   width: 100%;
   height: 250px;
   background-repeat: no-repeat;
