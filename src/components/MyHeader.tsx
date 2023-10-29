@@ -16,7 +16,6 @@ export default function Header() {
   const logged = useSelector((state: RootState) => state.extra.auth);
   const search = useSelector((state: RootState) => state.search.search);
   const user = useSelector((state: RootState) => state.user);
-  console.log(user);
   const data = useSelector((state: RootState) => state.data.data);
   const [searchTab, setSearchTab] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -30,7 +29,13 @@ export default function Header() {
       <Main>
         <Description>
           <Logo src="/vite.svg" alt="Website pick up store logo" />
-          <Name>Pick Up Store </Name>
+          <Name
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Pick Up Store
+          </Name>
 
           <DestkopMenu>
             <Type
