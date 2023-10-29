@@ -150,7 +150,7 @@ const Kind = styled(Typography)`
   color: black;
   font-size: 20px;
   font-weight: 400;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
   @media (min-width: 1440px) {
     font-size: 24px;
   }
@@ -160,7 +160,7 @@ const View = styled(Typography)`
   color: #686060;
   font-size: 16px;
   font-weight: 400;
-  font-family: "Cousine", monospace;
+  font-family: "Ysabeau Office", sans-serif;
   text-decoration: underline;
   cursor: pointer;
   text-underline-offset: 5px;

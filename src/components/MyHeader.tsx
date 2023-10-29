@@ -371,6 +371,7 @@ const HeaderIcon = styled("img")`
   align-items: center;
   cursor: pointer;
   width: 30px;
+  height: 100%;
   margin-left: 4px;
   @media (min-width: 1440px) {
     width: 45px;
