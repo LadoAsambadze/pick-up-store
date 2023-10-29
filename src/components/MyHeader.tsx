@@ -435,18 +435,6 @@ const Login = styled(Button)`
   margin-top: 16px;
 `;
 
-const IconsDiv = styled(Box)`
-  width: 100%;
-  padding: 20px 55px 10px 55px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Icon = styled("img")`
-  width: 20px;
-  height: 20px;
-`;
 const Logout = styled(Box)`
   background: white;
   font-size: 17px;
