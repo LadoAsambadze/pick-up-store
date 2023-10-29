@@ -28,13 +28,6 @@ export default function Header() {
     <>
       <Main>
         <Description>
-          <Logo
-            onClick={() => {
-              navigate("/");
-            }}
-            src="/vite.svg"
-            alt="Website pick up store logo"
-          />
           <Name
             onClick={() => {
               navigate("/");
@@ -229,11 +222,6 @@ export default function Header() {
         >
           Login
         </Login>
-        <IconsDiv>
-          <Icon src="/vite.svg" />
-          <Icon src="/vite.svg" />
-          <Icon src="/vite.svg" />
-        </IconsDiv>
       </MenuList>
     </>
   );
@@ -259,16 +247,6 @@ const Description = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
-
-const Logo = styled("img")`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  @media (min-width: 1440px) {
-    width: 40px;
-    height: 40px;
-  }
 `;
 
 const Name = styled(Typography)`

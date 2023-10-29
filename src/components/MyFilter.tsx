@@ -69,7 +69,7 @@ export default function FilterComponent() {
               dispatch(setFilter(false));
             }}
           >
-            <CloseIcon src="/close.avif" />
+            <CloseIcon src="/close.avif" alt="close icon" />
           </Xdiv>
         </Header>
         <Line></Line>
@@ -80,7 +80,7 @@ export default function FilterComponent() {
             }}
           >
             <Type>Gender</Type>
-            <Arrow src="/Icon.svg" />
+            <Arrow src="/Icon.svg" alt="arrow icon" />
           </HeaderDiv>
           <div style={{ display: gender ? "flex" : "none", marginTop: "20px" }}>
             {genderOptions.map((item) => (
@@ -101,7 +101,7 @@ export default function FilterComponent() {
           </div>
           <HeaderDiv onClick={() => setCategory(!category)}>
             <Type>Category</Type>
-            <Arrow src="/Icon.svg" />
+            <Arrow src="/Icon.svg" alt="arrow icon" />
           </HeaderDiv>
           <div style={{ display: category ? "block" : "none" }}>
             {categoryOptions.map((item) => (
@@ -126,7 +126,7 @@ export default function FilterComponent() {
             }}
           >
             <Type>Brand</Type>
-            <Arrow src="/Icon.svg" />
+            <Arrow src="/Icon.svg" alt="arrow icon" />
           </HeaderDiv>
           <BrandDiv style={{ display: brand ? "flex" : "none" }}>
             {brandOptions.map((item) => (
