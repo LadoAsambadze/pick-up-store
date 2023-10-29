@@ -69,7 +69,7 @@ export default function FilterComponent() {
               dispatch(setFilter(false));
             }}
           >
-            <CloseIcon src="/close.png" />
+            <CloseIcon src="/close.avif" />
           </Xdiv>
         </Header>
         <Line></Line>

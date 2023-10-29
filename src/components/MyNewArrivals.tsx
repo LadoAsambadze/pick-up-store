@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import RedHeart from "/public/red-heart.png";
+import RedHeart from "/public/red-heart.avif";
 import WhiteHeart from "/public/heart.svg";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
 

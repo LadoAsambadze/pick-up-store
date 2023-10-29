@@ -18,9 +18,9 @@ export default function Footer() {
           </SectionStore>
         </Description>
         <IconDiv>
-          <Icon src="facebook.png" alt="Facebook icon" />
-          <Icon src="instagram.png" alt="Instagram icon" />
-          <Icon src="twitter.png" alt="Twitter icon" />
+          <Icon src="facebook.avif" alt="Facebook icon" />
+          <Icon src="instagram.avif" alt="Instagram icon" />
+          <Icon src="twitter.avif" alt="Twitter icon" />
         </IconDiv>
       </MainDiv>
     </>

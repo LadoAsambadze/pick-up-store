@@ -20,7 +20,7 @@ export default function MyProducts() {
             }}
           >
             <Filter>Filter</Filter>
-            <FilterIcon src="/filter.png" />
+            <FilterIcon src="/filter.avif" />
           </FilterDiv>
           <Sort />
         </FindBy>

@@ -84,7 +84,7 @@ export default function Header() {
               setSearchTab(true);
             }}
           >
-            <SearchIcon src="/search-black.png" alt="Search loop icon" />
+            <SearchIcon src="/search-black.avif" alt="Search loop icon" />
             <SearchLabel>Search</SearchLabel>
           </SearchDiv>
 
@@ -105,7 +105,7 @@ export default function Header() {
                 user.userinfo && user.userinfo.isAdmin ? "block" : "none",
               padding: 0,
             }}
-            src="/admin.png"
+            src="/admin.avif"
             alt="Admin"
             onClick={() => {
               navigate("/Admin");
@@ -136,13 +136,13 @@ export default function Header() {
             Log out
           </Logout>
 
-          <Menu onClick={menuHandler} src="/menu-white.png" alt="Menu icon" />
+          <Menu onClick={menuHandler} src="/menu-white.avif" alt="Menu icon" />
         </Shop>
       </Main>
       <SearchAbsolute style={{ display: searchTab ? "block" : "none" }}>
         <SearchSection>
           <SearchDivAbsolute>
-            <SearchIcon src="/search-black.png" alt="Search loop icon" />
+            <SearchIcon src="/search-black.avif" alt="Search loop icon" />
             <SearchInput
               style={{
                 display: "block",

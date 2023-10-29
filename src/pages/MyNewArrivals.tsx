@@ -7,7 +7,7 @@ import { setFilter } from "../store/filter-slice";
 import { RootState } from "../store/redux";
 import { useNavigate } from "react-router-dom";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
-import RedHeart from "/public/red-heart.png";
+import RedHeart from "/public/red-heart.avif";
 import WhiteHeart from "/public/heart.svg";
 
 export default function MyNewArrivals() {
@@ -30,7 +30,7 @@ export default function MyNewArrivals() {
             }}
           >
             <Filter>Filter</Filter>
-            <FilterIcon src="/filter.png" />
+            <FilterIcon src="/filter.avif" />
           </FilterDiv>
 
           <Sort />

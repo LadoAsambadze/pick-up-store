@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/redux";
-import RedHeart from "/public/red-heart.png";
+import RedHeart from "/public/red-heart.avif";
 import WhiteHeart from "/public/heart.svg";
 import { removeFavourite, setFavourites } from "../store/favourites-slice";
 
@@ -17,7 +17,6 @@ export default function Favourites() {
     (state: RootState) => state.favourites.favourites
   );
   const filteredData = data.filter((item) => favourites.includes(item._id));
-
 
   return (
     <>
@@ -38,7 +37,7 @@ export default function Favourites() {
           {filteredData.length === 0 ? (
             <EmptyBoxDiv>
               <EmptyText>No items added in favourites</EmptyText>
-              <BoxImage src="/box.png" />
+              <BoxImage src="/box.avif" />
             </EmptyBoxDiv>
           ) : (
             filteredData.map((item, index) => (

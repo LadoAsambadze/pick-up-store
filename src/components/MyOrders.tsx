@@ -5,7 +5,7 @@ export default function Orders() {
     <>
       <Main>
         <OrderDiv>
-          <OrderImage src="/delete.png" />
+          <OrderImage src="/delete.avif" />
 
           <OrderItemsSection>
             <User>qegqeg</User>

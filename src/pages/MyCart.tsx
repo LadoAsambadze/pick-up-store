@@ -194,7 +194,7 @@ export default function Cart() {
       ) : selectedProducts.length === 0 ? (
         <EmptyBoxDiv>
           <EmptyText>No items added in cart</EmptyText>
-          <BoxImage src="/empty-cart.png" />
+          <BoxImage src="/empty-cart.avif" />
         </EmptyBoxDiv>
       ) : (
         <Main>
@@ -309,7 +309,7 @@ export default function Cart() {
                   <DescriptionSecondary>
                     <ControlIcon src="/heart.svg" />
                     <ControlIcon
-                      src="/delete.png"
+                      src="/delete.avif"
                       onClick={() => {
                         deleteProduct(item.purchase_id);
                       }}

@@ -55,7 +55,7 @@ export default function Signup() {
         <Succes>
           <SuccesOutDiv>
             <SuccessText>Successfully signed up!</SuccessText>
-            <SuccesImg src="/check.png" alt="Succes sing icon" />
+            <SuccesImg src="/check.avif" alt="Succes sing icon" />
           </SuccesOutDiv>
         </Succes>
       ) : (
