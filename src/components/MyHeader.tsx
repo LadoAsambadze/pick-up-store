@@ -28,7 +28,13 @@ export default function Header() {
     <>
       <Main>
         <Description>
-          <Logo src="/vite.svg" alt="Website pick up store logo" />
+          <Logo
+            onClick={() => {
+              navigate("/");
+            }}
+            src="/vite.svg"
+            alt="Website pick up store logo"
+          />
           <Name
             onClick={() => {
               navigate("/");
@@ -61,7 +67,6 @@ export default function Header() {
             >
               Shoes
             </Type>
-            <Type>Sale</Type>
             <Type
               onClick={() => {
                 navigate("/NewArrivals");
@@ -259,6 +264,7 @@ const Description = styled(Box)`
 const Logo = styled("img")`
   width: 25px;
   height: 25px;
+  cursor: pointer;
   @media (min-width: 1440px) {
     width: 40px;
     height: 40px;
