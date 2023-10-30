@@ -29,6 +29,7 @@ export default function FilterComponent() {
   const redux = useSelector((state: RootState) => state.filter);
   const handleChange = (_event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
+    console.log(newValue);
   };
   const clotheOptions = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
   let shoesOptions = [];
@@ -37,7 +38,7 @@ export default function FilterComponent() {
   }
 
   const genderOptions = ["Male", "Female", "Unisex"];
-  const categoryOptions = ["Women", "Men", "Kids"];
+  const categoryOptions = ["Woman", "Man", "Kids"];
   const brandOptions = ["Adidas", "Nike", "Puma", "Zara", "Rebook"];
   const handleSize = (sizeContent: string) => {
     dispatch(setSizeType(sizeContent));
@@ -54,7 +55,7 @@ export default function FilterComponent() {
 
   const location = useLocation();
   const isPage = location.pathname;
-  console.log(isPage);
+  console.log(redux.priceAmount);
 
   return (
     <>
@@ -163,6 +164,7 @@ export default function FilterComponent() {
                 value={redux.priceAmount}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
+                max={500}
               />
             </Box>
           </PriceRangeDiv>

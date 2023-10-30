@@ -130,6 +130,7 @@ export default function Clothes() {
                       <Brand>{item.brand}</Brand>
                     </Description>
                     <Price>$ {item.price}</Price>
+
                     <Favourite
                       src={
                         favourites.includes(item._id) ? RedHeart : WhiteHeart
