@@ -25,6 +25,8 @@ interface User {
 }
 
 export default function Cart() {
+  const cookieYes = getCookie("token");
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
@@ -176,6 +178,9 @@ export default function Cart() {
   useEffect(() => {
     if (selectedProducts.length > 0) setLoad(false);
   }, [selectedProducts]);
+  useEffect(() => {
+    if (cookieYes === undefined) setLoad(false);
+  }, [cookieYes]);
 
   return (
     <>
@@ -191,7 +196,7 @@ export default function Cart() {
         >
           <CircularProgress />
         </div>
-      ) : selectedProducts.length === 0 ? (
+      ) : selectedProducts.length === 0 || cookieYes === undefined ? (
         <EmptyBoxDiv>
           <EmptyText>No items added in cart</EmptyText>
           <BoxImage src="/empty-cart.avif" />
