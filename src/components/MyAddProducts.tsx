@@ -151,17 +151,17 @@ export default function MyAddProducts() {
               <Label htmlFor="name">Product Name:</Label>
               <InputEl type="text" name="name" id="name" required />
 
-              <Label htmlFor="new" required>
+              <Label htmlFor="new" >
                 New Product:
-                <InputEl2 type="radio" name="new" value="true" />
+                <InputEl2 type="radio" name="new" value="true" required />
                 Yes
-                <InputEl2 type="radio" name="new" value="false" />
+                <InputEl2 type="radio" name="new" value="false" required />
                 No
               </Label>
             </FirstDiv>
             <SecondDiv>
               <Label htmlFor="color">Color:</Label>
-              <InputEl type="text" name="color" id="color" />
+              <InputEl type="text" name="color" id="color" required />
 
               <Label htmlFor="size-type">Size Type:</Label>
               <Select
@@ -216,6 +216,7 @@ export default function MyAddProducts() {
                   id="photo"
                   accept=".avif,.webp"
                   multiple
+                  required
                 />
               </ThirthDiv>
               <InputEl type="submit" value="Upload Product" />
