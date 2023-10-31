@@ -25,14 +25,16 @@ export default function Login() {
   const getUserInfo = async () => {
     const cookieToken = getCookie("token");
     if (cookieToken) {
-      const response = await axios.get("https://pick-up-store-backend-production.up.railway.app/user/profile", {
-        headers: {
-          authorization: `Bearer ${cookieToken}`,
-        },
-      });
+      const response = await axios.get(
+        "https://pick-up-store-backend-production.up.railway.app/user/profile",
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
       dispatch(setUser(response.data.useData));
       dispatch(setAuth(true));
-
     }
   };
   const dispatch = useDispatch();
@@ -107,7 +109,7 @@ const Main = styled(Box)`
     padding: 40px 150px 40px 150px;
   }
   @media (min-width: 900px) {
-    padding: 40px 350px 40px 350px;
+    padding: 40px 220px 40px 220px;
   }
   @media (min-width: 1100px) {
     padding: 40px 350px 40px 350px;
@@ -118,6 +120,7 @@ const Main = styled(Box)`
 `;
 const LogIn = styled(Box)`
   background: white;
+  border-radius: 5px;
   width: 100%;
   padding: 40px 30px 40px 30px;
   display: flex;
