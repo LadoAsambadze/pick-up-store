@@ -206,6 +206,11 @@ const ArrivalDiv = styled(Box)`
   cursor: pointer;
   justify-content: flex-end;
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   @media (min-width: 1440px) {
     border: 2px solid #d8d8e1;
   }
@@ -214,6 +219,7 @@ const ArrivalDiv = styled(Box)`
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
+
   height: 150px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -275,6 +281,7 @@ const Name = styled(Typography)`
   font-weight: 400;
   font-family: "Ysabeau Office", sans-serif;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   @media (min-width: 1440px) {
     font-size: 16px;

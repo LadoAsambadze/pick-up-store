@@ -224,6 +224,7 @@ const MainGrid = styled(Box)`
 `;
 const ArrivalDiv = styled(Box)`
   display: flex;
+
   flex-direction: column;
   border: 1px solid #d8d8e1;
   border-radius: 5px;
