@@ -153,9 +153,9 @@ export default function MyAddProducts() {
 
               <Label htmlFor="new" required>
                 New Product:
-                <InputEl type="radio" name="new" value="true" />
+                <InputEl2 type="radio" name="new" value="true" />
                 Yes
-                <InputEl type="radio" name="new" value="false" />
+                <InputEl2 type="radio" name="new" value="false" />
                 No
               </Label>
             </FirstDiv>
@@ -207,19 +207,19 @@ export default function MyAddProducts() {
                     )}
                   />
                 ))}
-
-              <input type="submit" value="Upload Product" />
+              <ThirthDiv>
+                <Label htmlFor="photo">Upload Photo:</Label>
+                <InputEl2
+                  style={{ width: "100%", marginLeft: 0 }}
+                  type="file"
+                  name="photo"
+                  id="photo"
+                  accept=".avif,.webp"
+                  multiple
+                />
+              </ThirthDiv>
+              <InputEl type="submit" value="Upload Product" />
             </SecondDiv>
-            <ThirthDiv>
-              <Label htmlFor="photo">Upload Photo:</Label>
-              <input
-                type="file"
-                name="photo"
-                id="photo"
-                accept=".avif,.webp"
-                multiple
-              />
-            </ThirthDiv>
           </FormDiv>
         </form>
       </Main>
@@ -230,7 +230,7 @@ export default function MyAddProducts() {
 const Main = styled(Box)`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 30px;
   width: 100%;
 `;
 const Header = styled(Typography)`
@@ -239,6 +239,7 @@ const Header = styled(Typography)`
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
+  margin-bottom: 10px;
 `;
 
 const Label = styled(FormLabel)``;
@@ -247,6 +248,10 @@ const Select = styled("select")`
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 20px;
+  width: 50%;
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Option = styled("option")`
@@ -258,12 +263,28 @@ const InputEl = styled("input")`
   padding: 10px;
   font-size: 16px;
   margin-bottom: 20px;
+  width: 50%;
+  @media (min-width: 768px) {
+    width: 100%;
+  }
 `;
 
+const InputEl2 = styled("input")`
+  border: 1px solid gray;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 15px;
+`;
 const FormDiv = styled(Box)`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 `;
 const FirstDiv = styled(Box)`
   display: flex;
@@ -272,6 +293,10 @@ const FirstDiv = styled(Box)`
 const SecondDiv = styled(Box)`
   display: flex;
   flex-direction: column;
+  margin-left: 0;
+  @media (min-width: 768px) {
+    margin-left: 25%;
+  }
 `;
 const ThirthDiv = styled(Box)`
   display: flex;
