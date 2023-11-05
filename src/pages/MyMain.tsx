@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import BrandCarousel from "../components/MyBrandCarousel";
-
 import NewArrivals from "../components/MyNewArrivals";
 import Gender from "../components/MyGender";
 import { useState } from "react";
 import Sales from "../components/MySales";
-import MyAdverties from "../components/MyAdverties";
 import MyShopAdress from "../components/MyShopAdress";
 
 export default function Main() {
@@ -32,8 +30,6 @@ export default function Main() {
       <Gender />
       <NewArrivals />
       <Sales />
-      <MyAdverties />
-
       <MyShopAdress />
       <div ref={brandCarouselRef}>{showBrandCarousel && <BrandCarousel />}</div>
     </>

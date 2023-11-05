@@ -228,7 +228,7 @@ export default function Header() {
 }
 
 const Main = styled(Box)`
-  background: #d4d4c9;
+  background: #d1d4c9;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -253,11 +253,10 @@ const Name = styled(Typography)`
   display: none;
   @media (min-width: 1440px) {
     display: block;
-    font-size: 20px;
     color: #333333;
     text-shadow: 0px 0px 5px #fff;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 24px;
     margin-left: 10px;
     cursor: pointer;
     font-family: "Ysabeau Office", sans-serif;
@@ -389,6 +388,11 @@ const Type = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   margin-left: 40px;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 2px;
+  }
 `;
 
 const MenuList = styled(Box)`

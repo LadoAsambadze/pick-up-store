@@ -1,20 +1,18 @@
 import { styled } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography/Typography";
-import LightBanner from "./MyLightBanner";
 
 export default function Footer() {
   return (
     <>
-      <LightBanner />
       <MainDiv>
         <Description>
           <SectionStore>
             <Kind>About Us</Kind>
             <Kind>Legacy</Kind>
             <Kind>Follow</Kind>
-            <Kind>Test</Kind>
-            <Kind>Test</Kind>
+            <Kind>Location</Kind>
+            <Kind>Contact</Kind>
           </SectionStore>
         </Description>
         <IconDiv>
@@ -32,9 +30,9 @@ const MainDiv = styled("div")`
   background: #d4d4c9;
   display: flex;
   flex-direction: column;
-  padding: 0px 50px 65px 50px;
+  padding: 20px 50px 65px 50px;
   @media (min-width: 1440px) {
-    padding: 0px 165px 44px 165px;
+    padding: 40px 140px 44px 140px;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -68,6 +66,11 @@ const Kind = styled(Typography)`
   margin-top: 10px;
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 300;
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 2px;
+  }
   @media (min-width: 1440px) {
     margin-top: 0;
     margin-right: 15px;

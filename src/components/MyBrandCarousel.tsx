@@ -97,7 +97,6 @@ const PhotoDiv = styled("div")`
   width: 100%;
   height: 200px;
   border-radius: 5px;
-  cursor: pointer;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

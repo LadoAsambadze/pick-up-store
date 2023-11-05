@@ -5,10 +5,23 @@ export default function MyShopAdress() {
     <Main>
       <ImgDiv>
         <Img src="bge.jpg" />
+        <LocButton
+          onClick={() =>
+            window.open("https://maps.app.goo.gl/XsEPkjhhTSHvWkUc9", "_blank")
+          }
+        >
+          Sales
+        </LocButton>
       </ImgDiv>
       <ImgDiv>
         <Img src="bg.jpg" />
-        <LogDone>Location</LogDone>
+        <LocButton
+          onClick={() =>
+            window.open("https://maps.app.goo.gl/XsEPkjhhTSHvWkUc9", "_blank")
+          }
+        >
+          Location
+        </LocButton>
       </ImgDiv>
     </Main>
   );
@@ -34,15 +47,14 @@ const Img = styled("img")`
   max-width: 100%;
 `;
 
-const LogDone = styled(Button)`
-  border-radius: 10px;
+const LocButton = styled(Button)`
   background: white;
   color: black;
   text-align: center;
-  font-size: 13px;
+  font-size: 15px;
   font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: normal;
   padding: 14px 30px 15px 30px;
   margin-top: 40px;

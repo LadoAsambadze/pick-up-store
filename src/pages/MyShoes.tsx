@@ -201,7 +201,7 @@ const MainGrid = styled(Box)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 1px solid #d8d8e1;
+  border: 1px solid #169c89;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
@@ -219,7 +219,6 @@ const ArrivalDiv = styled(Box)`
 const ImageDiv = styled(Box)`
   display: flex;
   width: 100%;
-
   height: 150px;
   background-size: cover;
   background-repeat: no-repeat;
