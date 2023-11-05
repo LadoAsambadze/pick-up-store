@@ -41,9 +41,7 @@ export default function Signup() {
       );
       setSign(true);
     } catch (error) {
-      console.error("Signup failed:", error);
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data);
         setErrorMessage(error.response?.data.message);
       }
     }

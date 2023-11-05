@@ -76,8 +76,6 @@ export default function NewArrivals(props: any) {
                   onClick={() => {
                     const id = item._id;
                     const newData = data.find((item) => item._id === id);
-                    console.log(newData);
-                    console.log(id);
                     if (newData) {
                       if (newData.type === "Shoes") {
                         navigate(`/shoes/${id}`);

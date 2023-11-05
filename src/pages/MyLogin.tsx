@@ -56,8 +56,6 @@ export default function Login() {
         navigate("/");
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.error("Login failed:", error);
-          console.log(error.response?.data);
           setErrorMessage(error.response?.data.message);
         }
       }

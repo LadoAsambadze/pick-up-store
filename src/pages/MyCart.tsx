@@ -37,7 +37,6 @@ export default function Cart() {
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
-        console.error("Error fetching data:", error);
         dispatch(setLoading(true));
       }
     };
@@ -176,11 +175,20 @@ export default function Cart() {
   }, [isPaid]);
 
   useEffect(() => {
-    if (selectedProducts.length > 0) setLoad(false);
+    if (selectedProducts.length > 0) {
+      setLoad(false);
+    }
   }, [selectedProducts]);
+
   useEffect(() => {
     if (cookieYes === undefined) setLoad(false);
   }, [cookieYes]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false);
+    }, 1000);
+  }, []);
 
   return (
     <>
@@ -196,12 +204,7 @@ export default function Cart() {
         >
           <CircularProgress />
         </div>
-      ) : selectedProducts.length === 0 || cookieYes === undefined ? (
-        <EmptyBoxDiv>
-          <EmptyText>No items added in cart</EmptyText>
-          <BoxImage src="/empty-cart.avif" />
-        </EmptyBoxDiv>
-      ) : (
+      ) : selectedProducts.length > 0 ? (
         <Main>
           <FirstDiv>
             {selectedProducts.map((item, index) => (
@@ -440,6 +443,16 @@ export default function Cart() {
             </div>
           </SecondDiv>
         </Main>
+      ) : selectedProducts.length === 0 || cookieYes === undefined ? (
+        <EmptyBoxDiv>
+          <EmptyText>No items added in cart</EmptyText>
+          <BoxImage src="/empty-cart.avif" />
+        </EmptyBoxDiv>
+      ) : (
+        <EmptyBoxDiv>
+          <EmptyText>No items added in cart</EmptyText>
+          <BoxImage src="/empty-cart.avif" />
+        </EmptyBoxDiv>
       )}
     </>
   );

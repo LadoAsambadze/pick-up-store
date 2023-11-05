@@ -29,7 +29,6 @@ export default function FilterComponent() {
   const redux = useSelector((state: RootState) => state.filter);
   const handleChange = (_event: Event, newValue: number | number[]) => {
     dispatch(setPriceAmount(newValue as number[]));
-    console.log(newValue);
   };
   const clotheOptions = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
   let shoesOptions = [];
@@ -55,7 +54,6 @@ export default function FilterComponent() {
 
   const location = useLocation();
   const isPage = location.pathname;
-  console.log(redux.priceAmount);
 
   return (
     <>

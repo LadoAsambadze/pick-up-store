@@ -7,16 +7,15 @@ import { useDispatch } from "react-redux";
 import { setActiveOrders, setSentOrders } from "../store/active-order-slice";
 import MyProducts from "../components/MyProducts";
 import MyAddProducts from "../components/MyAddProducts";
-// import MyDashboard from "../components/MyDashboard";
 import { getCookie } from "cookies-next";
 
 export default function Admin() {
   const dispatch = useDispatch();
-  const [section, setSection] = useState("Dashboard");
+  const [section, setSection] = useState("Page Statistic");
 
   useEffect(() => {
     const cookieToken = getCookie("token");
-    if (section === "Active Orders" || "Dashboard") {
+    if (section === "Active Orders" || "Page Statistic") {
       const getOrders = async () => {
         try {
           const response = await axios.get(
@@ -34,7 +33,7 @@ export default function Admin() {
       };
       getOrders();
     }
-    if (section === "Sent Orders" || "Dashboard") {
+    if (section === "Sent Orders" || "Page Statistic") {
       const getSentOrders = async () => {
         const response = await axios.get(
           "https://pick-up-store-backend-production.up.railway.app/admin/getsentorders",
@@ -58,23 +57,43 @@ export default function Admin() {
     <>
       <Main>
         <List>
-          <ListButton onClick={defineSection} value="Dashboard">
-            Dashboard
+          <ListButton
+            onClick={defineSection}
+            value="Page Statistic"
+            style={{ background: section === "Page Statistic" ? "green" : "" }}
+          >
+            Page Statistic
           </ListButton>
-          <ListButton onClick={defineSection} value="All Products">
+          <ListButton
+            onClick={defineSection}
+            style={{ background: section === "All Products" ? "green" : "" }}
+            value="All Products"
+          >
             All Products
           </ListButton>
-          <ListButton onClick={defineSection} value="Add Products">
+          <ListButton
+            onClick={defineSection}
+            style={{ background: section === "Add Products" ? "green" : "" }}
+            value="Add Products"
+          >
             Add Products
           </ListButton>
-          <ListButton onClick={defineSection} value="Active Orders">
+          <ListButton
+            onClick={defineSection}
+            style={{ background: section === "Active Orders" ? "green" : "" }}
+            value="Active Orders"
+          >
             Active Orders
           </ListButton>
-          <ListButton onClick={defineSection} value="Sent Orders">
+          <ListButton
+            onClick={defineSection}
+            style={{ background: section === "Sent Orders" ? "green" : "" }}
+            value="Sent Orders"
+          >
             Sent Orders
           </ListButton>
         </List>
-        {/* {section === "Dashboard" && <MyDashboard />} */}
+        {/* {section === "Page Statistic" && <MyPage Statistic />} */}
         {section === "All Products" && <MyProducts />}
         {section === "Add Products" && <MyAddProducts />}
         {section === "Active Orders" && <MyActiveOrders />}
@@ -94,7 +113,6 @@ const Main = styled(Box)`
     flex-direction: row;
   }
 `;
-
 const List = styled(Box)`
   background: gray;
   display: flex;
@@ -122,20 +140,3 @@ const ListButton = styled("button")`
     width: 130px;
   }
 `;
-
-// const Dashboard = styled(Box)`
-//   width: 100%;
-//   height: 100%;
-//   background: blue;
-// `;
-
-// const AddProduct = styled(Box)`
-//   width: 100%;
-//   height: 100%;
-// `;
-
-// const RemoveProduct = styled(Box)`
-//   width: 100%;
-//   height: 100%;
-//   background: red;
-// `;

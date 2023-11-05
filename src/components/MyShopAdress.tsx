@@ -4,17 +4,11 @@ export default function MyShopAdress() {
   return (
     <Main>
       <ImgDiv>
-        <Img src="bge.jpg" />
-        <LocButton
-          onClick={() =>
-            window.open("https://maps.app.goo.gl/XsEPkjhhTSHvWkUc9", "_blank")
-          }
-        >
-          Sales
-        </LocButton>
+        <Img src="bge.webp" />
+        <LocButton>Sales</LocButton>
       </ImgDiv>
       <ImgDiv>
-        <Img src="bg.jpg" />
+        <Img src="bg.webp" />
         <LocButton
           onClick={() =>
             window.open("https://maps.app.goo.gl/XsEPkjhhTSHvWkUc9", "_blank")
@@ -49,19 +43,27 @@ const Img = styled("img")`
 
 const LocButton = styled(Button)`
   background: white;
-  color: black;
+  color: #645555;
   text-align: center;
-  font-size: 15px;
+  font-size: 12px;
   font-family: "Ysabeau Office", sans-serif;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  padding: 14px 30px 15px 30px;
+  padding: 10px 20px 10px 20px;
   margin-top: 40px;
   position: absolute;
-  left: 100px;
+  right: 20px;
   bottom: 20px;
+  border: 1px solid black;
   &:hover {
     background: gray;
+    color: white;
+  }
+  @media (min-width: 768px) {
+    padding: 15px 30px 15px 30px;
+    font-size: 15px;
+    right: 50px;
+    bottom: 50px;
   }
 `;

@@ -23,12 +23,13 @@ import MyNewArrivals from "./pages/MyNewArrivals";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  console.log(user.userinfo?.isAdmin);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getAll = await axios.get("https://pick-up-store-backend-production.up.railway.app/api/users");
+        const getAll = await axios.get(
+          "https://pick-up-store-backend-production.up.railway.app/api/users"
+        );
         dispatch(setData(getAll.data.products));
         dispatch(setLoading(false));
       } catch (error) {
@@ -71,7 +72,6 @@ function App() {
           path="/Admin"
           element={user.userinfo?.isAdmin ? <Admin /> : <Navigate to="/" />}
         />
-
         <Route path="/NewArrivals" element={<MyNewArrivals />} />
       </Routes>
       <Footer />
@@ -80,7 +80,7 @@ function App() {
 }
 
 const Wrapper = styled(Box)`
-  transition: transform 1s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   width: 100%;
   height: 100%;
   position: fixed;
