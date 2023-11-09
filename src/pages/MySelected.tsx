@@ -307,9 +307,6 @@ export default function Selected() {
               <CartIcon src="/cart-icon.svg" alt="Cart Icon" />
               <ButtonText>Add To Cart</ButtonText>
             </AddToCart>
-
-            <Reviews>Reviews</Reviews>
-            <Rating name="read-only" value={4.3} readOnly />
           </FromSizeDiv>
         </DivideDivSecond>
         <ToastContainer />

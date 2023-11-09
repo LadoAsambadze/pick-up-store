@@ -115,7 +115,8 @@ export default function Header() {
             src="/user.svg"
             alt="User icon"
           />
-          <Logout
+          <HeaderIcon
+            src="logout.avif"
             style={{ display: logged ? "block" : "none" }}
             onClick={() => {
               deleteCookie("token");
@@ -125,9 +126,7 @@ export default function Header() {
               });
               window.location.reload();
             }}
-          >
-            Log out
-          </Logout>
+          />
 
           <Menu onClick={menuHandler} src="/menu-white.avif" alt="Menu icon" />
         </Shop>
@@ -147,14 +146,13 @@ export default function Header() {
                 dispatch(setSearch(e.target.value));
               }}
             />
-            <div
-              style={{ position: "absolute", top: "-20px", right: "-20px" }}
+            <Xdiv
               onClick={() => {
                 setSearchTab(false);
               }}
             >
               X
-            </div>
+            </Xdiv>
             {search !== "" && (
               <LiveSearch>
                 {data
@@ -200,6 +198,7 @@ export default function Header() {
         <Choose
           onClick={() => {
             navigate("/shoes");
+            setMenu(false);
           }}
           variant="text"
         >
@@ -208,20 +207,30 @@ export default function Header() {
         <Choose
           onClick={() => {
             navigate("/clothes");
+            setMenu(false);
           }}
           variant="text"
         >
           Clothes
         </Choose>
-        <Choose variant="text">Sales</Choose>
+        <Choose
+          variant="text"
+          onClick={() => {
+            navigate("/newarrivals");
+            setMenu(false);
+          }}
+        >
+          Arrivals
+        </Choose>
         <Line></Line>
-        <Login
+        <Choose
           onClick={() => {
             navigate("/login");
+            setMenu(false);
           }}
         >
           Login
-        </Login>
+        </Choose>
       </MenuList>
     </>
   );
@@ -230,6 +239,7 @@ export default function Header() {
 const Main = styled(Box)`
   background: #d1d4c9;
   width: 100%;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -250,7 +260,6 @@ const Description = styled(Box)`
 `;
 
 const Name = styled(Typography)`
-  display: none;
   @media (min-width: 1440px) {
     display: block;
     color: #333333;
@@ -301,7 +310,7 @@ const SearchLabel = styled(Typography)`
 const SearchAbsolute = styled(Box)`
   width: 100%;
   min-height: 100vh;
-  position: fixed;
+  position: absolute;
   background: white;
   top: 0;
   left: 0;
@@ -316,14 +325,14 @@ const SearchDivAbsolute = styled(Box)`
   border: 1px solid #7c7a77;
   position: relative;
   border-radius: 8px;
-  border: none;
 `;
 const SearchSection = styled(Box)`
   width: 100%;
   background: #cac4c4;
-  padding: 20px 50px 20px 50px;
-  @media (min-width: 768px) {
-    padding: 20px 50px 20px 50px;
+  padding: 15px 20px 15px 20px;
+
+  @media (min-width: 1440px) {
+    padding: 32px 60px 35px 60px;
   }
 `;
 
@@ -396,9 +405,9 @@ const Type = styled(Typography)`
 `;
 
 const MenuList = styled(Box)`
-  width: 270px;
-  height: 360px;
-  background: linear-gradient(to top, black, #2c282c);
+  width: 50%;
+  height: 300px;
+  background: #979991;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -417,7 +426,8 @@ const Choose = styled(Button)`
   color: white;
   font-family: "Ysabeau Office", sans-serif;
   border: 1px solid lightgreen;
-  background-color: black;
+  background-color: white;
+  color: black;
   width: 50%;
   margin-top: 12px;
 `;
@@ -430,32 +440,21 @@ const Line = styled(Box)`
   left: 0;
 `;
 
-const Login = styled(Button)`
-  color: white;
-  font-family: "Ysabeau Office", sans-serif;
-  border: 1px solid white;
-  background-color: black;
-  width: 50%;
-  margin-top: 16px;
-`;
-
-const Logout = styled(Box)`
-  background: white;
-  font-size: 17px;
-  margin-left: 15px;
-  cursor: pointer;
-`;
-
 const LiveSearch = styled(Box)`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   width: 100%;
   position: absolute;
   left: 0;
-  top: 63px;
+  top: 60px;
   border: 1px solid gray;
+  background-color: white;
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 1440px) {
+    top: 80px;
   }
 `;
 
@@ -464,6 +463,7 @@ const LiveSearchItem = styled(Box)`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  border: 1px solid black;
 `;
 
 const SmallImageDiv = styled(Box)`
@@ -489,6 +489,17 @@ const DescriptionDiv = styled(Box)`
   background-color: gray;
 `;
 
+const Xdiv = styled(Button)`
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  color: black;
+  cursor: pointer;
+  &:hover {
+    background: #7c7ca6;
+  }
+`;
 const ItemName = styled(Typography)``;
 
 const ItemPrice = styled(Typography)``;
