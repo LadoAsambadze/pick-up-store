@@ -13,12 +13,15 @@ export default function MySentOrders() {
   const removeOrder = async (user: any, item: any) => {
     const cookieToken = getCookie("token");
     try {
-      await axios.delete("https://pick-up-store-backend-production.up.railway.app/admin/removesentorders", {
-        data: { user, item },
-        headers: {
-          authorization: `Bearer ${cookieToken}`,
-        },
-      });
+      await axios.delete(
+        "https://pick-up-store-backend-production.up.railway.app/admin/removesentorders",
+        {
+          data: { user, item },
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
       const updatedSentOrders = sentOrders.map((order) => {
         if (order.user === user) {
           const updatedSentOrderItems = order.orderItems.filter(
@@ -43,7 +46,7 @@ export default function MySentOrders() {
         {sentOrders &&
           [...new Set(sentOrders.map((item) => item.user))].map((user) => (
             <User key={user}>
-              user: {user}
+              <strong>User:</strong> {user}
               <UserDiv>
                 {sentOrders &&
                   sentOrders
@@ -59,7 +62,9 @@ export default function MySentOrders() {
                             Remove
                           </Remove>
                           <ImageDiv>
-                            <Image src={`https://pick-up-store-backend-production.up.railway.app${item.image}`} />
+                            <Image
+                              src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
+                            />
                           </ImageDiv>
                           <DescriptionDiv>
                             <Name>{item.name}</Name>
@@ -112,7 +117,6 @@ const SentOrders = styled(Box)`
 const UserDiv = styled(Box)`
   width: 100%;
   height: 100%;
-
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -124,7 +128,13 @@ const UserDiv = styled(Box)`
 const User = styled(Box)`
   width: 100%;
   height: 100%;
-  background: #b3afaf;
+  background: #8eb455;
+  padding: 20px;
+  color: #221616;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  font-style: normal;
 `;
 const ProductDiv = styled(Box)`
   display: flex;
@@ -172,6 +182,7 @@ const DescriptionItem = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 300;
   margin-right: 5px;
+  margin-top: 10px;
 `;
 
 const ProductDetails = styled(Box)`
@@ -191,6 +202,7 @@ const ShippingItem = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 400;
   line-height: 15px;
+  margin-top: 10px;
 `;
 
 const Remove = styled("button")`
@@ -200,4 +212,7 @@ const Remove = styled("button")`
   position: absolute;
   right: 0;
   top: 0;
+  border-radius: 2px;
+  opacity: 0.9;
+  border: none;
 `;

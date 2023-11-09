@@ -18,11 +18,15 @@ export default function MyActiveOrders() {
       orderItems: [orderItem],
     };
     if (sentItem.user && sentItem.orderItems) {
-      await axios.post("https://pick-up-store-backend-production.up.railway.app/admin/sentorders", sentItem, {
-        headers: {
-          authorization: `Bearer ${cookieToken}`,
-        },
-      });
+      await axios.post(
+        "https://pick-up-store-backend-production.up.railway.app/admin/sentorders",
+        sentItem,
+        {
+          headers: {
+            authorization: `Bearer ${cookieToken}`,
+          },
+        }
+      );
       const updatedOrders = activeOrders.map((order) => {
         if (order.user === user) {
           const updatedOrderItems = order.orderItems.filter(
@@ -44,7 +48,7 @@ export default function MyActiveOrders() {
         {activeOrders &&
           [...new Set(activeOrders.map((item) => item.user))].map((user) => (
             <User key={user}>
-              user: {user}
+              <strong>User:</strong> {user}
               <UserDiv>
                 {activeOrders &&
                   activeOrders
@@ -60,7 +64,9 @@ export default function MyActiveOrders() {
                             Move To Sent
                           </MoveToSent>
                           <ImageDiv>
-                            <Image src={`https://pick-up-store-backend-production.up.railway.app${item.image}`} />
+                            <Image
+                              src={`https://pick-up-store-backend-production.up.railway.app${item.image}`}
+                            />
                           </ImageDiv>
                           <DescriptionDiv>
                             <Name>{item.name}</Name>
@@ -113,7 +119,6 @@ const ActiveOrders = styled(Box)`
 const UserDiv = styled(Box)`
   width: 100%;
   height: 100%;
-
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -125,7 +130,13 @@ const UserDiv = styled(Box)`
 const User = styled(Box)`
   width: 100%;
   height: 100%;
-  background: #cdc3c3;
+  background: #8eb455;
+  padding: 20px;
+  color: #221616;
+  font-family: "Ysabeau Office", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  font-style: normal;
 `;
 const ProductDiv = styled(Box)`
   display: flex;
@@ -173,6 +184,7 @@ const DescriptionItem = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 300;
   margin-right: 5px;
+  margin-top: 10px;
 `;
 
 const ProductDetails = styled(Box)`
@@ -192,6 +204,7 @@ const ShippingItem = styled(Typography)`
   font-family: "Ysabeau Office", sans-serif;
   font-weight: 400;
   line-height: 15px;
+  margin-top: 10px;
 `;
 
 const MoveToSent = styled("button")`
@@ -201,4 +214,7 @@ const MoveToSent = styled("button")`
   position: absolute;
   right: 0;
   top: 0;
+  border-radius: 2px;
+  opacity: 0.9;
+  border: none;
 `;

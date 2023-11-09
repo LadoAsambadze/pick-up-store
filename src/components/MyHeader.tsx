@@ -200,48 +200,46 @@ export default function Header() {
           </SearchDivAbsolute>
         </SearchSection>
       </SearchAbsolute>
-      <MenuList
+      <BackdropDiv
         style={{
           display: menu ? "flex" : "none",
         }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            setMenu(false);
+          }
+        }}
       >
-        <Choose
-          onClick={() => {
-            navigate("/shoes");
-            setMenu(false);
-          }}
-          variant="text"
-        >
-          Shoes
-        </Choose>
-        <Choose
-          onClick={() => {
-            navigate("/clothes");
-            setMenu(false);
-          }}
-          variant="text"
-        >
-          Clothes
-        </Choose>
-        <Choose
-          variant="text"
-          onClick={() => {
-            navigate("/newarrivals");
-            setMenu(false);
-          }}
-        >
-          Arrivals
-        </Choose>
-        <Line></Line>
-        <Choose
-          onClick={() => {
-            navigate("/login");
-            setMenu(false);
-          }}
-        >
-          Login
-        </Choose>
-      </MenuList>
+        <MenuList >
+          <Choose
+            onClick={() => {
+              navigate("/shoes");
+              setMenu(false);
+            }}
+            variant="text"
+          >
+            Shoes
+          </Choose>
+          <Choose
+            onClick={() => {
+              navigate("/clothes");
+              setMenu(false);
+            }}
+            variant="text"
+          >
+            Clothes
+          </Choose>
+          <Choose
+            variant="text"
+            onClick={() => {
+              navigate("/newarrivals");
+              setMenu(false);
+            }}
+          >
+            Arrivals
+          </Choose>
+        </MenuList>
+      </BackdropDiv>
     </>
   );
 }
@@ -249,7 +247,6 @@ export default function Header() {
 const Main = styled(Box)`
   background: #d1d4c9;
   width: 100%;
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -415,18 +412,19 @@ const Type = styled(Typography)`
 `;
 
 const MenuList = styled(Box)`
-  width: 50%;
-  height: 300px;
+  width: 100%;
+  height: 250px;
   background: #979991;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
   right: 0;
-  top: 58px;
+  top: 0;
   z-index: 2000;
   padding: 15px 0px 0px 0px;
   border: 1px solid lightgreen;
+  z-index: 100;
   @media (min-width: 1440px) {
     display: none;
   }
@@ -439,15 +437,7 @@ const Choose = styled(Button)`
   background-color: white;
   color: black;
   width: 50%;
-  margin-top: 12px;
-`;
-
-const Line = styled(Box)`
-  height: 1px;
-  width: 100%;
-  background-color: white;
   margin-top: 20px;
-  left: 0;
 `;
 
 const LiveSearch = styled(Box)`
@@ -515,3 +505,12 @@ const Xdiv = styled(Button)`
 const ItemName = styled(Typography)``;
 
 const ItemPrice = styled(Typography)``;
+
+const BackdropDiv = styled(Box)`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  backdrop-filter: blur(10px);
+  z-index: 90;
+  top: 0;
+`;
