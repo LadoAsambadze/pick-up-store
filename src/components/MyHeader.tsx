@@ -177,14 +177,24 @@ export default function Header() {
                         />
                       </SmallImageDiv>
                       <DescriptionDiv>
-                        <ItemName>{item.name}</ItemName>
-                        <ItemPrice>{item.price}</ItemPrice>
+                        <ItemName>Name: {item.name}</ItemName>
+                        <ItemPrice>Price: $ {item.price}</ItemPrice>
                       </DescriptionDiv>
                     </LiveSearchItem>
                   ))}
                 {data.filter((item) =>
                   item.name.toLowerCase().includes(search.toLowerCase())
-                ).length === 0 && <h1>Item not found</h1>}
+                ).length === 0 && (
+                  <h1
+                    style={{
+                      margin: "auto",
+                      paddingTop: "20px",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    Item not found
+                  </h1>
+                )}
               </LiveSearch>
             )}
           </SearchDivAbsolute>
@@ -484,9 +494,11 @@ const DescriptionDiv = styled(Box)`
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding-left: 20px;
   align-items: flex-start;
   justify-content: center;
-  background-color: gray;
+  background-color: #c0b3b3;
+  cursor: pointer;
 `;
 
 const Xdiv = styled(Button)`
