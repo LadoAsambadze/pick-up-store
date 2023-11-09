@@ -7,7 +7,6 @@ import { RootState } from "../store/redux";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { Rating } from "@mui/material";
 import { getCookie } from "cookies-next";
 import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";

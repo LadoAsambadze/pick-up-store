@@ -2,6 +2,8 @@ import { Box, FormLabel, Typography, styled } from "@mui/material";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SizeInput = ({
   size,
@@ -97,7 +99,7 @@ export default function MyAddProducts() {
     const cookieToken = getCookie("token");
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://pick-up-store-backend-production.up.railway.app/uploadproduct",
         formData,
         {
@@ -106,8 +108,21 @@ export default function MyAddProducts() {
           },
         }
       );
-    } catch (error) {
-      console.error(error);
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+      }
+      if (response.status === 201) {
+        toast.success(response.data.message);
+      }
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        toast.error(error.response.data.message);
+      } else if (error.response.status === 500) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     }
   };
 
@@ -151,7 +166,7 @@ export default function MyAddProducts() {
               <Label htmlFor="name">Product Name:</Label>
               <InputEl type="text" name="name" id="name" required />
 
-              <Label htmlFor="new" >
+              <Label htmlFor="new">
                 New Product:
                 <InputEl2 type="radio" name="new" value="true" required />
                 Yes
@@ -223,6 +238,7 @@ export default function MyAddProducts() {
             </SecondDiv>
           </FormDiv>
         </form>
+        <ToastContainer />
       </Main>
     </>
   );

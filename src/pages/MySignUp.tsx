@@ -16,7 +16,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const schema = yup.object().shape({
     email: yup.string().email().required(),
-    password: yup.string().required().min(4).max(32),
+    password: yup.string().required().min(8).max(32),
     repeatPassword: yup
       .string()
       .oneOf([yup.ref("password")])
@@ -77,7 +77,7 @@ export default function Signup() {
                 {...register("password", { required: true })}
               />
               {errors.password?.type === "min" && (
-                <Warn>Password length must be a minimum of 4 digits</Warn>
+                <Warn>Password length must be a minimum of 8 digits</Warn>
               )}
               {errors.password?.type === "required" && (
                 <Warn>Please enter a password</Warn>
