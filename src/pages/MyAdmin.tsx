@@ -11,11 +11,11 @@ import { getCookie } from "cookies-next";
 
 export default function Admin() {
   const dispatch = useDispatch();
-  const [section, setSection] = useState("Page Statistic");
+  const [section, setSection] = useState("All Products");
 
   useEffect(() => {
     const cookieToken = getCookie("token");
-    if (section === "Active Orders" || "Page Statistic") {
+    if (section === "Active Orders" || "All Products") {
       const getOrders = async () => {
         try {
           const response = await axios.get(
@@ -33,7 +33,7 @@ export default function Admin() {
       };
       getOrders();
     }
-    if (section === "Sent Orders" || "Page Statistic") {
+    if (section === "Sent Orders" || "All Products") {
       const getSentOrders = async () => {
         const response = await axios.get(
           "https://pick-up-store-backend-production.up.railway.app/admin/getsentorders",
@@ -57,13 +57,7 @@ export default function Admin() {
     <>
       <Main>
         <List>
-          <ListButton
-            onClick={defineSection}
-            value="Page Statistic"
-            style={{ background: section === "Page Statistic" ? "green" : "" }}
-          >
-            Page Statistic
-          </ListButton>
+          
           <ListButton
             onClick={defineSection}
             style={{ background: section === "All Products" ? "green" : "" }}
@@ -93,7 +87,6 @@ export default function Admin() {
             Sent Orders
           </ListButton>
         </List>
-        {/* {section === "Page Statistic" && <MyPage Statistic />} */}
         {section === "All Products" && <MyProducts />}
         {section === "Add Products" && <MyAddProducts />}
         {section === "Active Orders" && <MyActiveOrders />}

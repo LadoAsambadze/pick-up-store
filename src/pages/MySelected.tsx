@@ -551,14 +551,6 @@ const DivideDivSecond = styled(Box)`
   }
 `;
 
-const Reviews = styled(Typography)`
-  font-family: "Ysabeau Office", sans-serif;
-  font-weight: 700;
-  color: #062950;
-  font-size: 17px;
-  margin-top: 10px;
-`;
-
 const responsiveColor = {
   desktop: {
     breakpoint: { max: 4000, min: 1100 },

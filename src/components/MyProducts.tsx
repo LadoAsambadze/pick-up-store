@@ -170,11 +170,16 @@ const MainGrid = styled(Box)`
 const ArrivalDiv = styled(Box)`
   display: flex;
   flex-direction: column;
-  border: 1px solid #d8d8e1;
+  border: 1px solid #169c89;
   border-radius: 5px;
   cursor: pointer;
   justify-content: flex-end;
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   @media (min-width: 1440px) {
     border: 2px solid #d8d8e1;
   }
@@ -208,8 +213,6 @@ const About = styled(Box)`
     padding: 10px 20px 20px 20px;
   }
 `;
-
-
 
 const Description = styled(Box)`
   display: flex;
