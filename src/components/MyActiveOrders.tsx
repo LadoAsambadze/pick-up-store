@@ -129,7 +129,7 @@ const UserDiv = styled(Box)`
 `;
 const User = styled(Box)`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background: #8eb455;
   padding: 20px;
   color: #221616;

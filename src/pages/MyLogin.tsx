@@ -83,7 +83,6 @@ export default function Login() {
             />
             {errors.password && <Warn>Please enter password</Warn>}
             {errorMessage && <Warn>{errorMessage}</Warn>}
-            <Forgot>Forgot Password?</Forgot>
             <LogDone type="submit">Login to your account</LogDone>
             <SingDiv>
               <Question>Don’t have an account?</Question>
@@ -216,16 +215,4 @@ const Warn = styled(Typography)`
   color: red;
   margin-top: 5px;
   margin-left: 3px;
-`;
-
-const Forgot = styled(Typography)`
-  font-family: "Ysabeau Office", sans-serif;
-  color: #169c89;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-top: 18px;
-  margin-left: 3px;
-  cursor: pointer;
 `;
